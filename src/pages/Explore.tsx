@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, Text } from 'react-native';
 import ItemCard from '../components/item/ItemCard'; // Adjust the path based on your file structure
 
 // Sample data type
@@ -70,6 +70,7 @@ const ItemList: React.FC = () => {
 
   return (
     <View style={styles.container}>
+        <Text> SEARCH HERE </Text>
       <FlatList
         data={allItems}
         renderItem={renderItem}
@@ -83,7 +84,7 @@ const ItemList: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
   },
 });
 

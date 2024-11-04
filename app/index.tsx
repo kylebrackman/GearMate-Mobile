@@ -5,6 +5,6 @@ import LogIn from "../src/auth/LogIn";
 
 export default function Index() {
   return (
-      <LogIn />
+      <Explore />
   );
 }
