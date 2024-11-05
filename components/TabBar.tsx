@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
@@ -11,6 +11,7 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
         "screens/Explore": (color: string) => <AntDesign name="search1" size={26} color={color} />,
         "screens/LogIn": (color: string) => <AntDesign name="user" size={26} color={color} />,
         "screens/Messages": (color: string) => <AntDesign name="message1" size={26} color={color} />,
+        "screens/Profile": (color: string) => <AntDesign name="user" size={26} color={color} />
     };
     return (
         <View style={styles.tabbar}>
