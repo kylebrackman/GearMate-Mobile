@@ -8,9 +8,9 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     const greyColor = '#696969';
 
     const icons = {
-        index: (color: string) => <AntDesign name="search1" size={26} color={color} />,
-        "screens/LogInScreen": (color: string) => <AntDesign name="user" size={26} color={color} />,
-        "screens/MessagesScreen": (color: string) => <AntDesign name="message1" size={26} color={color} />,
+        "screens/Explore": (color: string) => <AntDesign name="search1" size={26} color={color} />,
+        "screens/LogIn": (color: string) => <AntDesign name="user" size={26} color={color} />,
+        "screens/Messages": (color: string) => <AntDesign name="message1" size={26} color={color} />,
     };
     return (
         <View style={styles.tabbar}>

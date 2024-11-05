@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../config/firebaseConfig';
+import { FIREBASE_AUTH } from '../../src/config/firebaseConfig';
 
 const LoginScreen: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -29,7 +29,6 @@ const LoginScreen: React.FC = () => {
         <View style={styles.container}>
             <KeyboardAvoidingView behavior="padding">
                 <Text style={styles.title}>Login</Text>
-
                 <TextInput
                     style={styles.input}
                     placeholder="Email"

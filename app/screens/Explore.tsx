@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
-import ItemCard from '../components/item/ItemCard'; // Adjust the path based on your file structure
+import ItemCard from '../../src/components/item/ItemCard'; // Adjust the path based on your file structure
 
 // Sample data type
 type Item = {
