@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
+import { useUser } from '../src/context/UserContext';
 
 function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
