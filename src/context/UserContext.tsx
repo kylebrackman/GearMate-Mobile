@@ -9,24 +9,22 @@ import React, {
 //   import { User } from '../types/models.types';
 import { onAuthStateChanged, User } from "firebase/auth";
 import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
-  
+
   interface UserProviderProps {
     children: ReactNode;
   }
   interface UserContextType {
     user: User | null;
     loginContext: (user: User | null) => void;
-    logoutContext: () => void;
   }
   const defaultContextValue: UserContextType = {
     user: null,
-    loginContext: () => {},
-    logoutContext: () => {},
+    loginContext: () => {}
   };
 
-  
+
   export const UserContext = createContext<UserContextType>(defaultContextValue);
-  
+
   // Custom hook for consuming the context
   export const useUser = () => {
     const context = useContext(UserContext);
@@ -49,7 +47,7 @@ import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
     //   };
     //   void fetchUser();
     // }, []);
-  
+
   export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
 
@@ -59,22 +57,18 @@ import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
           setUser(user);
         })
       })
-  
+
     const loginContext = (user: User | null) => {
       if (user) {
         setUser(user);
       }
     };
-  
-    const logoutContext = () => {
-      setUser(null);
-    };
-  
-  
+
+
+
     return (
-      <UserContext.Provider value={{ user, loginContext, logoutContext }}>
+      <UserContext.Provider value={{ user, loginContext }}>
         {children}
       </UserContext.Provider>
     );
   };
-  
