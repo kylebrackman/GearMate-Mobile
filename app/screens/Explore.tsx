@@ -2,6 +2,8 @@ import React from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
 import ItemCard from '../../src/components/item/ItemCard'; // Adjust the path based on your file structure
 import { UserContext } from '../../src/context/UserContext';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // Sample data type
 type Item = {
@@ -61,6 +63,7 @@ const allItems: Item[] = [
 const ItemList: React.FC = () => {
 
   const { user } = React.useContext(UserContext);
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   console.log("user from context", user)
   const renderItem = ({ item }: { item: Item }) => (
@@ -70,6 +73,7 @@ const ItemList: React.FC = () => {
       image={item.image}
       description={item.description}
       price={item.price}
+      handlePress={() => navigation.navigate('screens/ItemDetails', { item })}
     />
   );
 

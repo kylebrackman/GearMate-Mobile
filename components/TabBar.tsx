@@ -30,7 +30,8 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
                 if (
                     (route.name === "screens/LogIn" && idToken) ||
-                    (route.name === "screens/Profile" && !idToken)
+                    (route.name === "screens/Profile" && !idToken) ||
+                    (route.name === "screens/ItemDetails" && !idToken)
                 ) return null;
 
                 if (['_sitemap', '+not-found'].includes(route.name)) return null

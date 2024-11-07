@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Item } from '../../types/models.types';
 
 type ItemCardProps = {
   id: number;
@@ -7,18 +8,21 @@ type ItemCardProps = {
   image: any;
   description: string;
   price: number;
+  handlePress?: () => void;
 };
 
-const ItemCard: React.FC<ItemCardProps> = ({ name, image, description, price }) => {
+const ItemCard: React.FC<ItemCardProps> = ({ name, image, description, price, handlePress }) => {
   return (
-    <View style={styles.card}>
-      <Image source={image} style={styles.image} />
-      <View style={styles.infoContainer}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.description}>{description}</Text>
-        <Text style={styles.price}>${price} / Day</Text>
+    <TouchableOpacity onPress={handlePress}>
+      <View style={styles.card}>
+        <Image source={image} style={styles.image} />
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.description}>{description}</Text>
+          <Text style={styles.price}>${price} / Day</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
