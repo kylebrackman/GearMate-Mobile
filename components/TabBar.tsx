@@ -5,6 +5,9 @@ import { useUser } from '../src/context/UserContext';
 
 function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
+    const { user } = useUser();
+    const idToken = user?.getIdToken();
+
     const primaryColor = '#1976D2';
     const greyColor = '#696969';
 
@@ -24,6 +27,11 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                         : options.title !== undefined
                             ? options.title
                             : route.name;
+
+                if (
+                    (route.name === "screens/LogIn" && idToken) ||
+                    (route.name === "screens/Profile" && !idToken)
+                ) return null;
 
                 if (['_sitemap', '+not-found'].includes(route.name)) return null
                 const isFocused = state.index === index;
