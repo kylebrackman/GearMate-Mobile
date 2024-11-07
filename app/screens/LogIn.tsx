@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../../src/config/firebaseConfig';
+import { loginUserApi } from '../../services/apis/UserApi';
+import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
 
 const LoginScreen: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const auth = FIREBASE_AUTH
+
     const handleLogin = async () => {
         if (!email || !password) {
             Alert.alert("Error", "Please enter both email and password.");
         } else {
             try {
                 setLoading(true);
-                const response = await signInWithEmailAndPassword(auth, email, password);
+                const response = await loginUserApi(auth, email, password);
                 console.log(response);
                 Alert.alert("Check Email!");
             } catch (error: any) {
