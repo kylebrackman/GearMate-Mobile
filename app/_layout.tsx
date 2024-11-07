@@ -60,6 +60,9 @@ export default function RootLayout() {
             options={{
               title: "Item Summary",
               headerShown: false,
+              tabBarStyle: {
+                display: "none",
+              }
             }}
           />
         </Tabs>
