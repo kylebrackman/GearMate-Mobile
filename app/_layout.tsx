@@ -54,6 +54,7 @@ export default function RootLayout() {
               title: "Log In",
               headerShown: false,
             }}
+            
           /> :
           <Tabs.Screen
             name="screens/Profile"
@@ -66,6 +67,16 @@ export default function RootLayout() {
             name="screens/ItemDetails"
             options={{
               title: "Item Summary",
+              headerShown: false,
+              tabBarStyle: {
+                display: "none",
+              }
+            }}
+          />
+          <Tabs.Screen
+            name="screens/SignUp"
+            options={{
+              title: "Sign Up",
               headerShown: false,
               tabBarStyle: {
                 display: "none",

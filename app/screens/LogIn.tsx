@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Modal } from 'react-native';
 import { loginUserApi } from '../../services/apis/UserApi';
 import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
+import SignUpScreen from './SignUp'; // Import your SignUp component here
+
 
 const LoginScreen: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-    const auth = FIREBASE_AUTH
+    const [isSignUpVisible, setSignUpVisible] = useState(false); // Add state for modal visibility
+    const auth = FIREBASE_AUTH;
 
     const handleLogin = async () => {
         if (!email || !password) {
@@ -51,9 +54,24 @@ const LoginScreen: React.FC = () => {
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.forgotPassword}>
-                    <Text >Forgot Password?</Text>
+                    <Text>Forgot Password?</Text>
                 </TouchableOpacity>
+                <View style={styles.signUpContainer}>
+                    <Text>Don't have an account?</Text>
+                    <TouchableOpacity onPress={() => setSignUpVisible(true)}>
+                        <Text style={styles.signUp}>Sign Up!</Text>
+                    </TouchableOpacity>
+                </View>
             </KeyboardAvoidingView>
+
+            {/* SignUp Modal */}
+            <Modal
+                visible={isSignUpVisible}
+                animationType="slide"
+                onRequestClose={() => setSignUpVisible(false)} // Close modal on back button
+            >
+                <SignUpScreen closeModal={() => setSignUpVisible(false)} />
+            </Modal>
         </View>
     );
 };
@@ -95,6 +113,16 @@ const styles = StyleSheet.create({
     forgotPassword: {
         marginTop: 20,
         alignItems: 'center',
+    },
+    signUpContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    signUp: {
+        color: '#1976D2',
+        marginLeft: 5,
+        fontWeight: 'bold',
     },
 });
 

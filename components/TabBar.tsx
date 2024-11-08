@@ -31,7 +31,8 @@ const TabBar: React.FC<BottomTabBarProps> = function TabBar({ state, descriptors
                 if (
                     (route.name === "screens/LogIn" && idToken) ||
                     (route.name === "screens/Profile" && !idToken) ||
-                    (route.name === "screens/ItemDetails")
+                    (route.name === "screens/ItemDetails") ||
+                    (route.name === "screens/SignUp")
                 ) return null;
 
                 if (['_sitemap', '+not-found'].includes(route.name)) return null

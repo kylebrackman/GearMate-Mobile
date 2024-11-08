@@ -5,7 +5,9 @@ const SearchBarCustom = () => {
 
     return (
         <SearchBar
-            style={styles.container}
+            lightTheme
+            placeholder="Find your Gear"
+            containerStyle={styles.searchBar}
         />
     )
 }
@@ -13,9 +15,10 @@ const SearchBarCustom = () => {
 export default SearchBarCustom
 
 const styles = StyleSheet.create({
-    container: {
-        // flex: 1,
-        // paddingHorizontal: 20,
-        // paddingBottom: 20
+    searchBar: {
+        backgroundColor: "white",
+        borderRadius: 10,
+        marginHorizontal: 10,
+        marginVertical: 10,
     },
 })
