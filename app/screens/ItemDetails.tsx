@@ -1,20 +1,28 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { Item } from '../../src/types/models.types';
+
+type ItemDetailsRouteProp = RouteProp<{ params: { item: Item } }, 'params'>;
+
 
 const ItemDetails: React.FC = () => {
+  const route = useRoute<ItemDetailsRouteProp>();
+  const { item } = route.params; // Access the item passed from ItemList
+
   return (
     <ScrollView style={styles.container}>
       {/* Image Section */}
       <Image
         style={styles.image}
-        source={{ uri: 'https://via.placeholder.com/600x300' }} // Replace with your image URL
+        source={{ uri: item.image }}
       />
 
       {/* Title and Location */}
       <View style={styles.section}>
         <Text style={styles.title}>Title</Text>
         <Text style={styles.location}>Location</Text>
-        <Text style={styles.details}>Description</Text>
+        <Text style={styles.details}>{item.description}</Text>
       </View>
 
       {/* Rating and Reviews */}
@@ -35,7 +43,7 @@ const ItemDetails: React.FC = () => {
 
       {/* Price and Reserve Button */}
       <View style={styles.footer}>
-        <Text style={styles.price}> $ / <Text style={styles.perNight}>day</Text></Text>
+        <Text style={styles.price}> {item.price} / <Text style={styles.perNight}>day</Text></Text>
         <TouchableOpacity style={styles.reserveButton}>
           <Text style={styles.reserveButtonText}>Request</Text>
         </TouchableOpacity>
@@ -51,7 +59,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 250,
+    height: 300,
   },
   section: {
     paddingHorizontal: 16,

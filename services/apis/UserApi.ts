@@ -1,9 +1,6 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Auth } from "firebase/auth";
 
-
-const auth = FIREBASE_AUTH
 export const loginUserApi = async (auth: Auth, email: string, password: string) => {
     try {
         const response = await signInWithEmailAndPassword(auth, email, password);
@@ -12,3 +9,12 @@ export const loginUserApi = async (auth: Auth, email: string, password: string) 
         throw new Error(error.message);
     }
 };
+
+export const logoutUserApi = async (auth: Auth) => {
+    try {
+        const response = await signOut(auth);
+        console.log(response);
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+}
