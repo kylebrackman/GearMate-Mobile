@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
-import ItemCard from '../../src/components/item/ItemCard'; // Adjust the path based on your file structure
+import ItemCard from '@/src/components/item/ItemCard'; // Adjust the path based on your file structure
+import SearchBarCustom from '@/src/components/search/SearchBarCustom';
 import { UserContext } from '../../src/context/UserContext';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -79,7 +80,7 @@ const ItemList: React.FC = () => {
 
   return (
     <View style={styles.container}>
-        <Text> SEARCH HERE </Text>
+      <SearchBarCustom />
       <FlatList
         data={allItems}
         renderItem={renderItem}

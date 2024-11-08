@@ -3,7 +3,7 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
 import { useUser } from '../src/context/UserContext';
 
-function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+const TabBar: React.FC<BottomTabBarProps> = function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
     const { user } = useUser();
     const idToken = user?.getIdToken();
