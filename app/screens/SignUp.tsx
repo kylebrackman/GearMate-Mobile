@@ -32,7 +32,6 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ( { closeModal }) => {
     };
 
     return (
-        <Modal>
             <View style={styles.container}>
                 <KeyboardAvoidingView behavior="padding">
                     <Text style={styles.title}>Sign Up</Text>
@@ -70,7 +69,6 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ( { closeModal }) => {
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </View>
-        </Modal>
     );
 };
 

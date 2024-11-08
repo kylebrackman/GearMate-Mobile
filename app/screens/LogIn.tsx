@@ -67,7 +67,9 @@ const LoginScreen: React.FC = () => {
             {/* SignUp Modal */}
             <Modal
                 visible={isSignUpVisible}
+                // transparent={true}
                 animationType="slide"
+                presentationStyle='fullScreen'
                 onRequestClose={() => setSignUpVisible(false)} // Close modal on back button
             >
                 <SignUpScreen closeModal={() => setSignUpVisible(false)} />
