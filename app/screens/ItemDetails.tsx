@@ -37,7 +37,7 @@ const ItemDetails: React.FC = () => {
       {/* Host Info */}
       <View style={styles.hostSection}>
         <View>
-          <Text style={styles.hostName}>Hosted by OWNER</Text>
+          <Text style={styles.hostName}>Owned by OWNER</Text>
         </View>
       </View>
 
