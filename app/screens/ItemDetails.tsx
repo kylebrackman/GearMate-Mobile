@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { Item } from '../../src/types/models.types';
+import { RootStackParamList } from '../_layout';
 
-type ItemDetailsRouteProp = RouteProp<{ params: { item: Item } }, 'params'>;
-
+type ItemDetailsRouteProp = RouteProp<RootStackParamList, 'ItemDetails'>;
 
 const ItemDetails: React.FC = () => {
   const route = useRoute<ItemDetailsRouteProp>();
@@ -15,9 +15,9 @@ const ItemDetails: React.FC = () => {
       {/* Image Section */}
       <Image
         style={styles.image}
-        source={{ uri: item.image }}
-      />
+        source={item.image}
 
+        />
       {/* Title and Location */}
       <View style={styles.section}>
         <Text style={styles.title}>Title</Text>

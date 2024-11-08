@@ -8,7 +8,6 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     const { user } = useUser();
     const idToken = user?.getIdToken();
 
-    console.log("idToken", idToken);
     const primaryColor = '#1976D2';
     const greyColor = '#696969';
 

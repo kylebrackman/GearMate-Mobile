@@ -50,6 +50,9 @@ const LoginScreen: React.FC = () => {
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.forgotPassword}>
+                    <Text >Forgot Password?</Text>
+                </TouchableOpacity>
             </KeyboardAvoidingView>
         </View>
     );
@@ -88,6 +91,10 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
         fontWeight: '600',
+    },
+    forgotPassword: {
+        marginTop: 20,
+        alignItems: 'center',
     },
 });
 
