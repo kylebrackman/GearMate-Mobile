@@ -8,7 +8,6 @@ const Profile = () => {
         await logoutUserApi(FIREBASE_AUTH);
     };
 
-
     return (
         <View>
             <Text>Profile</Text>
