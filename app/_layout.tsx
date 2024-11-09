@@ -1,95 +1,96 @@
 import { useEffect } from "react";
-import { Tabs, useRouter } from "expo-router";
+import { Tabs, useRouter, useSegments } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native";
-import { UserProvider } from "../src/context/UserContext";
-import { Item } from "../src/types/models.types";
 import TabBar from "@/components/TabBar";
+import { UserProvider, useUser } from "@/src/context/UserContext";
 
-export type RootStackParamList = {
-  Explore: undefined;
-  ItemDetails: { item: Item };
-  // Add other routes as needed
-};
+function TabsNavigator() {
+    const segments = useSegments();
+    const { user } = useUser();
+    const router = useRouter();
+
+    useEffect(() => {
+        const inAuthGroup = segments[0] === "(auth)";
+        if (!user && !inAuthGroup) {
+            router.replace("/(auth)/logIn");
+        } else if (user && inAuthGroup) {
+            router.replace("/explore/index");
+        }
+    }, [user, segments]);
+
+    return (
+        <Tabs
+            tabBar={(props) => <TabBar {...props} />}
+            screenOptions={{
+                tabBarStyle: {
+                    height: 45,
+                    paddingBottom: 5,
+                },
+                headerShown: false,
+            }}
+        >
+            <Tabs.Screen
+                name="explore/index"
+                options={{
+                    title: "Explore",
+                }}
+            />
+            <Tabs.Screen
+                name="messages/index"
+                options={{
+                    title: "Messages",
+                }}
+            />
+            <Tabs.Screen
+                name="profile/index"
+                options={{
+                    title: "Profile",
+                }}
+            />
+            <Tabs.Screen
+                name="explore/item/[id]"
+                options={{
+                    href: null,
+                    tabBarStyle: {
+                        display: "none",
+                    },
+                }}
+            />
+            <Tabs.Screen
+                name="(auth)/logIn"
+                options={{
+                    href: null,
+                    tabBarStyle: {
+                        display: "none",
+                    },
+                }}
+            />
+            <Tabs.Screen
+                name="(auth)/signup"
+                options={{
+                    href: null,
+                    tabBarStyle: {
+                        display: "none",
+                    },
+                }}
+            />
+        </Tabs>
+    );
+}
 
 export default function RootLayout() {
-
-  // Have not been able to find a way to redirect to "screens/Explore" on initial load
-  const router = useRouter();
-  useEffect(() => {
-    router.replace("/screens/Explore");
-  }, []);
-
-  return (
-    <UserProvider>
-      <SafeAreaView style={styles.container}>
-        <Tabs
-          tabBar={props => <TabBar {...props} />}
-          screenOptions={{
-            tabBarStyle: {
-              height: 45,
-              paddingBottom: 5,
-            }
-          }}
-        >
-          <Tabs.Screen
-            name="screens/Explore"
-            options={{
-              title: "Explore",
-              headerShown: false,
-            }}
-          />
-          <Tabs.Screen
-            name="screens/Messages"
-            options={{
-              title: "Messages",
-              headerShown: false,
-            }}
-          />
-
-          <Tabs.Screen
-            name="screens/LogIn"
-            options={{
-              title: "Log In",
-              headerShown: false,
-            }}
-            
-          /> :
-          <Tabs.Screen
-            name="screens/Profile"
-            options={{
-              title: "Profile",
-              headerShown: false,
-            }}
-          />
-          <Tabs.Screen
-            name="screens/ItemDetails"
-            options={{
-              title: "Item Summary",
-              headerShown: false,
-              tabBarStyle: {
-                display: "none",
-              }
-            }}
-          />
-          <Tabs.Screen
-            name="screens/SignUp"
-            options={{
-              title: "Sign Up",
-              headerShown: false,
-              tabBarStyle: {
-                display: "none",
-              }
-            }}
-          />
-        </Tabs>
-      </SafeAreaView>
-    </UserProvider>
-  );
+    return (
+        <UserProvider>
+            <SafeAreaView style={styles.container}>
+                <TabsNavigator />
+            </SafeAreaView>
+        </UserProvider>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
 });

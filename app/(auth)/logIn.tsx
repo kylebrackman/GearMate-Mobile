@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Modal } from 'react-native';
-import { loginUserApi } from '../../services/apis/UserApi';
-import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
-import SignUpScreen from './SignUp'; // Import your SignUp component here
+import React, {useState} from 'react';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Modal} from 'react-native';
+import {loginUserApi} from '../../services/apis/UserApi';
+import {FIREBASE_AUTH} from "@/src/config/firebaseConfig";
+import SignUpScreen from './signup'; // Import your SignUp component here
 
 
-const LoginScreen: React.FC = () => {
+export default function LoginScreen() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -72,7 +72,7 @@ const LoginScreen: React.FC = () => {
                 presentationStyle='fullScreen'
                 onRequestClose={() => setSignUpVisible(false)} // Close modal on back button
             >
-                <SignUpScreen closeModal={() => setSignUpVisible(false)} />
+                <SignUpScreen closeModal={() => setSignUpVisible(false)}/>
             </Modal>
         </View>
     );
@@ -128,4 +128,3 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;

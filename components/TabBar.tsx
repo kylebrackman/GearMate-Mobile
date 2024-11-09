@@ -1,107 +1,83 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { AntDesign } from '@expo/vector-icons';
-import { useUser } from '../src/context/UserContext';
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { usePathname } from "expo-router";
+export default function TabBar({navigation}: any) { // TODO: fix prop
+    const pathname = usePathname();
 
-const TabBar: React.FC<BottomTabBarProps> = function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+    const tabs = [
+        {
+            name: "explore/index",
+            // icon: "search1",
+            label: "Explore",
+            visible: true,
+        },
+        {
+            name: "messages/index",
+            // icon: "message1",
+            label: "Messages",
+            visible: true,
+        },
+        {
+            name: "profile/index",
+            // icon: "user",
+            label: "Profile",
+            // visible: Boolean(idToken),
+        },
+        {
+            name: "(auth)/login",
+            // icon: "user",
+            label: "Log In",
+            // visible: !idToken,
+        },
+    ];
 
-    const { user } = useUser();
-    const idToken = user?.getIdToken();
-
-    const primaryColor = '#1976D2';
-    const greyColor = '#696969';
-
-    const icons = {
-        "screens/Explore": (color: string) => <AntDesign name="search1" size={26} color={color} />,
-        "screens/LogIn": (color: string) => <AntDesign name="user" size={26} color={color} />,
-        "screens/Messages": (color: string) => <AntDesign name="message1" size={26} color={color} />,
-        "screens/Profile": (color: string) => <AntDesign name="user" size={26} color={color} />
-    };
     return (
-        <View style={styles.tabbar}>
-            {state.routes.map((route, index) => {
-                const { options } = descriptors[route.key];
-                const label =
-                    options.tabBarLabel !== undefined
-                        ? options.tabBarLabel
-                        : options.title !== undefined
-                            ? options.title
-                            : route.name;
-
-                if (
-                    (route.name === "screens/LogIn" && idToken) ||
-                    (route.name === "screens/Profile" && !idToken) ||
-                    (route.name === "screens/ItemDetails") ||
-                    (route.name === "screens/SignUp")
-                ) return null;
-
-                if (['_sitemap', '+not-found'].includes(route.name)) return null
-                const isFocused = state.index === index;
-
-                const onPress = () => {
-                    const event = navigation.emit({
-                        type: 'tabPress',
-                        target: route.key,
-                        canPreventDefault: true,
-                    });
-
-                    if (!isFocused && !event.defaultPrevented) {
-                        navigation.navigate(route.name, route.params);
-                    }
-                };
-
-                const onLongPress = () => {
-                    navigation.emit({
-                        type: 'tabLongPress',
-                        target: route.key,
-                    });
-                };
-
-                return (
+        <View style={styles.tabBar}>
+            {tabs
+                .filter((tab) => tab.visible)
+                .map((tab) => (
                     <TouchableOpacity
-                        key={route.name}
-                        style={styles.tabbarItem}
-                        accessibilityRole="button"
-                        accessibilityState={isFocused ? { selected: true } : {}}
-                        accessibilityLabel={options.tabBarAccessibilityLabel}
-                        testID={options.tabBarTestID}
-                        onPress={onPress}
-                        onLongPress={onLongPress}
+                        key={tab.name}
+                        onPress={() => navigation.navigate(tab.name)}
+                        style={[
+                            styles.tab,
+                            pathname.startsWith(`/${tab.name}`) && styles.activeTab,
+                        ]}
                     >
-                        {
-                            icons[route.name as keyof typeof icons](
-                                isFocused ? primaryColor : greyColor
-                            )
-                        }
-                        <Text style={{ color: isFocused ? primaryColor : greyColor }}>
-                            {/* Check if label is a string or function */}
-                            {typeof label === 'string' ? label : label({ focused: isFocused, color: isFocused ? '#673ab7' : '#222', position: 'beside-icon', children: '' })}
+                        {/*<AntDesign*/}
+                        {/*    name={tab.icon}*/}
+                        {/*    size={26}*/}
+                        {/*    color={pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969"}*/}
+                        {/*/>*/}
+                        <Text
+                            style={{
+                                color: pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969",
+                            }}
+                        >
+                            {tab.label}
                         </Text>
                     </TouchableOpacity>
-                );
-            })}
+                ))}
         </View>
     );
 }
 
-
 const styles = StyleSheet.create({
-    tabbar: {
-        position: 'absolute',
+    tabBar: {
+        flexDirection: "row",
+        backgroundColor: "white",
+        position: "absolute",
         bottom: 0,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        paddingHorizontal: 20,
-        alignItems: 'center',
-        backgroundColor: 'white',
+        width: "100%",
         paddingVertical: 10,
+        justifyContent: "space-around",
+        alignItems: "center",
     },
-    tabbarItem: {
-        alignItems: 'center',
-        justifyContent: 'center',
+    tab: {
+        alignItems: "center",
+        justifyContent: "center",
         flex: 1,
     },
-})
-
-export default TabBar;
+    activeTab: {
+        // Customize the style for the active tab, e.g., adding a border or changing the background color
+    },
+});

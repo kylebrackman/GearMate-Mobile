@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../../src/config/firebaseConfig';
+import {FIREBASE_AUTH} from "@/src/config/firebaseConfig";
 
 interface SignUpScreenProps {
     closeModal: () => void;
 }
 
-const SignUpScreen: React.FC<SignUpScreenProps> = ( { closeModal }) => {
+export default function SignUpScreen( { closeModal }: any)  { //TODO: clean up the args
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -117,5 +117,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-
-export default SignUpScreen;

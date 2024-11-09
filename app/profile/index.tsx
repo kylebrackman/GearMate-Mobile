@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import { logoutUserApi } from '../../services/apis/UserApi';
-import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
+import {View, Text, TouchableOpacity} from 'react-native'
+import {FIREBASE_AUTH} from "@/src/config/firebaseConfig";
+import {logoutUserApi} from "@/services/apis/UserApi";
 
-const Profile = () => {
-
+export default function Profile() {
     const handleLogout = async () => {
         await logoutUserApi(FIREBASE_AUTH);
     };
@@ -17,5 +16,3 @@ const Profile = () => {
         </View>
     )
 }
-
-export default Profile
