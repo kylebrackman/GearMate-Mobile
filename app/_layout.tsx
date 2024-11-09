@@ -3,7 +3,6 @@ import { Tabs, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native";
 import { UserProvider } from "../src/context/UserContext";
-import { NavigationContainer } from '@react-navigation/native';
 import { Item } from "../src/types/models.types";
 import TabBar from "@/components/TabBar";
 

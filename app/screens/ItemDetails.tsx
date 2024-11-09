@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { Item } from '../../src/types/models.types';
 import { RootStackParamList } from '../_layout';
 
 type ItemDetailsRouteProp = RouteProp<RootStackParamList, 'ItemDetails'>;
