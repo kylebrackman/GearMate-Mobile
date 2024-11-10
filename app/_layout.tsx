@@ -15,13 +15,13 @@ function TabsNavigator() {
         if (!user && !inAuthGroup) {
             router.replace("/(auth)/logIn");
         } else if (user && inAuthGroup) {
-            router.replace("/explore/index");
+            router.replace("/explore");
         }
     }, [user, segments]);
 
     return (
         <Tabs
-            tabBar={(props) => <TabBar {...props} />}
+            tabBar={(props) => <TabBar />}
             screenOptions={{
                 tabBarStyle: {
                     height: 45,
@@ -31,48 +31,31 @@ function TabsNavigator() {
             }}
         >
             <Tabs.Screen
-                name="explore/index"
+                name="explore"
                 options={{
                     title: "Explore",
+                    tabBarLabel: "Explore",
                 }}
             />
             <Tabs.Screen
-                name="messages/index"
+                name="messages"
                 options={{
                     title: "Messages",
+                    tabBarLabel: "Messages",
                 }}
             />
             <Tabs.Screen
-                name="profile/index"
+                name="listGear"
+                options={{
+                    title: "List Gear",
+                    tabBarLabel: "List",
+                }}
+            />
+            <Tabs.Screen
+                name="profile"
                 options={{
                     title: "Profile",
-                }}
-            />
-            <Tabs.Screen
-                name="explore/item/[id]"
-                options={{
-                    href: null,
-                    tabBarStyle: {
-                        display: "none",
-                    },
-                }}
-            />
-            <Tabs.Screen
-                name="(auth)/logIn"
-                options={{
-                    href: null,
-                    tabBarStyle: {
-                        display: "none",
-                    },
-                }}
-            />
-            <Tabs.Screen
-                name="(auth)/signup"
-                options={{
-                    href: null,
-                    tabBarStyle: {
-                        display: "none",
-                    },
+                    tabBarLabel: "Profile",
                 }}
             />
         </Tabs>

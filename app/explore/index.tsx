@@ -2,10 +2,8 @@ import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import ItemCard from '@/src/components/item/ItemCard';
 import SearchBarCustom from '@/src/components/search/SearchBarCustom';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useRouter} from "expo-router";
 
-// Sample data type
 type Item = {
     id: number;
     name: string;
@@ -15,7 +13,6 @@ type Item = {
     condition: string;
 };
 
-// Sample data
 const allItems: Item[] = [
     {
         id: 1,
@@ -60,9 +57,8 @@ const allItems: Item[] = [
     // Add more items as needed
 ];
 
-export default function Explore() {
-
-    const navigation = useNavigation<NativeStackNavigationProp<any>>();
+export default function ExploreScreen() {
+    const router = useRouter();
 
     const renderItem = ({item}: { item: Item }) => (
         <ItemCard
@@ -71,13 +67,13 @@ export default function Explore() {
             image={item.image}
             description={item.description}
             price={item.price}
-            handlePress={() => navigation.navigate('screens/ItemDetails', {item})}
+            handlePress={() => router.push(`/explore/item/${item.id}`)}
         />
     );
 
     return (
         <View style={styles.container}>
-            <SearchBarCustom/>
+            <SearchBarCustom />
             <FlatList
                 data={allItems}
                 renderItem={renderItem}
@@ -86,8 +82,7 @@ export default function Explore() {
             />
         </View>
     );
-};
-
+}
 
 const styles = StyleSheet.create({
     container: {

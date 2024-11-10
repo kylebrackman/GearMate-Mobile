@@ -1,34 +1,43 @@
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { usePathname } from "expo-router";
-export default function TabBar({navigation}: any) { // TODO: fix prop
-    const pathname = usePathname();
+import {Href, usePathname, useRouter} from "expo-router";
+import { AntDesign } from "@expo/vector-icons";
 
-    const tabs = [
-        {
-            name: "explore/index",
-            // icon: "search1",
-            label: "Explore",
-            visible: true,
-        },
-        {
-            name: "messages/index",
-            // icon: "message1",
-            label: "Messages",
-            visible: true,
-        },
-        {
-            name: "profile/index",
-            // icon: "user",
-            label: "Profile",
-            // visible: Boolean(idToken),
-        },
-        {
-            name: "(auth)/login",
-            // icon: "user",
-            label: "Log In",
-            // visible: !idToken,
-        },
-    ];
+const tabs = [
+    {
+        name: "explore",
+        icon: "search1",
+        label: "Explore",
+        visible: true,
+    },
+    {
+        name: "listGear",
+        icon: "plus",
+        label: "List",
+        visible: true
+    },
+    {
+        name: "messages",
+        icon: "message1",
+        label: "Messages",
+        visible: true,
+    },
+    {
+        name: "profile",
+        icon: "user",
+        label: "Profile",
+        visible: true
+    },
+];
+type AntDesignIconName = "search1" | "plus" | "message1" | "user";
+export default function TabBar() {
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const handleTabPress = (tabName: string) => {
+        if (!pathname.startsWith(`/${tabName}`)) {
+            router.replace(`/${tabName}` as Href<`/${string}`>);
+        }
+    };
 
     return (
         <View style={styles.tabBar}>
@@ -37,17 +46,17 @@ export default function TabBar({navigation}: any) { // TODO: fix prop
                 .map((tab) => (
                     <TouchableOpacity
                         key={tab.name}
-                        onPress={() => navigation.navigate(tab.name)}
+                        onPress={() => handleTabPress(tab.name)}
                         style={[
                             styles.tab,
                             pathname.startsWith(`/${tab.name}`) && styles.activeTab,
                         ]}
                     >
-                        {/*<AntDesign*/}
-                        {/*    name={tab.icon}*/}
-                        {/*    size={26}*/}
-                        {/*    color={pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969"}*/}
-                        {/*/>*/}
+                        <AntDesign
+                            name={tab.icon as AntDesignIconName}
+                            size={26}
+                            color={pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969"}
+                        />
                         <Text
                             style={{
                                 color: pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969",
@@ -78,6 +87,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     activeTab: {
-        // Customize the style for the active tab, e.g., adding a border or changing the background color
+        // Customize the style for the active tab
     },
 });

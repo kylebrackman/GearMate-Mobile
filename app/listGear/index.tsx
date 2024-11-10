@@ -1,9 +1,9 @@
 import {View, Text} from 'react-native'
 
-export default function ProfileScreen() {
+export default function ListGear() {
     return (
         <View>
-            <Text>Profile</Text>
+            <Text>List Gear</Text>
         </View>
     )
 }
