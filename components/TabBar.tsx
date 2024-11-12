@@ -7,25 +7,21 @@ const tabs = [
         name: "explore",
         icon: "search1",
         label: "Explore",
-        visible: true,
     },
     {
         name: "listGear",
         icon: "plus",
         label: "List",
-        visible: true
     },
     {
         name: "messages",
         icon: "message1",
         label: "Messages",
-        visible: true,
     },
     {
         name: "profile",
         icon: "user",
         label: "Profile",
-        visible: true
     },
 ];
 type AntDesignIconName = "search1" | "plus" | "message1" | "user";
@@ -42,7 +38,6 @@ export default function TabBar() {
     return (
         <View style={styles.tabBar}>
             {tabs
-                .filter((tab) => tab.visible)
                 .map((tab) => (
                     <TouchableOpacity
                         key={tab.name}
