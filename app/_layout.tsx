@@ -21,7 +21,7 @@ function TabsNavigator() {
 
     return (
         <Tabs
-            tabBar={(props) => <TabBar />}
+            tabBar={() => <TabBar />}
             screenOptions={{
                 tabBarStyle: {
                     height: 45,
