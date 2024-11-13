@@ -8,7 +8,8 @@ import React, {
 //   import { getUserApi } from '../services/apis/UserApi';
 //   import { User } from '../types/models.types';
 import { onAuthStateChanged, User } from "firebase/auth";
-import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
+import firebase from "firebase/compat";
+import auth = firebase.auth;
 
 interface UserProviderProps {
   children: ReactNode;
@@ -52,10 +53,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
 
-  onAuthStateChanged(FIREBASE_AUTH, (user) => {
-    console.log("this is the user FROM CONTEXT", user);
-    setUser(user);
-  })
+  // onAuthStateChanged(auth, (user) => {
+  //   console.log("this is the user FROM CONTEXT", user);
+  //   setUser(user);
+  // })
 
 
   const loginContext = (user: User | null) => {

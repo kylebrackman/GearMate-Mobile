@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
     apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -11,6 +12,23 @@ const firebaseConfig = {
     measurementId: "G-CNHSKTBLBS"
 };
 
+// Debug log to verify environment variables are loaded
+console.log('Firebase Config (sanitized):', {
+    apiKey: firebaseConfig.apiKey ? '✓ present' : '✗ missing',
+    authDomain: firebaseConfig.authDomain ? '✓ present' : '✗ missing',
+    projectId: firebaseConfig.projectId ? '✓ present' : '✗ missing',
+    storageBucket: firebaseConfig.storageBucket ? '✓ present' : '✗ missing',
+    messagingSenderId: firebaseConfig.messagingSenderId ? '✓ present' : '✗ missing',
+    appId: firebaseConfig.appId ? '✓ present' : '✗ missing'
+});
 
-export const FIREBASE_APP = initializeApp(firebaseConfig);
-export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+    export const app = initializeApp(firebaseConfig);
+    console.log('Firebase app initialized successfully');
+
+    const auth = initializeAuth(app, {
+        persistence: getReactNativePersistence(AsyncStorage)
+    });
+    console.log('Firebase auth initialized successfully');
+
+    export { auth };
+
