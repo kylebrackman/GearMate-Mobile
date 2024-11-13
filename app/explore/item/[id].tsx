@@ -6,19 +6,27 @@ import {useLocalSearchParams} from "expo-router";
 export default function ItemScreen() {
     const { id } = useLocalSearchParams();
 
+    const item = {
+        id: 1,
+        name: 'Mountain Bike',
+        image: require('../../../assets/images/item/mountain-bike.png'),
+        description: 'Great for off-road trails',
+        price: 25,
+        condition: 'New',
+        location: "Boulder, CO"
+    }
     // TODO: need to now make a fetch call to get the item by id and load this page
 
     return (
         <ScrollView style={styles.container}>
-            {/*<Image*/}
-            {/*    style={styles.image}*/}
-            {/*    source={item.image}*/}
-
-            {/*/>*/}
+            <Image
+                style={styles.image}
+                source={item.image}
+            />
             <View style={styles.section}>
-                <Text style={styles.title}>Title</Text>
-                <Text style={styles.location}>Location</Text>
-                <Text style={styles.details}>ITEM_DESC</Text>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.location}>{item.location}</Text>
+                <Text style={styles.details}>{item.description}</Text>
             </View>
 
             <View style={styles.section}>
@@ -35,7 +43,7 @@ export default function ItemScreen() {
                 </View>
             </View>
             <View style={styles.footer}>
-                <Text style={styles.price}> $ITEM_PRICE/ <Text style={styles.perNight}>day</Text></Text>
+                <Text style={styles.price}> ${item.price} / <Text style={styles.perNight}>day</Text></Text>
                 <TouchableOpacity style={styles.reserveButton}>
                     <Text style={styles.reserveButtonText}>Request</Text>
                 </TouchableOpacity>

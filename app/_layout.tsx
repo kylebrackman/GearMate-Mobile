@@ -34,7 +34,7 @@ function TabsNavigator() {
                 name="explore"
                 options={{
                     title: "Explore",
-                    tabBarLabel: "Explore",
+                    tabBarLabel: "Explore"
                 }}
             />
             <Tabs.Screen

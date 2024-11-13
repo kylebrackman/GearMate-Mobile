@@ -5,13 +5,17 @@ export default function ExploreLayout() {
         <Stack>
             <Stack.Screen
                 name="index"
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: true,
+                    title: ""
+                 }}
             />
             <Stack.Screen
                 name="item/[id]"
                 options={{
-                    headerTitle: "Item Details",
-                    headerShown: true,
+                    headerTransparent: true,
+                    headerTitle: "",
+                    headerTintColor: "#fff",
                 }}
             />
         </Stack>
