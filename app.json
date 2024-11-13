@@ -30,7 +30,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gearmate.dev"
     },
     "web": {
       "bundler": "metro",

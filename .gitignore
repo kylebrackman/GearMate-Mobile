@@ -22,3 +22,9 @@ expo-env.d.ts
 .env
 
 *.idea*
+
+# Ignore CocoaPods lockfile
+ios/Podfile.lock
+
+# Ignore build artifacts
+ios/build/

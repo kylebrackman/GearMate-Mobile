@@ -69,7 +69,8 @@ const LoginScreen = () => {
                     idToken: appleCredential.identityToken,
                 });
 
-                await signInWithCredential(auth, credential);
+                const c = await signInWithCredential(auth, credential);
+               // TODO: need to handle how we actually manage the user now but this is working and approved
             }
         } catch (error: any) {
             console.error('Detailed error:', error);
