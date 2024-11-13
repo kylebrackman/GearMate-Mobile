@@ -1,5 +1,5 @@
 import { SearchBar } from '@rneui/themed';
-import { View, FlatList, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useState } from "react"
 
 const SearchBarCustom = () => {

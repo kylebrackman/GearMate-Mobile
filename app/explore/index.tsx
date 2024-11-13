@@ -2,6 +2,7 @@ import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import ItemCard from '@/src/components/item/ItemCard';
 import SearchBarCustom from '@/src/components/search/SearchBarCustom';
+import ItemTypeSearch from '@/src/components/search/ItemTypeSearch';
 import {useRouter} from "expo-router";
 
 type Item = {
@@ -74,6 +75,7 @@ export default function ExploreScreen() {
     return (
         <View style={styles.container}>
             <SearchBarCustom />
+            <ItemTypeSearch />
             <FlatList
                 data={allItems}
                 renderItem={renderItem}
