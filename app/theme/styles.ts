@@ -14,6 +14,9 @@ export const colors = {
 export const globalStyles = StyleSheet.create({
 
     // Generic Styles
+    container: {
+        flex: 1,
+    },
     header: {
         fontSize: 35,
         fontWeight: 'bold',
@@ -52,23 +55,19 @@ export const globalStyles = StyleSheet.create({
     marginTop20: {
         marginTop: 20
     },
-    forgotPassword: {
-        alignItems: 'center',
-        marginTop: 15
-    },
 
-    // Explore Page
+
+    // ** Explore **
     exploreContainer: {
         flex: 1,
         paddingHorizontal: 20,
     },  
 
-    // ** Auth Specific Styles Below **
+    // ** Auth **
     authContainer: {
         flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 30,
-        backgroundColor: '#f5f5f5',
     },
     authButton: {
         backgroundColor: colors.primary,
@@ -96,8 +95,12 @@ export const globalStyles = StyleSheet.create({
         marginLeft: 5,
         fontWeight: 'bold',
     },
+    forgotPassword: {
+        alignItems: 'center',
+        marginTop: 15
+    },
 
-    // ** Profile Specific Styles Below **
+    // ** Profile  **
     profileCard: {
         backgroundColor: '#fff',
         borderRadius: 10,
@@ -118,5 +121,94 @@ export const globalStyles = StyleSheet.create({
     },
     settingsView: {
         marginHorizontal: 20
+    },
+
+    // ** Item Details  **
+    itemImage: {
+        width: '100%',
+        height: 300,
+    },
+    itemInfoSection: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+    },
+    itemLocation: {
+        fontSize: 16,
+        color: 'gray',
+        marginTop: 4,
+    },
+    itemDetails: {
+        fontSize: 14,
+        color: 'gray',
+        marginTop: 4,
+    },
+    itemRatingRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    itemRating: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    itemReviews: {
+        marginLeft: 10,
+        color: '#3498db',
+        fontSize: 12,
+    },
+    itemAlertContainer: {
+        backgroundColor: '#fdecea',
+        padding: 16,
+        marginHorizontal: 16,
+        borderRadius: 8,
+        marginVertical: 8,
+    },
+    itemHostSection: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        marginTop: 16,
+    },
+    itemHostImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 16,
+    },
+    itemHostName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    itemHostInfo: {
+        fontSize: 14,
+        color: 'gray',
+    },
+    itemFooter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        borderTopWidth: 1,
+        borderColor: '#e0e0e0',
+    },
+    itemPrice: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    itemPricePerNight: {
+        fontSize: 14,
+        color: 'gray',
+    },
+    itemRequestButton: {
+        backgroundColor: '#e74c3c',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    itemRequestButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
     },
 });
