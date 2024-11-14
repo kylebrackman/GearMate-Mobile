@@ -15,7 +15,22 @@
     "ios": {
       "supportsTablet": true,
       "usesAppleSignIn": true,
-      "bundleIdentifier": "com.gearmate.dev"
+      "bundleIdentifier": "com.gearmate.dev",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+            ]
+          }
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.gearmate.dev"
     },
     "extra": {
       "appleServiceId": "com.gearmate.devServiceID",
@@ -26,13 +41,6 @@
         "projectId": "0b029570-03dd-47ca-88a6-bd013a9fe0e7"
       }
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.gearmate.dev"
-    },
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -41,7 +49,8 @@
     "plugins": [
       "expo-router",
       "expo-apple-authentication",
-      "expo-dev-client"
+      "expo-dev-client",
+      "@react-native-google-signin/google-signin"
     ],
     "experiments": {
       "typedRoutes": true

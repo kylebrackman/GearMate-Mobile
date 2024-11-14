@@ -28,3 +28,4 @@ ios/Podfile.lock
 
 # Ignore build artifacts
 ios/build/
+ios/GMMobile.xcworkspace/

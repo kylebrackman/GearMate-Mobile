@@ -36,8 +36,7 @@ const LoginScreen = () => {
         setError('');
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            console.log('Email login attempted', {email, password});
+            const { user: User } = await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
             setError('Failed to sign in. Please check your credentials.');
         } finally {
@@ -69,7 +68,7 @@ const LoginScreen = () => {
                     idToken: appleCredential.identityToken,
                 });
 
-                const c = await signInWithCredential(auth, credential);
+                const {user: User} = await signInWithCredential(auth, credential);
                // TODO: need to handle how we actually manage the user now but this is working and approved
             }
         } catch (error: any) {
