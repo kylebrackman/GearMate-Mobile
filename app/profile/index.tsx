@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import { Card, Avatar, Divider } from '@rneui/themed';
 import { AntDesign } from "@expo/vector-icons";
-import { globalStyles } from '../theme/styles';
+import { globalStyles } from '../../theme/styles';
 
 export default function ProfileScreen() {
     return (

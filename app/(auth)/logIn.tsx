@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Modal } from 'react-native';
 import { loginUserApi } from '../../services/apis/UserApi';
 import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
-import { globalStyles } from '../theme/styles';
+import { globalStyles } from '../../theme/styles';
 import SignUpScreen from './signup';
 
 export default function LoginScreen() {
