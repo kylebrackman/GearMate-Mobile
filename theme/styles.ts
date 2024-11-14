@@ -1,19 +1,15 @@
-// styles.js
 import { StyleSheet } from 'react-native';
 
-// messing around with color palettes, subject to change
 export const colors = {
-    primary: '#E97451',      // Copper Orange
-    secondary: '#696969',    // Muted Grey
-    accent: '#FF8C00',       // Warm Orange
-    background: '#FFFFFF',   // White
-    text: '#000000',         // Black for default text
+    primary: '#E97451',
+    secondary: '#696969',
+    accent: '#FF8C00',
+    background: '#FFFFFF',
+    text: '#000000',
     buttonText: '#FFFFFF'
 };
 
 export const globalStyles = StyleSheet.create({
-
-    // Generic Styles
     container: {
         flex: 1,
     },
@@ -56,7 +52,6 @@ export const globalStyles = StyleSheet.create({
         marginTop: 20
     },
 
-    // ** TabBar ** 
     tabBar: {
         flexDirection: "row",
         backgroundColor: "white",
@@ -76,13 +71,11 @@ export const globalStyles = StyleSheet.create({
         // Customize the style for the active tab
     },
 
-    // ** Explore **
     exploreContainer: {
         flex: 1,
         paddingHorizontal: 20,
     },
 
-    // ** Auth **
     authContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -119,7 +112,6 @@ export const globalStyles = StyleSheet.create({
         marginTop: 15
     },
 
-    // ** Profile  **
     profileCard: {
         backgroundColor: '#fff',
         borderRadius: 10,
@@ -142,7 +134,6 @@ export const globalStyles = StyleSheet.create({
         marginHorizontal: 20
     },
 
-    // ** Item Details  **
     itemImage: {
         width: '100%',
         height: 300,
@@ -220,7 +211,7 @@ export const globalStyles = StyleSheet.create({
         color: 'gray',
     },
     itemRequestButton: {
-        backgroundColor: '#e74c3c',
+        backgroundColor: colors.primary,
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
