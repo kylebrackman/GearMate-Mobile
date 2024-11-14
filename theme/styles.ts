@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 // messing around with color palettes, subject to change
 export const colors = {
     primary: '#E97451',      // Copper Orange
-    secondary: '#0277BD',    // Muted Blue
+    secondary: '#696969',    // Muted Grey
     accent: '#FF8C00',       // Warm Orange
     background: '#FFFFFF',   // White
     text: '#000000',         // Black for default text
@@ -56,12 +56,31 @@ export const globalStyles = StyleSheet.create({
         marginTop: 20
     },
 
+    // ** TabBar ** 
+    tabBar: {
+        flexDirection: "row",
+        backgroundColor: "white",
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        paddingVertical: 10,
+        justifyContent: "space-around",
+        alignItems: "center",
+    },
+    tab: {
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
+    },
+    activeTab: {
+        // Customize the style for the active tab
+    },
 
     // ** Explore **
     exploreContainer: {
         flex: 1,
         paddingHorizontal: 20,
-    },  
+    },
 
     // ** Auth **
     authContainer: {

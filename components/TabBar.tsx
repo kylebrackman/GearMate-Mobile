@@ -1,6 +1,7 @@
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import {Href, usePathname, useRouter} from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
+import { globalStyles, colors } from "@/theme/styles";
 
 const tabs = [
     {
@@ -36,25 +37,25 @@ export default function TabBar() {
     };
 
     return (
-        <View style={styles.tabBar}>
+        <View style={globalStyles.tabBar}>
             {tabs
                 .map((tab) => (
                     <TouchableOpacity
                         key={tab.name}
                         onPress={() => handleTabPress(tab.name)}
                         style={[
-                            styles.tab,
-                            pathname.startsWith(`/${tab.name}`) && styles.activeTab,
+                            globalStyles.tab,
+                            pathname.startsWith(`/${tab.name}`) && globalStyles.activeTab,
                         ]}
                     >
                         <AntDesign
                             name={tab.icon as AntDesignIconName}
                             size={26}
-                            color={pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969"}
+                            color={pathname.startsWith(`/${tab.name}`) ? colors.primary : colors.secondary}
                         />
                         <Text
                             style={{
-                                color: pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969",
+                                color: pathname.startsWith(`/${tab.name}`) ? colors.primary : colors.secondary,
                             }}
                         >
                             {tab.label}
@@ -64,24 +65,3 @@ export default function TabBar() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    tabBar: {
-        flexDirection: "row",
-        backgroundColor: "white",
-        position: "absolute",
-        bottom: 0,
-        width: "100%",
-        paddingVertical: 10,
-        justifyContent: "space-around",
-        alignItems: "center",
-    },
-    tab: {
-        alignItems: "center",
-        justifyContent: "center",
-        flex: 1,
-    },
-    activeTab: {
-        // Customize the style for the active tab
-    },
-});
