@@ -49,7 +49,7 @@ export default function LoginScreen() {
                     secureTextEntry
                 />
 
-                <TouchableOpacity style={globalStyles.button} onPress={handleLogin}>
+                <TouchableOpacity style={globalStyles.authButton} onPress={handleLogin}>
                     <Text style={globalStyles.buttonText}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={globalStyles.forgotPassword}>

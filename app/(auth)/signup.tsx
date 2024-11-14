@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {FIREBASE_AUTH} from "@/src/config/firebaseConfig";
+import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
+import { globalStyles } from '../theme/styles';
 
 interface SignUpScreenProps {
     closeModal: () => void;
 }
 
-export default function SignUpScreen( { closeModal }: any)  { //TODO: clean up the args
+export default function SignUpScreen({ closeModal }: any) { //TODO: clean up the args
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -32,88 +33,42 @@ export default function SignUpScreen( { closeModal }: any)  { //TODO: clean up t
     };
 
     return (
-            <View style={styles.container}>
-                <KeyboardAvoidingView behavior="padding">
-                    <Text style={styles.title}>Sign Up</Text>
+        <View style={globalStyles.authContainer}>
+            <KeyboardAvoidingView behavior="padding">
+                <Text style={[globalStyles.title, globalStyles.titleCentered]}>Sign Up</Text>
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email"
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                    />
+                <TextInput
+                    style={globalStyles.standardInput}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Password"
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry
-                    />
+                <TextInput
+                    style={globalStyles.standardInput}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                        secureTextEntry
-                    />
+                <TextInput
+                    style={globalStyles.standardInput}
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                    secureTextEntry
+                />
 
-                    <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                        <Text style={styles.buttonText}>Sign Up</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.backContainer} onPress={closeModal}>
-                        <Text style={styles.back}>Back to Log in</Text>
-                    </TouchableOpacity>
-                </KeyboardAvoidingView>
-            </View>
+                <TouchableOpacity style={globalStyles.authButton} onPress={handleSignUp}>
+                    <Text style={globalStyles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={globalStyles.authBackContainer} onPress={closeModal}>
+                    <Text style={globalStyles.authBack}>Back to Log in</Text>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
+        </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 30,
-        backgroundColor: '#f5f5f5',
-    },
-    title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 40,
-        textAlign: 'center',
-    },
-    input: {
-        height: 50,
-        borderColor: '#ddd',
-        borderWidth: 1,
-        marginBottom: 20,
-        paddingHorizontal: 15,
-        borderRadius: 8,
-        backgroundColor: '#fff',
-    },
-    button: {
-        backgroundColor: '#1976D2',
-        paddingVertical: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: '600',
-    },
-    backContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 20,
-    },
-    back: {
-        color: '#1976D2',
-        marginLeft: 5,
-        fontWeight: 'bold',
-    },
-});

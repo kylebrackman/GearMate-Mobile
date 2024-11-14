@@ -20,7 +20,7 @@ export const globalStyles = StyleSheet.create({
     titleCentered: {
         textAlign: 'center',
     },
-    button: {
+    authButton: {
       backgroundColor: colors.primary,
       paddingVertical: 15,
       borderRadius: 8,
@@ -56,6 +56,16 @@ export const globalStyles = StyleSheet.create({
         marginTop: 20,
     },
     signUpText: {
+        color: '#1976D2',
+        marginLeft: 5,
+        fontWeight: 'bold',
+    },
+    authBackContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    authBack: {
         color: '#1976D2',
         marginLeft: 5,
         fontWeight: 'bold',
