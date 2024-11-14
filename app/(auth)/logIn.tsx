@@ -32,7 +32,7 @@ export default function LoginScreen() {
     return (
         <View style={globalStyles.authContainer}>
             <KeyboardAvoidingView behavior="padding">
-                <Text style={[globalStyles.title, globalStyles.titleCentered]}>Login</Text>
+                <Text style={[globalStyles.header, globalStyles.headerCentered, globalStyles.headerBottomMargin]}>Login</Text>
                 <TextInput
                     style={globalStyles.standardInput}
                     placeholder="Email"
@@ -55,7 +55,7 @@ export default function LoginScreen() {
                 <TouchableOpacity style={globalStyles.forgotPassword}>
                     <Text>Forgot Password?</Text>
                 </TouchableOpacity>
-                <View style={globalStyles.signUpContainer}>
+                <View style={globalStyles.signUpTextContainer}>
                     <Text>Don't have an account?</Text>
                     <TouchableOpacity onPress={() => setSignUpVisible(true)}>
                         <Text style={globalStyles.signUpText}>Sign Up!</Text>

@@ -1,35 +1,44 @@
 // styles.js
 import { StyleSheet } from 'react-native';
 
+// messing around with color palettes, subject to change
 export const colors = {
-  primary: '#E97451',      // Forest Green
-  secondary: '#0277BD',    // Muted Blue
-  accent: '#FF8C00',       // Warm Orange
-  background: '#FFFFFF',   // White
-  text: '#000000',         // Black for default text
-  buttonText: '#FFFFFF'
+    primary: '#E97451',      // Copper Orange
+    secondary: '#0277BD',    // Muted Blue
+    accent: '#FF8C00',       // Warm Orange
+    background: '#FFFFFF',   // White
+    text: '#000000',         // Black for default text
+    buttonText: '#FFFFFF'
 };
 
 export const globalStyles = StyleSheet.create({
-    title: {
-        fontSize: 32,
+
+    // Generic Styles
+    header: {
+        fontSize: 35,
         fontWeight: 'bold',
         color: '#333',
-        marginBottom: 40,
     },
-    titleCentered: {
+    headerBottomMargin: {
+        marginBottom: 40
+    },
+    headerCentered: {
         textAlign: 'center',
     },
-    authButton: {
-      backgroundColor: colors.primary,
-      paddingVertical: 15,
-      borderRadius: 8,
-      alignItems: 'center',
+    headerSecondary: {
+        fontSize: 25,
+        fontWeight: 'bold',
+    },
+    bottomMargin10: {
+        marginBottom: 10
     },
     buttonText: {
-      color: colors.buttonText,
-      fontSize: 18,
-      fontWeight: '600',
+        color: colors.buttonText,
+        fontSize: 18,
+        fontWeight: '600',
+    },
+    buttonHorizontalPadding: {
+        paddingHorizontal: 20
     },
     standardInput: {
         height: 50,
@@ -40,17 +49,34 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: '#fff',
     },
+    marginTop20: {
+        marginTop: 20
+    },
     forgotPassword: {
         alignItems: 'center',
         marginTop: 15
     },
+
+    // Explore Page
+    exploreContainer: {
+        flex: 1,
+        paddingHorizontal: 20,
+    },  
+
+    // ** Auth Specific Styles Below **
     authContainer: {
         flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 30,
         backgroundColor: '#f5f5f5',
     },
-    signUpContainer: {
+    authButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    signUpTextContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 20,
@@ -70,5 +96,27 @@ export const globalStyles = StyleSheet.create({
         marginLeft: 5,
         fontWeight: 'bold',
     },
-});
 
+    // ** Profile Specific Styles Below **
+    profileCard: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        marginBottom: 20,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 3,
+    },
+    profileRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+        marginHorizontal: 20,
+        justifyContent: 'space-between',
+    },
+    settingsView: {
+        marginHorizontal: 20
+    },
+});

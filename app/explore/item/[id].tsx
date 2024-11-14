@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import {useLocalSearchParams} from "expo-router";
-
+import { globalStyles } from '../../theme/styles';
 
 export default function ItemScreen() {
     const { id } = useLocalSearchParams();
@@ -44,8 +44,8 @@ export default function ItemScreen() {
             </View>
             <View style={styles.footer}>
                 <Text style={styles.price}> ${item.price} / <Text style={styles.perNight}>day</Text></Text>
-                <TouchableOpacity style={styles.reserveButton}>
-                    <Text style={styles.reserveButtonText}>Request</Text>
+                <TouchableOpacity style={[globalStyles.authButton, globalStyles.buttonHorizontalPadding]}>
+                    <Text style={globalStyles.buttonText}>Request</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

@@ -35,7 +35,7 @@ export default function SignUpScreen({ closeModal }: any) { //TODO: clean up the
     return (
         <View style={globalStyles.authContainer}>
             <KeyboardAvoidingView behavior="padding">
-                <Text style={[globalStyles.title, globalStyles.titleCentered]}>Sign Up</Text>
+                <Text style={[globalStyles.header, globalStyles.headerCentered, globalStyles.headerBottomMargin]}>Login</Text>
 
                 <TextInput
                     style={globalStyles.standardInput}
