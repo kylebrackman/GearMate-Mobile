@@ -24,7 +24,7 @@ export default function ItemScreen() {
                 source={item.image}
             />
             <View style={styles.section}>
-                <Text style={styles.title}>{item.name}</Text>
+                <Text style={globalStyles.headerSecondary}>{item.name}</Text>
                 <Text style={styles.location}>{item.location}</Text>
                 <Text style={styles.details}>{item.description}</Text>
             </View>
