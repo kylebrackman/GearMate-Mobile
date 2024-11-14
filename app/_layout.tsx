@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Tabs, useRouter, useSegments } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet } from "react-native";
+import { globalStyles } from "@/theme/styles";
 import TabBar from "@/components/TabBar";
 import { UserProvider, useUser } from "@/src/context/UserContext";
 
@@ -65,15 +65,9 @@ function TabsNavigator() {
 export default function RootLayout() {
     return (
         <UserProvider>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={globalStyles.container}>
                 <TabsNavigator />
             </SafeAreaView>
         </UserProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});
