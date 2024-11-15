@@ -25,7 +25,5 @@ expo-env.d.ts
 
 # Ignore CocoaPods lockfile
 ios/Podfile.lock
-
-# Ignore build artifacts
-ios/build/
-ios/GMMobile.xcworkspace/
+ios/
+android/
