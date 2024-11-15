@@ -17,7 +17,7 @@ const allItems: Item[] = [
     {
         id: 1,
         name: 'Mountain Bike',
-        image: require('../../assets/images/item/mountain-bike.png'),
+        image: require('../../../assets/images/item/mountain-bike.png'),
         description: 'Great for off-road trails',
         price: 25,
         condition: 'New',
@@ -25,7 +25,7 @@ const allItems: Item[] = [
     {
         id: 2,
         name: 'Fishing Pole',
-        image: require('../../assets/images/item/fishing-pole.png'),
+        image: require('../../../assets/images/item/fishing-pole.png'),
         description: 'Perfect for your next fishing trip',
         price: 15,
         condition: 'Like New',
@@ -33,7 +33,7 @@ const allItems: Item[] = [
     {
         id: 3,
         name: 'Kayak',
-        image: require('../../assets/images/item/kayak.png'),
+        image: require('../../../assets/images/item/kayak.png'),
         description: 'Enjoy a day on the water',
         price: 30,
         condition: 'New',
@@ -41,7 +41,7 @@ const allItems: Item[] = [
     {
         id: 4,
         name: 'Snowboard Boots',
-        image: require('../../assets/images/item/snowboard-boots.png'),
+        image: require('../../../assets/images/item/snowboard-boots.png'),
         description: 'Stay warm and stylish on the slopes',
         price: 20,
         condition: 'Like New',
@@ -49,12 +49,11 @@ const allItems: Item[] = [
     {
         id: 5,
         name: 'Yeti Cooler',
-        image: require('../../assets/images/item/yeti-cooler.png'),
+        image: require('../../../assets/images/item/yeti-cooler.png'),
         description: 'Keep your drinks cold for days',
         price: 50,
         condition: 'Used',
     },
-    // Add more items as needed
 ];
 
 export default function ExploreScreen() {

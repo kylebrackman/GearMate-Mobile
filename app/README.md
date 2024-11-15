@@ -5,16 +5,22 @@ This project follows a modular folder layout with dedicated directories for each
 ## Directory Layout
 
 ```plaintext
+
 app/
-├── _layout.tsx          # Root layout with tabs
-├── explore/
-│   ├── _layout.tsx      # Stack navigator for "Explore"
-│   ├── index.tsx        # Explore main screen
-│   └── item/
-│       └── [id].tsx     # Item details screen with dynamic route based on item ID
-├── messages/
-│   └── index.tsx        # Messages screen
-├── listGear/
-│   └── index.tsx        # List Gear screen
-└── profile/
-    └── index.tsx        # Profile screen
+├── (auth)/
+│   ├── logIn.tsx
+│   └── _layout.tsx
+├── (tabs)/
+│   ├── _layout.tsx      # Tabs layout
+│   ├── explore/
+│   │   ├── _layout.tsx  # Stack navigator for "Explore"
+│   │   ├── index.tsx    # Explore main screen
+│   │   └── item/
+│   │       └── [id].tsx # Item details screen
+│   ├── messages/
+│   │   └── index.tsx
+│   ├── listGear/
+│   │   └── index.tsx
+│   └── profile/
+│       └── index.tsx
+└── _layout.tsx          # Root layout with Slot

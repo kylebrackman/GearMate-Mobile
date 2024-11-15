@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     tabBar: {
         flexDirection: "row",
         backgroundColor: "white",
-        position: "absolute",
         bottom: 0,
         width: "100%",
         paddingVertical: 10,
@@ -87,6 +86,5 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     activeTab: {
-        // Customize the style for the active tab
     },
 });

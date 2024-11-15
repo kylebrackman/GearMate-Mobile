@@ -16,15 +16,15 @@ import {
     AppleAuthenticationButtonStyle,
     AppleAuthenticationButtonType
 } from 'expo-apple-authentication';
-import {OAuthProvider, signInWithCredential, signInWithEmailAndPassword} from "firebase/auth";
-import {auth} from '@/src/config/firebaseConfig'
 import * as AppleAuthentication from 'expo-apple-authentication'
+import {useAuthService} from "@/hooks/useAuthService";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const authService = useAuthService();
 
     const handleEmailLogin = async () => {
         if (!email || !password) {
@@ -36,7 +36,7 @@ const LoginScreen = () => {
         setError('');
 
         try {
-            const { user: User } = await signInWithEmailAndPassword(auth, email, password);
+            await authService.signIn(email, password);
         } catch (err) {
             setError('Failed to sign in. Please check your credentials.');
         } finally {
@@ -58,33 +58,13 @@ const LoginScreen = () => {
             });
 
             if (appleCredential.identityToken) {
-                console.log('Token audience check:',
-                    JSON.parse(atob(appleCredential.identityToken.split('.')[1])).aud
-                );
-
-                const provider = new OAuthProvider('apple.com');
-
-                const credential = provider.credential({
-                    idToken: appleCredential.identityToken,
-                });
-
-                const {user: User} = await signInWithCredential(auth, credential);
-               // TODO: need to handle how we actually manage the user now but this is working and approved
+                await authService.signInWithApple(appleCredential.identityToken);
+                // Navigation will be handled by the auth state change in AuthContext
             }
         } catch (error: any) {
-            console.error('Detailed error:', error);
-
             if (error.code === 'ERR_CANCELED') {
                 setError('Sign in was canceled');
             } else if (error.code === 'auth/invalid-credential') {
-                console.error('Invalid credential details:', {
-                    errorCode: error.code,
-                    errorMessage: error.message,
-                    credential: error.credential ? {
-                        providerId: error.credential.providerId,
-                        signInMethod: error.credential.signInMethod
-                    } : 'No credential details'
-                });
                 setError('Authentication failed. Please ensure Apple Sign In is properly configured.');
             } else {
                 setError('Failed to sign in with Apple');
@@ -156,8 +136,6 @@ const LoginScreen = () => {
                                 cornerRadius={10}
                             />
                         )}
-
-
                     </View>
                 </View>
             </KeyboardAvoidingView>
