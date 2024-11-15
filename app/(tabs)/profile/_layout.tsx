@@ -5,7 +5,17 @@ export default function ProfileLayout() {
         <Stack>
             <Stack.Screen
                 name="index"
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen
+                name="details/profileDetails"
+                options={{
+                    headerTransparent: true,
+                    headerTitle: "",
+                    headerTintColor: "#fff",
+                }}
             />
         </Stack>
     );

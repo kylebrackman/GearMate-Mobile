@@ -1,6 +1,7 @@
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import {Href, usePathname, useRouter} from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
+import { globalStyles, colors } from "@/theme/styles";
 
 const tabs = [
     {
@@ -42,7 +43,6 @@ export default function TabBar() {
     return (
         <View style={styles.tabBar}>
             {tabs
-                .filter((tab) => tab.visible)
                 .map((tab) => (
                     <TouchableOpacity
                         key={tab.name}
@@ -55,11 +55,11 @@ export default function TabBar() {
                         <AntDesign
                             name={tab.icon as AntDesignIconName}
                             size={26}
-                            color={pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969"}
+                            color={pathname.startsWith(`/${tab.name}`) ? colors.primary : colors.secondary}
                         />
                         <Text
                             style={{
-                                color: pathname.startsWith(`/${tab.name}`) ? "#1976D2" : "#696969",
+                                color: pathname.startsWith(`/${tab.name}`) ? colors.primary : colors.secondary,
                             }}
                         >
                             {tab.label}

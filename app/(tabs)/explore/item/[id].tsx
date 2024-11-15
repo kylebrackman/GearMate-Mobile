@@ -1,144 +1,53 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import {useLocalSearchParams} from "expo-router";
-
+import {globalStyles} from "@/theme/styles";
 
 export default function ItemScreen() {
     const { id } = useLocalSearchParams();
 
+    const item = {
+        id: 1,
+        name: 'Mountain Bike',
+        image: require('../../../../assets/images/item/mountain-bike.png'),
+        description: 'Great for off-road trails',
+        price: 25,
+        condition: 'New',
+        location: "Boulder, CO"
+    }
     // TODO: need to now make a fetch call to get the item by id and load this page
 
     return (
-        <ScrollView style={styles.container}>
-            {/*<Image*/}
-            {/*    style={styles.image}*/}
-            {/*    source={item.image}*/}
-
-            {/*/>*/}
-            <View style={styles.section}>
-                <Text style={styles.title}>Title</Text>
-                <Text style={styles.location}>Location</Text>
-                <Text style={styles.details}>ITEM_DESC</Text>
+        <ScrollView style={globalStyles.container}>
+            <Image
+                style={globalStyles.itemImage}
+                source={item.image}
+            />
+            <View style={globalStyles.itemInfoSection}>
+                <Text style={globalStyles.headerSecondary}>{item.name}</Text>
+                <Text style={globalStyles.itemLocation}>{item.location}</Text>
+                <Text style={globalStyles.itemDetails}>{item.description}</Text>
             </View>
 
-            <View style={styles.section}>
-                <View style={styles.ratingRow}>
-                    <Text style={styles.rating}>Rating</Text>
+            <View style={globalStyles.itemInfoSection}>
+                <View style={globalStyles.itemRatingRow}>
+                    <Text style={globalStyles.itemRating}>Rating</Text>
                     <TouchableOpacity>
-                        <Text style={styles.reviews}>Reviews</Text>
+                        <Text style={globalStyles.itemReviews}>Reviews</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.hostSection}>
+            <View style={globalStyles.itemHostSection}>
                 <View>
-                    <Text style={styles.hostName}>Owned by OWNER</Text>
+                    <Text style={globalStyles.itemHostName}>Owned by OWNER</Text>
                 </View>
             </View>
-            <View style={styles.footer}>
-                <Text style={styles.price}> $ITEM_PRICE/ <Text style={styles.perNight}>day</Text></Text>
-                <TouchableOpacity style={styles.reserveButton}>
-                    <Text style={styles.reserveButtonText}>Request</Text>
+            <View style={globalStyles.itemFooter}>
+                <Text style={globalStyles.itemPrice}> ${item.price} / <Text style={globalStyles.itemPricePerNight}>day</Text></Text>
+                <TouchableOpacity style={[globalStyles.authButton, globalStyles.buttonHorizontalPadding]}>
+                    <Text style={globalStyles.buttonText}>Request</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    image: {
-        width: '100%',
-        height: 300,
-    },
-    section: {
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-    },
-    location: {
-        fontSize: 16,
-        color: 'gray',
-        marginTop: 4,
-    },
-    details: {
-        fontSize: 14,
-        color: 'gray',
-        marginTop: 4,
-    },
-    ratingRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 8,
-    },
-    rating: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    reviews: {
-        marginLeft: 10,
-        color: '#3498db',
-        fontSize: 12,
-    },
-    alertContainer: {
-        backgroundColor: '#fdecea',
-        padding: 16,
-        marginHorizontal: 16,
-        borderRadius: 8,
-        marginVertical: 8,
-    },
-    hostSection: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        marginTop: 16,
-    },
-    hostImage: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        marginRight: 16,
-    },
-    hostName: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    hostInfo: {
-        fontSize: 14,
-        color: 'gray',
-    },
-    footer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingVertical: 16,
-        borderTopWidth: 1,
-        borderColor: '#e0e0e0',
-    },
-    price: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    perNight: {
-        fontSize: 14,
-        color: 'gray',
-    },
-    reserveButton: {
-        backgroundColor: '#e74c3c',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-    },
-    reserveButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-});
-

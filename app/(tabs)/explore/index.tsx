@@ -1,8 +1,11 @@
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import { View, FlatList } from 'react-native';
 import ItemCard from '@/src/components/item/ItemCard';
 import SearchBarCustom from '@/src/components/search/SearchBarCustom';
-import {useRouter} from "expo-router";
+import ItemTypeSearch from '@/src/components/search/ItemTypeSearch';
+import { useRouter } from "expo-router";
+import {globalStyles} from "@/theme/styles";
+
 
 type Item = {
     id: number;
@@ -59,7 +62,7 @@ const allItems: Item[] = [
 export default function ExploreScreen() {
     const router = useRouter();
 
-    const renderItem = ({item}: { item: Item }) => (
+    const renderItem = ({ item }: { item: Item }) => (
         <ItemCard
             id={item.id}
             name={item.name}
@@ -71,8 +74,9 @@ export default function ExploreScreen() {
     );
 
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.exploreContainer}>
             <SearchBarCustom />
+            <ItemTypeSearch />
             <FlatList
                 data={allItems}
                 renderItem={renderItem}
@@ -82,11 +86,3 @@ export default function ExploreScreen() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 20,
-    },
-});
-

@@ -74,7 +74,6 @@ const LoginScreen = () => {
         }
     };
 
-
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="dark"/>
