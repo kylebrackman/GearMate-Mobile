@@ -1,11 +1,13 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Card, Avatar, Divider } from '@rneui/themed';
 import { AntDesign } from "@expo/vector-icons";
-import { globalStyles } from '../../theme/styles';
+import { globalStyles } from '@/theme/styles';
 import { useRouter } from "expo-router";
 
 export default function ProfileScreen() {
     const router = useRouter();
+
+    const userProfileId = 1;
     return (
         <View style={globalStyles.marginTop20}>
             <View style={globalStyles.profileRow}>
@@ -16,7 +18,7 @@ export default function ProfileScreen() {
             </View>
             <View style={globalStyles.profileRow}>
                 <Avatar size={50} title="GM" containerStyle={{ backgroundColor: 'black' }} rounded />
-                <TouchableOpacity onPress={() => router.push(`/profile/details/profileDetails`)}>
+                <TouchableOpacity onPress={() => router.push(`/profile/details/${userProfileId}`)}>
                     <AntDesign name="arrowright" size={24} color="black" />
                 </TouchableOpacity>
             </View>

@@ -57,6 +57,7 @@ const allItems: Item[] = [
         price: 50,
         condition: 'Used',
     },
+    // Add more items as needed
 ];
 
 export default function ExploreScreen() {
@@ -82,6 +83,7 @@ export default function ExploreScreen() {
                 renderItem={renderItem}
                 keyExtractor={item => item.id.toString()}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 50 }}
             />
         </View>
     );
