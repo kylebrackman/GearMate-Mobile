@@ -4,7 +4,7 @@ import ItemCard from '@/src/components/item/ItemCard';
 import SearchBarCustom from '@/src/components/search/SearchBarCustom';
 import ItemTypeSearch from '@/src/components/search/ItemTypeSearch';
 import { useRouter } from "expo-router";
-import { globalStyles } from '../../theme/styles';
+import { globalStyles } from '@/theme/styles';
 
 type Item = {
     id: number;

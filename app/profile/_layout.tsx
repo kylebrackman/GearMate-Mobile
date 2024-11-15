@@ -6,11 +6,12 @@ export default function ProfileLayout() {
             <Stack.Screen
                 name="index"
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    title: ""
                 }}
             />
             <Stack.Screen
-                name="details/profileDetails"
+                name="details/[id]"
                 options={{
                     headerTransparent: true,
                     headerTitle: "",

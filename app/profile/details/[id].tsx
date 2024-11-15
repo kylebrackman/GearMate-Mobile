@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 
-const profileDetails = () => {
+const id = () => {
     return (
         <View>
             <Text>profileDetails</Text>
@@ -8,4 +8,4 @@ const profileDetails = () => {
     )
 }
 
-export default profileDetails
+export default id
