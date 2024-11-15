@@ -28,10 +28,7 @@
     <array>
       <dict>
         <key>CFBundleURLSchemes</key>
-        <array>
-          <string>gearmate-mobile</string>
-          <string>com.gearmate.dev</string>
-        </array>
+        <array/>
       </dict>
       <dict>
         <key>CFBundleURLSchemes</key>

@@ -1,5 +1,6 @@
 {
-  "name": "gm-mobile",
+  "name": "GearMate",
+  "slug": "gearmate",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
