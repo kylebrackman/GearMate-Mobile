@@ -1,10 +1,12 @@
 import {ReactNode, useEffect, useState} from "react";
-import {Navigator, Tabs, useRouter, useSegments} from "expo-router";
+import {Navigator, SplashScreen, Tabs, useRouter, useSegments} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StyleSheet, ActivityIndicator, View} from "react-native";
 import {AuthProvider, useAuth} from "@/context/AuthContext";
 import Slot = Navigator.Slot;
 
+// Keep the splash screen visible while check state of auth
+SplashScreen.preventAutoHideAsync();
 function AuthCheck({children}: { children: ReactNode }) {
     const segments = useSegments();
     const router = useRouter();
@@ -12,19 +14,20 @@ function AuthCheck({children}: { children: ReactNode }) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        if (!mounted) {
-            setMounted(true);
-            return;
-        }
+        setMounted(true);
+    }, []);
 
-        if (loading) return;
+    useEffect(() => {
+        // Only handle navigation after mounting and when auth state is known
+        if (mounted && !loading) {
+            SplashScreen.hideAsync();
+            const inAuthGroup = segments[0] === "(auth)";
 
-        const inAuthGroup = segments[0] === "(auth)";
-
-        if (!user && !inAuthGroup) {
-            router.replace("/(auth)/logIn");
-        } else if (user && inAuthGroup) {
-            router.replace("/explore");
+            if (!user && !inAuthGroup) {
+                router.replace("/(auth)/logIn");
+            } else if (user && inAuthGroup) {
+                router.replace("/explore");
+            }
         }
     }, [user, segments, mounted, loading]);
 
