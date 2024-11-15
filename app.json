@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "GearMate-Mobile",
+    "scheme": "gearmate-mobile",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -13,12 +13,32 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "usesAppleSignIn": true,
+      "bundleIdentifier": "com.gearmate.dev",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+            ]
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.gearmate.dev"
+    },
+    "extra": {
+      "appleServiceId": "com.gearmate.devServiceID",
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0b029570-03dd-47ca-88a6-bd013a9fe0e7"
       }
     },
     "web": {
@@ -27,7 +47,10 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-apple-authentication",
+      "expo-dev-client",
+      "@react-native-google-signin/google-signin"
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import {useLocalSearchParams} from "expo-router";
-import { globalStyles } from '../../../theme/styles';
+import {globalStyles} from "@/theme/styles";
 
 export default function ItemScreen() {
     const { id } = useLocalSearchParams();
@@ -9,7 +9,7 @@ export default function ItemScreen() {
     const item = {
         id: 1,
         name: 'Mountain Bike',
-        image: require('../../../assets/images/item/mountain-bike.png'),
+        image: require('../../../../assets/images/item/mountain-bike.png'),
         description: 'Great for off-road trails',
         price: 25,
         condition: 'New',

@@ -1,78 +1,212 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Modal } from 'react-native';
-import { loginUserApi } from '../../services/apis/UserApi';
-import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
-import { globalStyles } from '../../theme/styles';
-import SignUpScreen from './signup';
+import React, {useState} from 'react';
+import {
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    Platform,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import {
+    AppleAuthenticationButton,
+    AppleAuthenticationButtonStyle,
+    AppleAuthenticationButtonType
+} from 'expo-apple-authentication';
+import * as AppleAuthentication from 'expo-apple-authentication'
+import {useAuthService} from "@/hooks/useAuthService";
 
-export default function LoginScreen() {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(false);
-    const [isSignUpVisible, setSignUpVisible] = useState(false);
-    const auth = FIREBASE_AUTH;
+const LoginScreen = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const authService = useAuthService();
 
-    const handleLogin = async () => {
+    const handleEmailLogin = async () => {
         if (!email || !password) {
-            Alert.alert("Error", "Please enter both email and password.");
-        } else {
-            try {
-                setLoading(true);
-                const response = await loginUserApi(auth, email, password);
-                console.log(response);
-                Alert.alert("Check Email!");
-            } catch (error: any) {
-                Alert.alert("Login failed:", error.message);
-            } finally {
-                setLoading(false);
+            setError('Please fill in all fields');
+            return;
+        }
+
+        setIsLoading(true);
+        setError('');
+
+        try {
+            await authService.signIn(email, password);
+        } catch (err) {
+            setError('Failed to sign in. Please check your credentials.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
+    const handleAppleLogin = async () => {
+        try {
+            setIsLoading(true);
+            setError('');
+
+            const appleCredential = await AppleAuthentication.signInAsync({
+                requestedScopes: [
+                    AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                    AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                ]
+            });
+
+            if (appleCredential.identityToken) {
+                await authService.signInWithApple(appleCredential.identityToken);
+                // Navigation will be handled by the auth state change in AuthContext
             }
+        } catch (error: any) {
+            if (error.code === 'ERR_CANCELED') {
+                setError('Sign in was canceled');
+            } else if (error.code === 'auth/invalid-credential') {
+                setError('Authentication failed. Please ensure Apple Sign In is properly configured.');
+            } else {
+                setError('Failed to sign in with Apple');
+            }
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <View style={globalStyles.authContainer}>
-            <KeyboardAvoidingView behavior="padding">
-                <Text style={[globalStyles.header, globalStyles.headerCentered, globalStyles.headerBottomMargin]}>Login</Text>
-                <TextInput
-                    style={globalStyles.standardInput}
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={globalStyles.standardInput}
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                />
+        <SafeAreaView style={styles.container}>
+            <StatusBar style="dark"/>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.keyboardView}
+            >
+                <View style={styles.content}>
+                    <Text style={styles.title}>Sign In</Text>
 
-                <TouchableOpacity style={globalStyles.authButton} onPress={handleLogin}>
-                    <Text style={globalStyles.buttonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={globalStyles.forgotPassword}>
-                    <Text>Forgot Password?</Text>
-                </TouchableOpacity>
-                <View style={globalStyles.signUpTextContainer}>
-                    <Text>Don't have an account?</Text>
-                    <TouchableOpacity onPress={() => setSignUpVisible(true)}>
-                        <Text style={globalStyles.signUpText}>Sign Up!</Text>
+                    {error ? (
+                        <Text style={styles.errorText}>{error}</Text>
+                    ) : null}
+
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Email"
+                            value={email}
+                            onChangeText={setEmail}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Password"
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry
+                        />
+                    </View>
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={handleEmailLogin}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <ActivityIndicator color="#ffffff"/>
+                        ) : (
+                            <Text style={styles.buttonText}>Sign In</Text>
+                        )}
                     </TouchableOpacity>
+
+                    <View style={styles.divider}>
+                        <View style={styles.dividerLine}/>
+                        <Text style={styles.dividerText}>or continue with</Text>
+                        <View style={styles.dividerLine}/>
+                    </View>
+
+                    <View style={styles.socialButtons}>
+                        {Platform.OS === 'ios' && (
+                            <AppleAuthenticationButton
+                                onPress={handleAppleLogin}
+                                buttonType={AppleAuthenticationButtonType.SIGN_IN}
+                                buttonStyle={AppleAuthenticationButtonStyle.BLACK}
+                                style={{width: 300, height: 50}}
+                                cornerRadius={10}
+                            />
+                        )}
+                    </View>
                 </View>
             </KeyboardAvoidingView>
-
-            {/* SignUp Modal */}
-            <Modal
-                visible={isSignUpVisible}
-                // transparent={true}
-                animationType="slide"
-                presentationStyle='fullScreen'
-                onRequestClose={() => setSignUpVisible(false)} // Close modal on back button
-            >
-                <SignUpScreen closeModal={() => setSignUpVisible(false)} />
-            </Modal>
-        </View>
+        </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    keyboardView: {
+        flex: 1,
+    },
+    content: {
+        flex: 1,
+        padding: 20,
+        justifyContent: 'center',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 30,
+    },
+    inputContainer: {
+        marginBottom: 20,
+    },
+    input: {
+        backgroundColor: '#f5f5f5',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 10,
+        fontSize: 16,
+    },
+    button: {
+        backgroundColor: '#007AFF',
+        padding: 15,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+    errorText: {
+        color: '#ff3b30',
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    divider: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 30,
+    },
+    dividerLine: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#E5E5E5',
+    },
+    dividerText: {
+        marginHorizontal: 10,
+        color: '#6B7280',
+    },
+    socialButtons: {
+        gap: 10,
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+
+});
+
+export default LoginScreen;

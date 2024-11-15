@@ -1,73 +1,66 @@
-import { useEffect } from "react";
-import { Tabs, useRouter, useSegments } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { globalStyles } from "@/theme/styles";
-import TabBar from "@/components/TabBar";
-import { UserProvider, useUser } from "@/src/context/UserContext";
+import {ReactNode, useEffect, useState} from "react";
+import {Navigator, SplashScreen, Tabs, useRouter, useSegments} from "expo-router";
+import {SafeAreaView} from "react-native-safe-area-context";
+import {StyleSheet, ActivityIndicator, View} from "react-native";
+import {AuthProvider, useAuth} from "@/context/AuthContext";
+import Slot = Navigator.Slot;
 
-function TabsNavigator() {
+// Keep the splash screen visible while check state of auth
+SplashScreen.preventAutoHideAsync();
+function AuthCheck({children}: { children: ReactNode }) {
     const segments = useSegments();
-    const { user } = useUser();
     const router = useRouter();
+    const {user, loading} = useAuth();
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        const inAuthGroup = segments[0] === "(auth)";
-        if (!user && !inAuthGroup) {
-            router.replace("/(auth)/logIn");
-        } else if (user && inAuthGroup) {
-            router.replace("/explore");
-        }
-    }, [user, segments]);
+        setMounted(true);
+    }, []);
 
-    return (
-        <Tabs
-            tabBar={() => <TabBar />}
-            screenOptions={{
-                tabBarStyle: {
-                    height: 45,
-                    paddingBottom: 5,
-                },
-                headerShown: false,
-            }}
-        >
-            <Tabs.Screen
-                name="explore"
-                options={{
-                    title: "Explore",
-                    tabBarLabel: "Explore"
-                }}
-            />
-            <Tabs.Screen
-                name="messages"
-                options={{
-                    title: "Messages",
-                    tabBarLabel: "Messages",
-                }}
-            />
-            <Tabs.Screen
-                name="listGear"
-                options={{
-                    title: "List Gear",
-                    tabBarLabel: "List",
-                }}
-            />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: "Profile",
-                    tabBarLabel: "Profile",
-                }}
-            />
-        </Tabs>
-    );
+    useEffect(() => {
+        // Only handle navigation after mounting and when auth state is known
+        if (mounted && !loading) {
+            SplashScreen.hideAsync();
+            const inAuthGroup = segments[0] === "(auth)";
+
+            if (!user && !inAuthGroup) {
+                router.replace("/(auth)/logIn");
+            } else if (user && inAuthGroup) {
+                router.replace("/explore");
+            }
+        }
+    }, [user, segments, mounted, loading]);
+
+    if (!mounted || loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large"/>
+            </View>
+        );
+    }
+
+    return <>{children}</>;
 }
 
 export default function RootLayout() {
     return (
-        <UserProvider>
-            <SafeAreaView style={globalStyles.container}>
-                <TabsNavigator />
+        <AuthProvider>
+            <SafeAreaView style={styles.container}>
+                <AuthCheck>
+                    <Slot />
+                </AuthCheck>
             </SafeAreaView>
-        </UserProvider>
+        </AuthProvider>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+});
