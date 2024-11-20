@@ -15,12 +15,11 @@
     "ios": {
       "supportsTablet": true,
       "usesAppleSignIn": true,
-      "bundleIdentifier": "com.gearmate.dev",
+      "bundleIdentifier": "gearmate.dev",
       "infoPlist": {
         "CFBundleURLTypes": [
           {
-            "CFBundleURLSchemes": [
-            ]
+            "CFBundleURLSchemes": []
           }
         ]
       }
@@ -38,7 +37,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "0b029570-03dd-47ca-88a6-bd013a9fe0e7"
+        "projectId": "bb7b7a91-1ef0-48c8-bef7-a9c0bcea6625"
       }
     },
     "web": {
@@ -50,10 +49,17 @@
       "expo-router",
       "expo-apple-authentication",
       "expo-dev-client",
-      "@react-native-google-signin/google-signin"
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends.",
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "owner": "kylebrackman"
   }
 }
