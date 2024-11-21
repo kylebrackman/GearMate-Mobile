@@ -8,7 +8,7 @@ interface SignUpScreenProps {
     closeModal: () => void;
 }
 
-export default function SignUpScreen({ closeModal }: any) { //TODO: clean up the args
+export default function SignUpScreen({ toggleModal }: any) { //TODO: clean up the args
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -36,7 +36,7 @@ export default function SignUpScreen({ closeModal }: any) { //TODO: clean up the
     return (
         <View style={globalStyles.authContainer}>
             <KeyboardAvoidingView behavior="padding">
-                <Text style={[globalStyles.header, globalStyles.headerCentered, globalStyles.headerBottomMargin]}>Login</Text>
+                <Text style={[globalStyles.header, globalStyles.headerCentered, globalStyles.headerBottomMargin]}>Sign up</Text>
 
                 <TextInput
                     style={globalStyles.standardInput}
@@ -66,7 +66,7 @@ export default function SignUpScreen({ closeModal }: any) { //TODO: clean up the
                 <TouchableOpacity style={globalStyles.authButton} onPress={handleSignUp}>
                     <Text style={globalStyles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={globalStyles.authBackContainer} onPress={closeModal}>
+                <TouchableOpacity style={globalStyles.authBackContainer} onPress={toggleModal}>
                     <Text style={globalStyles.authBack}>Back to Log in</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>

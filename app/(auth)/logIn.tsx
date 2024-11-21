@@ -9,8 +9,10 @@ import {
     TextInput,
     TouchableOpacity,
     View,
+    Modal
 } from 'react-native';
 import {StatusBar} from 'expo-status-bar';
+import SignUpScreen from "@/app/(auth)/signup";
 import {
     AppleAuthenticationButton,
     AppleAuthenticationButtonStyle,
@@ -25,6 +27,7 @@ const LoginScreen = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const authService = useAuthService();
+    const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
 
     const handleEmailLogin = async () => {
         if (!email || !password) {
@@ -44,6 +47,9 @@ const LoginScreen = () => {
         }
     };
 
+    const toggleModal = () => {
+        setIsModalVisible(!isModalVisible);
+    }
 
     const handleAppleLogin = async () => {
         try {
@@ -107,6 +113,7 @@ const LoginScreen = () => {
                         />
                     </View>
 
+
                     <TouchableOpacity
                         style={styles.button}
                         onPress={handleEmailLogin}
@@ -118,7 +125,15 @@ const LoginScreen = () => {
                             <Text style={styles.buttonText}>Sign In</Text>
                         )}
                     </TouchableOpacity>
-
+                    <View style={styles.signUpTextContainer}>
+                        <Text> Don't have an account? </Text>
+                        <TouchableOpacity onPress={toggleModal}>
+                            <Text style={styles.signUpText}>Sign Up</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <Modal visible={isModalVisible} animationType="slide" >
+                        <SignUpScreen toggleModal={toggleModal}/>
+                    </Modal>
                     <View style={styles.divider}>
                         <View style={styles.dividerLine}/>
                         <Text style={styles.dividerText}>or continue with</Text>
@@ -206,6 +221,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
     },
+
 
 });
 
