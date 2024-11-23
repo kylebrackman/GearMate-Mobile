@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Image } from 'react-native';
-import { globalStyles } from "@/theme/styles";
+import React, {useState} from 'react';
+import {View, Text, TextInput, Button, StyleSheet, ScrollView, Image, TouchableOpacity, Modal} from 'react-native';
+import {globalStyles, colors} from "@/theme/styles";
 import RNPickerSelect from 'react-native-picker-select';
 import * as ImagePicker from 'expo-image-picker';
+import ItemLocation from "./map/ItemLocation";
 
 const ListItemForm = () => {
     const [itemName, setItemName] = useState('');
@@ -11,6 +12,7 @@ const ListItemForm = () => {
     const [itemType, setItemType] = useState('');
     const [itemCondition, setItemCondition] = useState('');
     const [image, setImage] = useState<string | null>(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const itemTypes = [
         "Hardware",
@@ -32,17 +34,11 @@ const ListItemForm = () => {
         "Heavy Use"
     ];
 
-    const handleSubmit = () => {
-        // Handle form submission
-        console.log({
-            itemName,
-            price,
-            description,
-            itemType,
-            itemCondition,
-            image
-        });
-    };
+    // Best way to consolidate this function into one place? ie: also used exactly the same in login page
+    const toggleModal = () => {
+        setIsModalVisible(!isModalVisible);
+    }
+
 
 
     const pickImage = async () => {
@@ -90,41 +86,49 @@ const ListItemForm = () => {
                     numberOfLines={4}
                     textAlignVertical="top"
                 />
+                <View style={styles.pickerRow}>
+                    <View style={styles.pickerContainer}>
+                        <Text style={styles.pickerLabel}>Type *</Text>
+                        <RNPickerSelect
+                            onValueChange={(value) => setItemType(value)}
+                            items={
+                                itemTypes.map((type) => ({
+                                    label: type,
+                                    value: type,
+                                }))
+                            }
+                        />
+                    </View>
 
-                <View style={styles.pickerContainer}>
-                    <Text style={styles.pickerLabel}>Item Type *</Text>
-                    <RNPickerSelect
-                        onValueChange={(value) => console.log(value)}
-                        items={[
-                            { label: 'Football', value: 'football' },
-                            { label: 'Baseball', value: 'baseball' },
-                            { label: 'Hockey', value: 'hockey' },
-                        ]}
-                    />
+                    <View style={styles.pickerContainer}>
+                        <Text style={styles.pickerLabel}>Condition *</Text>
+                        <RNPickerSelect
+                            onValueChange={(value) => setItemCondition(value)}
+                            items={
+                                conditions.map((condition) => ({
+                                    label: condition,
+                                    value: condition,
+                                }))
+                            }
+                        />
+                    </View>
                 </View>
 
-                <View style={styles.pickerContainer}>
-                    <Text style={styles.pickerLabel}>Item Condition *</Text>
-                    <RNPickerSelect
-                        onValueChange={(value) => console.log(value)}
-                        items={[
-                            { label: 'Football', value: 'football' },
-                            { label: 'Baseball', value: 'baseball' },
-                            { label: 'Hockey', value: 'hockey' },
-                        ]}
-                    />
+
+                <View>
+                    <Button title="Pick an image from camera roll" onPress={pickImage}/>
+                    {image && <Image source={{uri: image}}/>}
                 </View>
 
-                <View >
-                    <Button title="Pick an image from camera roll" onPress={pickImage} />
-                    {image && <Image source={{ uri: image }} />}
-                </View>
-
-                <Button
-                    title="Submit"
-                    onPress={handleSubmit}
-                    disabled={!itemName || !price || !description || !itemType || !itemCondition}
-                />
+                <TouchableOpacity
+                    onPress={toggleModal}
+                    style={globalStyles.authButton}
+                >
+                    <Text style={globalStyles.buttonText}>Next</Text>
+                </TouchableOpacity>
+                <Modal visible={isModalVisible} animationType="slide" >
+                    <ItemLocation toggleModal={toggleModal}/>
+                </Modal>
             </View>
         </ScrollView>
     );
@@ -134,6 +138,7 @@ const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingTop: 50
     },
     title: {
         fontSize: 20,
@@ -151,15 +156,25 @@ const styles = StyleSheet.create({
 
     },
     pickerLabel: {
-        fontSize: 16,
-        marginBottom: 5,
-        color: '#333',
+        fontSize: 18,           // Slightly larger font size for emphasis
+        fontWeight: 'bold',     // Bold text for better visibility
+        color: colors.primary,  // Use the primary color for consistency
+        marginBottom: 8,        // Space between the label and the picker
+        letterSpacing: 0.5,     // Add slight spacing between letters
     },
     picker: {
         backgroundColor: '#f5f5f5',
         borderRadius: 5,
         marginBottom: 10,
     },
+    pickerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+    },
+
+
 });
 
 export default ListItemForm;

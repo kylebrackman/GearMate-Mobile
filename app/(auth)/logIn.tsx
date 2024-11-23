@@ -126,10 +126,10 @@ const LoginScreen = () => {
                             <Text style={styles.buttonText}>Sign In</Text>
                         )}
                     </TouchableOpacity>
-                    <View style={styles.signUpTextContainer}>
+                    <View >
                         <Text> Don't have an account? </Text>
                         <TouchableOpacity onPress={toggleModal}>
-                            <Text style={styles.signUpText}>Sign Up</Text>
+                            <Text>Sign Up</Text>
                         </TouchableOpacity>
                     </View>
                     <Modal visible={isModalVisible} animationType="slide" >

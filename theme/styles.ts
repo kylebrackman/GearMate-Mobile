@@ -221,4 +221,15 @@ export const globalStyles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
     },
+    pickerLabel: {
+        fontSize: 16,
+        color: colors.primary, // or any color you'd like
+        fontWeight: '600',     // Adjust the weight if needed
+        marginBottom: 5,
+    },
+    pickerItem: {
+        fontSize: 14,
+        color: colors.text,
+    },
+
 });
