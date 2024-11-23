@@ -20,6 +20,7 @@ import {
 } from 'expo-apple-authentication';
 import * as AppleAuthentication from 'expo-apple-authentication'
 import {useAuthService} from "@/hooks/useAuthService";
+import {globalStyles} from "@/theme/styles";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -88,7 +89,7 @@ const LoginScreen = () => {
                 style={styles.keyboardView}
             >
                 <View style={styles.content}>
-                    <Text style={styles.title}>Sign In</Text>
+                    <Text style={styles.title}>Log In</Text>
 
                     {error ? (
                         <Text style={styles.errorText}>{error}</Text>
@@ -115,7 +116,7 @@ const LoginScreen = () => {
 
 
                     <TouchableOpacity
-                        style={styles.button}
+                        style={globalStyles.authButton}
                         onPress={handleEmailLogin}
                         disabled={isLoading}
                     >
@@ -140,7 +141,7 @@ const LoginScreen = () => {
                         <View style={styles.dividerLine}/>
                     </View>
 
-                    <View style={styles.socialButtons}>
+                    <View>
                         {Platform.OS === 'ios' && (
                             <AppleAuthenticationButton
                                 onPress={handleAppleLogin}
