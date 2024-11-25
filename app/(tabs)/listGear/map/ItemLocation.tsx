@@ -14,6 +14,7 @@ const itemLocation = ({ toggleModal }: any) => {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
+                provider={"google"}
             />
             <TouchableOpacity onPress={toggleModal}>
                 <Text>Toggle Modal</Text>
