@@ -12,11 +12,22 @@ const profileDetails = () => {
                     <Text style={globalStyles.headerSecondary}>Name </Text>
                     <Text>City, State</Text>
                 </View>
-
             </Card>
             <View style={styles.settingsView}>
+                <Text style={styles.aboutHeading}>
+                    About
+                </Text>
+                <Text style={styles.aboutDescription}>
+                    I am a climber, runner, and software engineer living in Colorado. I like to climb, run, and code, and upload items to GearMate to make extra cash!
+                </Text>
+                <Divider style={styles.divider}/>
+                {/*TODO: Insert review cards*/}
 
+                <Text style={styles.aboutHeading}>
+                    What others are saying about me!
+                </Text>
             </View>
+
         </View>
     )
 }
@@ -48,5 +59,22 @@ const styles = StyleSheet.create({
     avatarContainer: {
         alignItems: 'center',
         marginBottom: 20,
+    },
+    aboutHeading: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        color: '#333',
+    },
+    aboutDescription: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: '#555',
+        textAlign: 'justify',
+        marginTop: 10,
+    },
+    divider: {
+        marginBottom: 10,
+        marginTop: 20
     },
 })
