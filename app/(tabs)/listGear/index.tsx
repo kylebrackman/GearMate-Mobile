@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet, ScrollView, Image, TouchableOpacity, Modal} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, ScrollView, Image } from 'react-native';
 import {globalStyles, colors} from "@/theme/styles";
 import RNPickerSelect from 'react-native-picker-select';
 import * as ImagePicker from 'expo-image-picker';
-import ItemLocation from "./map/ItemLocation";
+import MapView from "react-native-maps";
 
 const ListItemForm = () => {
     const [itemName, setItemName] = useState('');
@@ -120,15 +120,15 @@ const ListItemForm = () => {
                     {image && <Image source={{uri: image}}/>}
                 </View>
 
-                <TouchableOpacity
-                    onPress={toggleModal}
-                    style={globalStyles.authButton}
-                >
-                    <Text style={globalStyles.buttonText}>Next</Text>
-                </TouchableOpacity>
-                <Modal visible={isModalVisible} animationType="slide" >
-                    <ItemLocation toggleModal={toggleModal}/>
-                </Modal>
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude: 27.9881,
+                        longitude: 86.9250,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                />
             </View>
         </ScrollView>
     );
@@ -172,6 +172,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
+    },
+    map: {
+        width: '100%',
+        height: 200,
+        borderRadius: 10
     },
 
 
