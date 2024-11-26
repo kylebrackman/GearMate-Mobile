@@ -5,6 +5,7 @@ import SearchBarCustom from '@/src/components/search/SearchBarCustom';
 import ItemTypeSearch from '@/src/components/search/ItemTypeSearch';
 import { useRouter } from "expo-router";
 import {globalStyles} from "@/theme/styles";
+import {StyleSheet} from "react-native";
 
 
 type Item = {
@@ -75,7 +76,7 @@ export default function ExploreScreen() {
     );
 
     return (
-        <View style={globalStyles.exploreContainer}>
+        <View style={styles.exploreContainer}>
             <SearchBarCustom />
             <ItemTypeSearch />
             <FlatList
@@ -88,3 +89,10 @@ export default function ExploreScreen() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    exploreContainer: {
+        flex: 1,
+        paddingHorizontal: 20,
+    }
+});

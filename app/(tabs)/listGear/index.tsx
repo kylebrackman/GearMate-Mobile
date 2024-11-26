@@ -59,7 +59,7 @@ const ListItemForm = () => {
 
     return (
         <ScrollView style={styles.scrollView}>
-            <View style={globalStyles.authContainer}>
+            <View style={styles.container}>
                 <Text style={styles.title}>List Your Item</Text>
 
                 <TextInput
@@ -178,7 +178,11 @@ const styles = StyleSheet.create({
         height: 200,
         borderRadius: 10
     },
-
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 30,
+    },
 
 });
 

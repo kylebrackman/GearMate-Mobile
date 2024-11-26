@@ -20,7 +20,7 @@ import {
 } from 'expo-apple-authentication';
 import * as AppleAuthentication from 'expo-apple-authentication'
 import {useAuthService} from "@/hooks/useAuthService";
-import {globalStyles} from "@/theme/styles";
+import {colors, globalStyles} from "@/theme/styles";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -116,7 +116,7 @@ const LoginScreen = () => {
 
 
                     <TouchableOpacity
-                        style={globalStyles.authButton}
+                        style={styles.authButton}
                         onPress={handleEmailLogin}
                         disabled={isLoading}
                     >
@@ -126,13 +126,13 @@ const LoginScreen = () => {
                             <Text style={styles.buttonText}>Sign In</Text>
                         )}
                     </TouchableOpacity>
-                    <View >
+                    <View>
                         <Text> Don't have an account? </Text>
                         <TouchableOpacity onPress={toggleModal}>
                             <Text>Sign Up</Text>
                         </TouchableOpacity>
                     </View>
-                    <Modal visible={isModalVisible} animationType="slide" >
+                    <Modal visible={isModalVisible} animationType="slide">
                         <SignUpScreen toggleModal={toggleModal}/>
                     </Modal>
                     <View style={styles.divider}>
@@ -222,7 +222,32 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
     },
-
+    authContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 30,
+    },
+    authButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    signUpTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    signUpText: {
+        color: '#1976D2',
+        marginLeft: 5,
+        fontWeight: 'bold',
+    },
+    authBackContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
 
 });
 

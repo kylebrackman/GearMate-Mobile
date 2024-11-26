@@ -17,27 +17,27 @@ export default function ProfileScreen() {
     };
 
     return (
-        <View style={globalStyles.marginTop20}>
-            <View style={globalStyles.profileRow}>
+        <View style={styles.marginTop20}>
+            <View style={styles.profileRow}>
                 <Text style={globalStyles.header}>
                     Profile
                 </Text>
                 <AntDesign name="bells" size={24} color="black"/>
             </View>
-            <View style={globalStyles.profileRow}>
+            <View style={styles.profileRow}>
                 <Avatar size={50} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
                 <TouchableOpacity onPress={() => router.push(`/profile/details/${user?.uid}`)}>
                     <AntDesign name="arrowright" size={24} color="black"/>
                 </TouchableOpacity>
             </View>
             <Divider/>
-            <Card containerStyle={globalStyles.profileCard}>
+            <Card containerStyle={styles.profileCard}>
                 <Card.Title>List Your Gear</Card.Title>
                 <Card.Divider/>
                 <Text style={{textAlign: 'center'}}> Passively earn cash off your extra gear! </Text>
             </Card>
-            <View style={globalStyles.settingsView}>
-                <Text style={[globalStyles.headerSecondary, globalStyles.bottomMargin10]}>
+            <View style={styles.settingsView}>
+                <Text style={[globalStyles.headerSecondary, styles.bottomMargin10]}>
                     Settings
                 </Text>
             </View>
@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#fff',
+    },
+    settingsView: {
+        marginHorizontal: 20
     },
     header: {
         marginBottom: 20,
@@ -81,5 +84,29 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontWeight: '600',
+    },
+    bottomMargin10: {
+        marginBottom: 10
+    },
+    marginTop20: {
+        marginTop: 20
+    },
+    profileCard: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        marginBottom: 20,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 3,
+    },
+    profileRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+        marginHorizontal: 20,
+        justifyContent: 'space-between',
     },
 });

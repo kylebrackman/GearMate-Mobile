@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform} from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_AUTH } from "@/src/config/firebaseConfig";
-import { globalStyles } from '@/theme/styles';
+import {colors, globalStyles} from '@/theme/styles';
 import {useAuthService} from "@/hooks/useAuthService";
 import {
     AppleAuthenticationButton,
@@ -40,9 +40,9 @@ export default function SignUpScreen({ toggleModal }: any) { //TODO: clean up th
     };
 
     return (
-        <View style={globalStyles.authContainer}>
+        <View style={styles.authContainer}>
             <KeyboardAvoidingView behavior="padding">
-                <Text style={[globalStyles.header, globalStyles.headerCentered, globalStyles.headerBottomMargin]}>Sign up</Text>
+                <Text style={[globalStyles.header, styles.headerCentered, styles.headerBottomMargin]}>Sign up</Text>
 
                 <TextInput
                     style={globalStyles.standardInput}
@@ -69,11 +69,11 @@ export default function SignUpScreen({ toggleModal }: any) { //TODO: clean up th
                     secureTextEntry
                 />
 
-                <TouchableOpacity style={globalStyles.authButton} onPress={handleSignUp}>
+                <TouchableOpacity style={styles.authButton} onPress={handleSignUp}>
                     <Text style={globalStyles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={globalStyles.authBackContainer} onPress={toggleModal}>
-                    <Text style={globalStyles.authBack}>Back to Log in</Text>
+                <TouchableOpacity style={styles.authBackContainer} onPress={toggleModal}>
+                    <Text style={styles.authBack}>Back to Log in</Text>
                 </TouchableOpacity>
                 <View style={styles.divider}>
                     <View style={styles.dividerLine}/>
@@ -110,5 +110,46 @@ const styles = StyleSheet.create({
     dividerText: {
         marginHorizontal: 10,
         color: '#6B7280',
+    },
+    authButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    signUpTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    signUpText: {
+        color: '#1976D2',
+        marginLeft: 5,
+        fontWeight: 'bold',
+    },
+    authBackContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    authBack: {
+        color: '#1976D2',
+        marginLeft: 5,
+        fontWeight: 'bold',
+    },
+    forgotPassword: {
+        alignItems: 'center',
+        marginTop: 15
+    },
+    authContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 30,
+    },
+    headerCentered: {
+        textAlign: 'center',
+    },
+    headerBottomMargin: {
+        marginBottom: 40
     },
 });

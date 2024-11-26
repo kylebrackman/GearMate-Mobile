@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import {useLocalSearchParams} from "expo-router";
-import {globalStyles} from "@/theme/styles";
+import {colors, globalStyles} from "@/theme/styles";
+import {StyleSheet} from "react-native";
 
 export default function ItemScreen() {
-    const { id } = useLocalSearchParams();
+    const {id} = useLocalSearchParams();
 
     const item = {
         id: 1,
@@ -20,34 +21,134 @@ export default function ItemScreen() {
     return (
         <ScrollView style={globalStyles.container}>
             <Image
-                style={globalStyles.itemImage}
+                style={styles.itemImage}
                 source={item.image}
             />
-            <View style={globalStyles.itemInfoSection}>
+            <View style={styles.itemInfoSection}>
                 <Text style={globalStyles.headerSecondary}>{item.name}</Text>
-                <Text style={globalStyles.itemLocation}>{item.location}</Text>
-                <Text style={globalStyles.itemDetails}>{item.description}</Text>
+                <Text style={styles.itemLocation}>{item.location}</Text>
+                <Text style={styles.itemDetails}>{item.description}</Text>
             </View>
 
-            <View style={globalStyles.itemInfoSection}>
-                <View style={globalStyles.itemRatingRow}>
-                    <Text style={globalStyles.itemRating}>Rating</Text>
+            <View style={styles.itemInfoSection}>
+                <View style={styles.itemRatingRow}>
+                    <Text style={styles.itemRating}>Rating</Text>
                     <TouchableOpacity>
-                        <Text style={globalStyles.itemReviews}>Reviews</Text>
+                        <Text style={styles.itemReviews}>Reviews</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={globalStyles.itemHostSection}>
+            <View style={styles.itemHostSection}>
                 <View>
-                    <Text style={globalStyles.itemHostName}>Owned by OWNER</Text>
+                    <Text style={styles.itemHostName}>Owned by OWNER</Text>
                 </View>
             </View>
-            <View style={globalStyles.itemFooter}>
-                <Text style={globalStyles.itemPrice}> ${item.price} / <Text style={globalStyles.itemPricePerNight}>day</Text></Text>
-                <TouchableOpacity style={[globalStyles.authButton, globalStyles.buttonHorizontalPadding]}>
+            <View style={styles.itemFooter}>
+                <Text style={styles.itemPrice}> ${item.price} / <Text
+                    style={styles.itemPricePerNight}>day</Text></Text>
+                <TouchableOpacity style={[styles.authButton, styles.buttonHorizontalPadding]}>
                     <Text style={globalStyles.buttonText}>Request</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    buttonHorizontalPadding: {
+        paddingHorizontal: 20
+    },
+    itemImage: {
+        width: '100%',
+        height: 300,
+    },
+    itemInfoSection: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+    },
+    itemLocation: {
+        fontSize: 16,
+        color: 'gray',
+        marginTop: 4,
+    },
+    itemDetails: {
+        fontSize: 14,
+        color: 'gray',
+        marginTop: 4,
+    },
+    itemRatingRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    itemRating: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    itemReviews: {
+        marginLeft: 10,
+        color: '#3498db',
+        fontSize: 12,
+    },
+    itemAlertContainer: {
+        backgroundColor: '#fdecea',
+        padding: 16,
+        marginHorizontal: 16,
+        borderRadius: 8,
+        marginVertical: 8,
+    },
+    itemHostSection: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        marginTop: 16,
+    },
+    itemHostImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 16,
+    },
+    itemHostName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    itemHostInfo: {
+        fontSize: 14,
+        color: 'gray',
+    },
+    itemFooter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        borderTopWidth: 1,
+        borderColor: '#e0e0e0',
+    },
+    itemPrice: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    itemPricePerNight: {
+        fontSize: 14,
+        color: 'gray',
+    },
+    itemRequestButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    itemRequestButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    authButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+});
