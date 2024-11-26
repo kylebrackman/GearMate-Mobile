@@ -18,7 +18,7 @@ export default function ProfileScreen() {
     };
 
     return (
-        <ScrollView style={styles.marginTop20}>
+        <ScrollView style={[styles.marginTop20, styles.marginHorizontal]} showsVerticalScrollIndicator={false}>
             <View style={styles.profileRow}>
                 <Text style={globalStyles.header}>
                     Profile
@@ -37,18 +37,19 @@ export default function ProfileScreen() {
                 <Card.Divider/>
                 <Text style={{textAlign: 'center'}}> Passively earn cash off your extra gear! </Text>
             </Card>
-            <View style={styles.settingsView}>
+            <View >
                 <SettingsList/>
 
             </View>
 
-
-            <TouchableOpacity
-                style={styles.logoutButton}
-                onPress={handleLogout}
-            >
-                <Text style={styles.logoutButtonText}>Log Out</Text>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity
+                    style={styles.logoutButton}
+                    onPress={handleLogout}
+                >
+                    <Text style={styles.logoutButtonText}>Log Out</Text>
+                </TouchableOpacity>
+            </View>
         </ScrollView>
     )
 }
@@ -58,9 +59,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#fff',
-    },
-    settingsView: {
-        marginHorizontal: 20
     },
     header: {
         marginBottom: 20,
@@ -74,14 +72,20 @@ const styles = StyleSheet.create({
         color: '#666',
         marginTop: 5,
     },
+    logoutContainer: {
+        alignItems: 'center',
+        marginTop: 20,
+
+    },
     logoutButton: {
-        backgroundColor: '#ff3b30', // iOS red color
-        padding: 15,
+        backgroundColor: 'black', // iOS red color
+        paddingVertical: 10, // Adjust padding for height
+        paddingHorizontal: 20,
         borderRadius: 10,
         alignItems: 'center',
-        marginTop: 'auto', // This will push the button to the bottom
+        alignSelf: 'center', // Center the button
         marginBottom: 20,
-        width: "50%"
+        width: "50%", // Optional: Adjust width if needed
     },
     logoutButtonText: {
         color: '#fff',
@@ -109,7 +113,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
-        marginHorizontal: 20,
         justifyContent: 'space-between',
     },
+    marginHorizontal: {
+        marginHorizontal: 20
+    }
 });

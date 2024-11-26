@@ -7,14 +7,15 @@ const profileDetails = () => {
     return (
         <View style={styles.marginTop20}>
             <Card containerStyle={styles.profileCard}>
-                <Avatar size={100} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
-                <Text style={globalStyles.headerSecondary}>Name </Text>
-                <Text>City, State</Text>
+                <View style={styles.avatarContainer}>
+                    <Avatar size={100} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
+                    <Text style={globalStyles.headerSecondary}>Name </Text>
+                    <Text>City, State</Text>
+                </View>
+
             </Card>
             <View style={styles.settingsView}>
-                <Text style={[globalStyles.headerSecondary, styles.bottomMargin10]}>
-                    Settings
-                </Text>
+
             </View>
         </View>
     )
@@ -43,5 +44,9 @@ const styles = StyleSheet.create({
     },
     bottomMargin10: {
         marginBottom: 10
+    },
+    avatarContainer: {
+        alignItems: 'center',
+        marginBottom: 20,
     },
 })
