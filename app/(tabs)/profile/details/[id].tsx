@@ -6,7 +6,6 @@ import {StyleSheet} from "react-native";
 const profileDetails = () => {
     return (
         <View style={styles.marginTop20}>
-            <Divider/>
             <Card containerStyle={styles.profileCard}>
                 <Avatar size={100} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
                 <Text style={globalStyles.headerSecondary}>Name </Text>
@@ -34,6 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 10,
         marginBottom: 20,
+        marginTop: 20,
         padding: 20,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 2},

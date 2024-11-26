@@ -1,9 +1,10 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import {useAuthService} from "@/hooks/useAuthService";
 import {globalStyles} from "@/theme/styles";
 import {AntDesign} from "@expo/vector-icons";
 import {Avatar, Card, Divider} from "@rneui/themed";
 import {router} from "expo-router";
+import SettingsList from "../../../src/components/user/SettingsList";
 
 export default function ProfileScreen() {
     const {user, signOut} = useAuthService();
@@ -17,7 +18,7 @@ export default function ProfileScreen() {
     };
 
     return (
-        <View style={styles.marginTop20}>
+        <ScrollView style={styles.marginTop20}>
             <View style={styles.profileRow}>
                 <Text style={globalStyles.header}>
                     Profile
@@ -37,17 +38,18 @@ export default function ProfileScreen() {
                 <Text style={{textAlign: 'center'}}> Passively earn cash off your extra gear! </Text>
             </Card>
             <View style={styles.settingsView}>
-                <Text style={[globalStyles.headerSecondary, styles.bottomMargin10]}>
-                    Settings
-                </Text>
+                <SettingsList/>
+
             </View>
+
+
             <TouchableOpacity
                 style={styles.logoutButton}
                 onPress={handleLogout}
             >
                 <Text style={styles.logoutButtonText}>Log Out</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 'auto', // This will push the button to the bottom
         marginBottom: 20,
+        width: "50%"
     },
     logoutButtonText: {
         color: '#fff',
