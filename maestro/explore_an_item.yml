@@ -1,0 +1,8 @@
+appId: "com.gearmate.dev"
+---
+- launchApp
+- assertVisible: " Explore"
+- scroll
+- tapOn: "Kayak Enjoy a day on the water $30 / Day"
+- assertVisible: "Owned By OWNER"
+

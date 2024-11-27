@@ -1,0 +1,12 @@
+appId: "com.gearmate.dev"
+---
+- launchApp
+- assertVisible: "Sign In"
+- tapOn: "Email"
+- inputText: "test@gmail.com"
+- tapOn: "Password"
+- inputText: "test1234"
+- tapOn:
+    id: "email_sign_in_button"
+- assertVisible: " Explore"
+
