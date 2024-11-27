@@ -10,3 +10,26 @@ GearMate is an application where users can rent out various types of gear, games
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
+
+
+# To run the Maestro E2E tests:
+First time need to download:
+1. `brew tap mobile-dev-inc/tap`
+2. `brew install maestro`
+
+Then for each time you e2e run:
+1. eas build:configure
+2. npx expo prebuild
+3. npm run ios
+   - ^ This will take a sec
+4. `cd maestro`
+5. `maestro test login.yaml`
+   - ^ This runs one flow
+
+To run all flows:
+1. Make sure you are back in the root dir
+2. `eas build --profile build-and-maestro-test`
+   - Select All of you have both simulator and emulator running. Otherwise, pick the test platform
+   - ^ This will also take a sec
+

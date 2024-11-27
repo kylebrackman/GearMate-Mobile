@@ -22,6 +22,7 @@ export default function TabsLayout() {
         >
             <Tabs.Screen
                 name="explore"
+
                 options={{
                     title: "Explore",
                     tabBarLabel: "Explore",

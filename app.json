@@ -50,7 +50,6 @@
       "expo-router",
       "expo-apple-authentication",
       "expo-dev-client",
-      "@react-native-google-signin/google-signin"
     ],
     "experiments": {
       "typedRoutes": true

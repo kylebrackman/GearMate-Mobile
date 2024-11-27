@@ -111,6 +111,7 @@ const LoginScreen = () => {
                         style={styles.button}
                         onPress={handleEmailLogin}
                         disabled={isLoading}
+                        testID="email_sign_in_button"
                     >
                         {isLoading ? (
                             <ActivityIndicator color="#ffffff"/>
