@@ -23,14 +23,16 @@
             ]
           }
         ]
-      }
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gearmate.dev"
+      "package": "com.gearmate.dev",
+      "googleServicesFile": "./google-services.json"
     },
     "extra": {
       "appleServiceId": "com.gearmate.devServiceID",
@@ -49,7 +51,8 @@
     "plugins": [
       "expo-router",
       "expo-apple-authentication",
-      "expo-dev-client",
+      "@react-native-google-signin/google-signin",
+      "expo-dev-client"
     ],
     "experiments": {
       "typedRoutes": true
