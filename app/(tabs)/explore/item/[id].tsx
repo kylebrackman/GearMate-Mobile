@@ -1,11 +1,13 @@
-import React from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Image, ScrollView, TouchableOpacity, Modal} from 'react-native';
 import {useLocalSearchParams} from "expo-router";
 import {colors, globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
+import RequestModal from "@/src/components/item/RequestModal";
 
 export default function ItemScreen() {
     const {id} = useLocalSearchParams();
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const item = {
         id: 1,
@@ -17,6 +19,10 @@ export default function ItemScreen() {
         location: "Boulder, CO"
     }
     // TODO: need to now make a fetch call to get the item by id and load this page
+    const toggleModal = () => {
+        setIsModalVisible(!isModalVisible);
+    }
+
 
     return (
         <ScrollView style={globalStyles.container}>
@@ -46,10 +52,13 @@ export default function ItemScreen() {
             <View style={styles.itemFooter}>
                 <Text style={styles.itemPrice}> ${item.price} / <Text
                     style={styles.itemPricePerNight}>day</Text></Text>
-                <TouchableOpacity style={[styles.authButton, styles.buttonHorizontalPadding]}>
+                <TouchableOpacity onPress={toggleModal} style={[styles.authButton, styles.buttonHorizontalPadding]}>
                     <Text style={globalStyles.buttonText}>Request</Text>
                 </TouchableOpacity>
             </View>
+            <Modal visible={isModalVisible} presentationStyle={"formSheet"} animationType={"slide"}>
+                <RequestModal toggleModal={toggleModal}/>
+            </Modal>
         </ScrollView>
     );
 };
