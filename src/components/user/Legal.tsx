@@ -1,32 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {AntDesign} from '@expo/vector-icons';
+import {AntDesign, FontAwesome} from '@expo/vector-icons';
 
-const SettingsList = () => {
+const Legal = () => {
     const settingsOptions = [
         {
-            icon: <AntDesign name="user" size={24} color="black"/>,
-            label: 'Personal information',
-            route: '/settings/personal-info'
-        },
-        {
-            icon: <AntDesign name="creditcard" size={24} color="black"/>,
-            label: 'Payments and payouts',
-            route: '/settings/payments'
-        },
-        {
-            icon: <AntDesign name="lock" size={24} color="black"/>,
-            label: 'Login & security',
-            route: '/settings/security'
-        },
-        {
-            icon: <AntDesign name="bells" size={24} color="black"/>,
-            label: 'Notifications',
-            route: '/settings/notifications'
-        },
-        {
-            icon: <AntDesign name="sharealt" size={24} color="black"/>,
-            label: 'Privacy and sharing',
+            icon: <FontAwesome name="legal" size={24} color="black"/>,
+            label: 'Terms of Service',
             route: '/settings/privacy'
         },
     ];
@@ -37,7 +17,7 @@ const SettingsList = () => {
 
     return (
         <View>
-            <Text style={styles.header}>Settings</Text>
+            <Text style={styles.header}>Legal</Text>
             {settingsOptions.map((option, index) => (
                 <TouchableOpacity
                     key={index}
@@ -53,7 +33,7 @@ const SettingsList = () => {
     );
 }
 
-export default SettingsList
+export default Legal
 
 const styles = StyleSheet.create({
 

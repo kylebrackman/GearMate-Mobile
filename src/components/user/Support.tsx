@@ -1,33 +1,19 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {AntDesign} from '@expo/vector-icons';
+import {AntDesign, MaterialIcons, Entypo, FontAwesome} from '@expo/vector-icons';
 
-const SettingsList = () => {
+const Support = () => {
     const settingsOptions = [
+        {icon: <Entypo name="pencil" size={24} color="black"/>, label: 'Give us feedback!', route: '/settings/privacy'},
         {
-            icon: <AntDesign name="user" size={24} color="black"/>,
-            label: 'Personal information',
+            icon: <FontAwesome name="gear" size={24} color="black"/>,
+            label: 'How GearMate works.',
             route: '/settings/personal-info'
         },
         {
-            icon: <AntDesign name="creditcard" size={24} color="black"/>,
-            label: 'Payments and payouts',
+            icon: <MaterialIcons name="report" size={24} color="black"/>,
+            label: 'Report an issue, scam, or concern.',
             route: '/settings/payments'
-        },
-        {
-            icon: <AntDesign name="lock" size={24} color="black"/>,
-            label: 'Login & security',
-            route: '/settings/security'
-        },
-        {
-            icon: <AntDesign name="bells" size={24} color="black"/>,
-            label: 'Notifications',
-            route: '/settings/notifications'
-        },
-        {
-            icon: <AntDesign name="sharealt" size={24} color="black"/>,
-            label: 'Privacy and sharing',
-            route: '/settings/privacy'
         },
     ];
 
@@ -37,7 +23,7 @@ const SettingsList = () => {
 
     return (
         <View>
-            <Text style={styles.header}>Settings</Text>
+            <Text style={styles.header}>Support</Text>
             {settingsOptions.map((option, index) => (
                 <TouchableOpacity
                     key={index}
@@ -53,7 +39,7 @@ const SettingsList = () => {
     );
 }
 
-export default SettingsList
+export default Support
 
 const styles = StyleSheet.create({
 

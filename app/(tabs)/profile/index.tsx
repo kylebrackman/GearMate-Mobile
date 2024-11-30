@@ -5,6 +5,8 @@ import {AntDesign} from "@expo/vector-icons";
 import {Avatar, Card, Divider} from "@rneui/themed";
 import {router} from "expo-router";
 import SettingsList from "../../../src/components/user/SettingsList";
+import Support from "../../../src/components/user/Support";
+import Legal from "../../../src/components/user/Legal";
 
 export default function ProfileScreen() {
     const {user, signOut} = useAuthService();
@@ -40,6 +42,12 @@ export default function ProfileScreen() {
             <View >
                 <SettingsList/>
 
+            </View>
+            <View>
+                <Support/>
+            </View>
+            <View>
+                <Legal/>
             </View>
 
             <View>
