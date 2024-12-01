@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image, ScrollView, TouchableOpacity, Modal} from 'react-native';
 import {useLocalSearchParams} from "expo-router";
 import {colors, globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
 import RequestModal from "@/src/components/item/RequestModal";
+import dayjs from "dayjs";
 
 export default function ItemScreen() {
     const {id} = useLocalSearchParams();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [startDate, setStartDate] = useState(dayjs());
+    const [endDate, setEndDate] = useState(dayjs());
 
     const item = {
         id: 1,
@@ -22,6 +25,11 @@ export default function ItemScreen() {
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible);
     }
+
+    useEffect(() => {
+        console.log("Start Date:", startDate);
+        console.log("End Date:", endDate);
+    }, [startDate, endDate]);
 
 
     return (
@@ -57,7 +65,13 @@ export default function ItemScreen() {
                 </TouchableOpacity>
             </View>
             <Modal visible={isModalVisible} presentationStyle={"formSheet"} animationType={"slide"}>
-                <RequestModal toggleModal={toggleModal}/>
+                <RequestModal
+                    toggleModal={toggleModal}
+                    startDate={startDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                    setStartDate={setStartDate}
+                />
             </Modal>
         </ScrollView>
     );

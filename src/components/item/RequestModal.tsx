@@ -6,20 +6,21 @@ import dayjs from 'dayjs';
 
 interface RequestModalProps {
     toggleModal: () => void;
+    startDate: dayjs.Dayjs;
+    endDate: dayjs.Dayjs;
+    setStartDate: (date: dayjs.Dayjs) => void;
+    setEndDate: (date: dayjs.Dayjs) => void;
 }
 
-const RequestModal: React.FC<RequestModalProps> = ({toggleModal}) => {
+const RequestModal: React.FC<RequestModalProps> = ({toggleModal, startDate, endDate, setStartDate, setEndDate}) => {
     const [date, setDate] = useState(dayjs());
     const [open, setOpen] = useState(false)
-    const [startDate, setStartDate] = useState(dayjs());
-    const [endDate, setEndDate] = useState(dayjs());
 
     return (
         <View style={[globalStyles.container, styles.padding20]}>
             <TouchableOpacity onPress={toggleModal}>
                 <Text>Back</Text>
             </TouchableOpacity>
-            <Text>RequestModal</Text>
             <View style={styles.dateContainer}>
                 <DateTimePicker
                     mode="range"
