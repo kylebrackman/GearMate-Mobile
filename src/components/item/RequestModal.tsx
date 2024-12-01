@@ -11,6 +11,8 @@ interface RequestModalProps {
 const RequestModal: React.FC<RequestModalProps> = ({toggleModal}) => {
     const [date, setDate] = useState(dayjs());
     const [open, setOpen] = useState(false)
+    const [startDate, setStartDate] = useState(dayjs());
+    const [endDate, setEndDate] = useState(dayjs());
 
     return (
         <View style={[globalStyles.container, styles.padding20]}>
@@ -21,8 +23,13 @@ const RequestModal: React.FC<RequestModalProps> = ({toggleModal}) => {
             <View style={styles.dateContainer}>
                 <DateTimePicker
                     mode="range"
-                    date={date}
-                    onChange={(params) => setDate(params.date)}
+                    // date={date}
+                    startDate={startDate}
+                    endDate={endDate}
+                    onChange={({ startDate, endDate }) => {
+                        setStartDate(startDate); // Update startDate state
+                        setEndDate(endDate);   // Update endDate state
+                    }}
                 />
             </View>
         </View>
