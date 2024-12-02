@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
-import {globalStyles} from "@/theme/styles";
-import DateTimePicker from 'react-native-ui-datepicker';
+import {globalStyles, colors} from "@/theme/styles";
 import {Calendar} from 'react-native-calendars';
 import dayjs from 'dayjs';
 import star from "react-native-ratings/src/components/Star";
@@ -47,25 +46,20 @@ const RequestCard: React.FC<RequestModalProps> = ({
         }
     };
 
+
     return (
         <View style={[globalStyles.container, styles.padding20]}>
-            <TouchableOpacity onPress={toggleModal}>
-                <Text>Back</Text>
+            <TouchableOpacity onPress={toggleModal} style={styles.backButton}>
+                <Text style={styles.backButtonText}>Back</Text>
             </TouchableOpacity>
             <View style={styles.pageContainer}>
-                <Text>
+                <Text style={globalStyles.headerSecondary}>
                     Select Your Date Range
                 </Text>
                 <View>
                     <Calendar
+                        markingType={'period'}
                         markedDates={{
-                            [today]: {
-                                selected: true,
-                                marked: true,
-                                dotColor: '#00aaff',
-                                selectedColor: 'black',
-                                startingDay: true
-                            },
                             ...(startingDay && {
                                 [startingDay.format('YYYY-MM-DD')]: {
                                     selected: true,
@@ -108,5 +102,20 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingTop: 30
+    },
+    backButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'flex-start', // Ensures the button doesn't stretch
+        marginVertical: 10,     // Adds spacing around the button
+    },
+    backButtonText: {
+        color: colors.buttonText,
+        fontSize: 16,
+        fontWeight: '600',
     },
 })
