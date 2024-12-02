@@ -15,12 +15,12 @@ interface RequestModalProps {
 }
 
 const RequestCard: React.FC<RequestModalProps> = ({
-                                                       toggleModal,
-                                                       startingDay,
-                                                       endingDay,
-                                                       setStartingDay,
-                                                       setEndingDay
-                                                   }) => {
+                                                      toggleModal,
+                                                      startingDay,
+                                                      endingDay,
+                                                      setStartingDay,
+                                                      setEndingDay
+                                                  }) => {
 
 
     const today = dayjs().format('YYYY-MM-DD')
