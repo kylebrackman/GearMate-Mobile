@@ -15,7 +15,7 @@ interface RequestModalProps {
     setEndingDay: React.Dispatch<React.SetStateAction<dayjs.Dayjs | null>>;
 }
 
-const RequestModal: React.FC<RequestModalProps> = ({
+const RequestCard: React.FC<RequestModalProps> = ({
                                                        toggleModal,
                                                        startingDay,
                                                        endingDay,
@@ -94,7 +94,7 @@ const RequestModal: React.FC<RequestModalProps> = ({
     )
 }
 
-export default RequestModal
+export default RequestCard
 
 const styles = StyleSheet.create({
     padding20: {

@@ -3,7 +3,7 @@ import {View, Text, Image, ScrollView, TouchableOpacity, Modal} from 'react-nati
 import {useLocalSearchParams} from "expo-router";
 import {colors, globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
-import RequestModal from "@/src/components/item/RequestModal";
+import RequestCard from "@/src/components/item/RequestCard";
 import dayjs from "dayjs";
 
 export default function ItemScreen() {
@@ -66,7 +66,7 @@ export default function ItemScreen() {
                 </TouchableOpacity>
             </View>
             <Modal visible={isModalVisible} presentationStyle={"formSheet"} animationType={"slide"}>
-                <RequestModal
+                <RequestCard
                     toggleModal={toggleModal}
                     startingDay={startingDay}
                     endingDay={endingDay}
