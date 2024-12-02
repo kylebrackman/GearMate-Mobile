@@ -9,8 +9,9 @@ import dayjs from "dayjs";
 export default function ItemScreen() {
     const {id} = useLocalSearchParams();
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [startDate, setStartDate] = useState(dayjs());
-    const [endDate, setEndDate] = useState(dayjs());
+    const [startingDay, setStartingDay] = useState<dayjs.Dayjs | null>(null);
+    const [endingDay, setEndingDay] = useState<dayjs.Dayjs | null>(null);
+
 
     const item = {
         id: 1,
@@ -27,9 +28,9 @@ export default function ItemScreen() {
     }
 
     useEffect(() => {
-        console.log("Start Date:", startDate);
-        console.log("End Date:", endDate);
-    }, [startDate, endDate]);
+        console.log("Start Date:", startingDay);
+        console.log("End Date:", endingDay);
+    }, [startingDay, endingDay]);
 
 
     return (
@@ -67,10 +68,10 @@ export default function ItemScreen() {
             <Modal visible={isModalVisible} presentationStyle={"formSheet"} animationType={"slide"}>
                 <RequestModal
                     toggleModal={toggleModal}
-                    startDate={startDate}
-                    endDate={endDate}
-                    setEndDate={setEndDate}
-                    setStartDate={setStartDate}
+                    startingDay={startingDay}
+                    endingDay={endingDay}
+                    setEndingDay={setEndingDay}
+                    setStartingDay={setStartingDay}
                 />
             </Modal>
         </ScrollView>
