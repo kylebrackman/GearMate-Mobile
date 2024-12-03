@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet, TextInput} from "react-native";
 import {globalStyles, colors} from "@/theme/styles";
 import {Calendar} from 'react-native-calendars';
 import dayjs from 'dayjs';
-import star from "react-native-ratings/src/components/Star";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface RequestModalProps {
     toggleModal: () => void;
@@ -52,8 +52,8 @@ const RequestCard: React.FC<RequestModalProps> = ({
             <TouchableOpacity onPress={toggleModal} style={styles.backButton}>
                 <Text style={styles.backButtonText}>Back</Text>
             </TouchableOpacity>
-            <View style={styles.pageContainer}>
-                <Text style={globalStyles.headerSecondary}>
+            <View >
+                <Text style={[globalStyles.headerSecondary, styles.marginTop10]}>
                     Select Your Date Range
                 </Text>
                 <View>
@@ -77,12 +77,27 @@ const RequestCard: React.FC<RequestModalProps> = ({
                                 },
                             }),
                         }}
-                        displayLoadingIndicator={true}
+                        // displayLoadingIndicator={true}
                         disableAllTouchEventsForDisabledDays={true}
                         onDayPress={handleDayPress}
                         minDate={today}
                     />
                 </View>
+                {/* Add section for estimated time pickup && dropoff*/}
+                {/*<DateTimePicker value={date} mode="time" />*/}
+
+                <View style={styles.infoInputContainer}>
+                    <Text style={styles.inputLabel}>Any info you'd like to send to the owner?</Text>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Enter your message here"
+                        multiline
+                        numberOfLines={4}
+                    />
+                </View>
+                <TouchableOpacity style={styles.sendRequestButton} onPress={() => console.log('Request sent!')}>
+                    <Text style={styles.sendRequestButtonText}>Send Request</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -95,16 +110,17 @@ const styles = StyleSheet.create({
         padding: 20
     },
     dateContainer: {
-        marginBottom: 20,
-        padding: 20
+        justifyContent: 'center',
+        marginHorizontal: 10
     },
     pageContainer: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: 30
+        paddingTop: 30,
+        justifyContent: 'center',
     },
     backButton: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.secondary,
         paddingVertical: 5,
         paddingHorizontal: 20,
         borderRadius: 8,
@@ -116,6 +132,44 @@ const styles = StyleSheet.create({
     backButtonText: {
         color: colors.buttonText,
         fontSize: 16,
+        fontWeight: '600',
+    },
+    infoInputContainer: {
+        width: '100%',
+        marginVertical: 20,
+    },
+    inputLabel: {
+        fontSize: 16,
+        marginBottom: 10,
+        fontWeight: '500',
+    },
+    textInput: {
+        borderWidth: 1,
+        borderColor: "black",
+        borderRadius: 8,
+        padding: 10,
+        fontSize: 16,
+        color: colors.primary,
+        textAlignVertical: 'top',
+        minHeight: 100
+    },
+    marginTop10: {
+        marginTop: 10
+    },
+    sendRequestButton: {
+        backgroundColor: colors.primary, // Replace with your primary color
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 20, // Adds spacing above/below the button
+        width: '85%', // Ensures consistent width matching other components
+        alignSelf: 'center', // Centers the button horizontally
+    },
+    sendRequestButtonText: {
+        color: colors.buttonText || '#ffffff', // Replace with your button text color
+        fontSize: 18,
         fontWeight: '600',
     },
 })

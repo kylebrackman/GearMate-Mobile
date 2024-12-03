@@ -33,6 +33,8 @@ export default function ItemScreen() {
     }, [startingDay, endingDay]);
 
 
+
+
     return (
         <ScrollView style={globalStyles.container}>
             <Image
