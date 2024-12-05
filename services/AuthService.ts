@@ -3,7 +3,7 @@ import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
-    User, OAuthProvider, signInWithCredential
+    User, OAuthProvider, signInWithCredential, UserCredential
 } from 'firebase/auth';
 
 export class AuthService {
@@ -18,17 +18,36 @@ export class AuthService {
         }
     }
 
-    async signInWithApple(identityToken: string): Promise<User> {
+    private async signInWithCredentials(provider: OAuthProvider, identityToken: string): Promise<UserCredential> {
         try {
-            const provider = new OAuthProvider('apple.com');
-            const credential = provider.credential({
-                idToken: identityToken,
-            });
-            const {user} = await signInWithCredential(this.auth, credential);
-            return user;
+            console.log("Over in this")
+            const credential = provider.credential({idToken: identityToken});
+            return await signInWithCredential(this.auth, credential);
         } catch (error) {
+            console.log("Or error", error)
             throw this.handleError(error);
         }
+    }
+
+    async signInWithApple(identityToken: string): Promise<User> {
+        console.log("Hey")
+        const provider = new OAuthProvider('apple.com');
+        provider.setCustomParameters({
+            aud: 'com.gearmate.dev'
+        });
+        console.log("Hey 2")
+        const {user} = await this.signInWithCredentials(provider, identityToken);
+        console.log("Hey 3")
+        return user;
+    }
+
+    async signInWithGoogle(identityToken: string): Promise<User> {
+        console.log("Hey")
+        const provider = new OAuthProvider('google.com');
+        console.log("Next")
+        const {user} = await this.signInWithCredentials(provider, identityToken);
+        console.log("Made it")
+        return user;
     }
 
     async signUp(email: string, password: string): Promise<User> {

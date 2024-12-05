@@ -20,7 +20,19 @@ import {
 } from 'expo-apple-authentication';
 import * as AppleAuthentication from 'expo-apple-authentication'
 import {useAuthService} from "@/hooks/useAuthService";
-import {colors, globalStyles} from "@/theme/styles";
+import {colors} from "@/theme/styles";
+import {
+    GoogleSignin, isErrorWithCode, GoogleSigninButton,
+    statusCodes,
+} from '@react-native-google-signin/google-signin';
+
+
+GoogleSignin.configure(
+    {
+        webClientId:"246799732026-0op12133h0v0r37bjctcldo9cl708t87.apps.googleusercontent.com",
+        iosClientId: "246799732026-9gv6dilt9tm1k8if24sjq33ci3p06t76.apps.googleusercontent.com"
+    }
+);
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -52,16 +64,47 @@ const LoginScreen = () => {
         setIsModalVisible(!isModalVisible);
     }
 
+    const handleGoogleSignIn = async () => {
+        try {
+            await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+            const googleCredential = await GoogleSignin.signIn();
+            if (googleCredential.data?.idToken) {
+                await authService.signInWithGoogle(googleCredential.data?.idToken);
+                // Navigation will be handled by the auth state change in AuthContext
+            }
+        } catch (error) {
+            console.log("Error details:", JSON.stringify(error));
+
+            if (isErrorWithCode(error)) {
+                switch (error.code) {
+                    case statusCodes.IN_PROGRESS:
+                        // operation (eg. sign in) already in progress
+                        break;
+                    case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+                        // Android only, play services not available or outdated
+                        break;
+                    default:
+                    // some other error happened
+                }
+            } else {
+                // an error that's not related to google sign in occurred
+            }
+        }
+    };
+
     const handleAppleLogin = async () => {
         try {
             setIsLoading(true);
             setError('');
 
+            const nonce = Math.random().toString(36).substring(2, 10);
+
             const appleCredential = await AppleAuthentication.signInAsync({
                 requestedScopes: [
                     AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
                     AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                ]
+                ],
+                nonce: nonce
             });
 
             if (appleCredential.identityToken) {
@@ -69,6 +112,7 @@ const LoginScreen = () => {
                 // Navigation will be handled by the auth state change in AuthContext
             }
         } catch (error: any) {
+            console.log(error)
             if (error.code === 'ERR_CANCELED') {
                 setError('Sign in was canceled');
             } else if (error.code === 'auth/invalid-credential') {
@@ -151,6 +195,7 @@ const LoginScreen = () => {
                                 cornerRadius={10}
                             />
                         )}
+                        <GoogleSigninButton onPress={handleGoogleSignIn} />
                     </View>
                 </View>
             </KeyboardAvoidingView>

@@ -15,7 +15,12 @@
     "ios": {
       "supportsTablet": true,
       "usesAppleSignIn": true,
-      "bundleIdentifier": "gearmate.dev",
+      "bundleIdentifier": "com.gearmate.dev",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "usesSignInWithApple": true,
+        "clientId": "com.gearmate.dev"
+      },
       "infoPlist": {
         "CFBundleURLTypes": [
           {
@@ -25,6 +30,7 @@
       }
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       },
@@ -36,7 +42,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "bb7b7a91-1ef0-48c8-bef7-a9c0bcea6625"
+        "projectId": "0b029570-03dd-47ca-88a6-bd013a9fe0e7"
       }
     },
     "web": {
@@ -47,12 +53,22 @@
     "plugins": [
       "expo-router",
       "expo-apple-authentication",
+      "@react-native-firebase/app",
       "expo-dev-client",
+      "@react-native-google-signin/google-signin",
       [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends.",
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
         }
       ]
     ],
