@@ -74,7 +74,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "owner": "kylebrackman"
+    }
   }
 }
