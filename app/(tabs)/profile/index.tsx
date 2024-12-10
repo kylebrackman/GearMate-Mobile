@@ -4,9 +4,9 @@ import {globalStyles} from "@/theme/styles";
 import {AntDesign} from "@expo/vector-icons";
 import {Avatar, Card, Divider} from "@rneui/themed";
 import {router} from "expo-router";
-import SettingsList from "../../../src/components/user/SettingsList";
-import Support from "../../../src/components/user/Support";
-import Legal from "../../../src/components/user/Legal";
+import SettingsList from "../../../src/components/user/nav/SettingsList";
+import Support from "../../../src/components/user/nav/Support";
+import Legal from "../../../src/components/user/nav/Legal";
 
 export default function ProfileScreen() {
     const {user, signOut} = useAuthService();
@@ -21,19 +21,26 @@ export default function ProfileScreen() {
 
     return (
         <ScrollView style={[styles.marginTop20, styles.marginHorizontal]} showsVerticalScrollIndicator={false}>
-            <View style={styles.profileRow}>
+            <View style={styles.headerRow}>
                 <Text style={globalStyles.header}>
                     Profile
                 </Text>
                 <AntDesign name="bells" size={24} color="black"/>
             </View>
-            <View style={styles.profileRow}>
+            <View style={styles.headerRow}>
                 <Avatar size={50} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
                 <TouchableOpacity onPress={() => router.push(`/profile/details/${user?.uid}`)}>
                     <AntDesign name="arrowright" size={24} color="black"/>
                 </TouchableOpacity>
             </View>
             <Divider/>
+            <View style={styles.headerRow}>
+                <Text style={[globalStyles.header, styles.gearHeader]}>
+                    Your Gear
+                </Text>
+            </View>
+            <Divider/>
+
             <Card containerStyle={styles.profileCard}>
                 <Card.Title>List Your Gear</Card.Title>
                 <Card.Divider/>
@@ -117,7 +124,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 3,
     },
-    profileRow: {
+    headerRow: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
@@ -125,5 +132,8 @@ const styles = StyleSheet.create({
     },
     marginHorizontal: {
         marginHorizontal: 20
+    },
+    gearHeader: {
+        paddingTop: 20,
     }
 });
