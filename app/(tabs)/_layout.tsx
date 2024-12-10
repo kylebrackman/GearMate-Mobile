@@ -1,5 +1,7 @@
 import {Tabs} from "expo-router";
 import {useAuth} from "@/context/AuthContext";
+import {AntDesign} from "@expo/vector-icons";
+import {colors} from "@/theme/styles";
 
 export default function TabsLayout() {
     const {user} = useAuth();
@@ -9,12 +11,19 @@ export default function TabsLayout() {
     }
 
     return (
-        <Tabs>
+        <Tabs
+            screenOptions={{
+                tabBarActiveTintColor: colors.primary,
+            }}
+        >
             <Tabs.Screen
                 name="explore"
                 options={{
                     title: "Explore",
                     headerShown: false,
+                    tabBarIcon: ({color}) => (
+                        <AntDesign name="search1" size={24} color={color}/>
+                    ),
                 }}
             />
             <Tabs.Screen
@@ -22,6 +31,9 @@ export default function TabsLayout() {
                 options={{
                     title: "List",
                     headerShown: false,
+                    tabBarIcon: ({color}) => (
+                        <AntDesign name="plus" size={24} color={color}/>
+                    ),
                 }}
             />
             <Tabs.Screen
@@ -29,6 +41,9 @@ export default function TabsLayout() {
                 options={{
                     title: "Messages",
                     headerShown: false,
+                    tabBarIcon: ({color}) => (
+                        <AntDesign name="message1" size={24} color={color}/>
+                    ),
                 }}
             />
             <Tabs.Screen
@@ -36,6 +51,9 @@ export default function TabsLayout() {
                 options={{
                     title: "Profile",
                     headerShown: false,
+                    tabBarIcon: ({color}) => (
+                        <AntDesign name="user" size={24} color={color}/>
+                    ),
                 }}
             />
             <Tabs.Screen
