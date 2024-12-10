@@ -36,7 +36,7 @@ export default function TabBar() {
 
     const handleTabPress = (tabName: string) => {
         if (!pathname.startsWith(`/${tabName}`)) {
-            router.replace(`/${tabName}` as Href<`/${string}`>);
+            router.push(`/${tabName}` as Href<`/${string}`>);
         }
     };
 

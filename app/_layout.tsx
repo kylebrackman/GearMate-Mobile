@@ -1,5 +1,5 @@
 import {ReactNode, useEffect, useState} from "react";
-import {Navigator, SplashScreen, Tabs, useRouter, useSegments} from "expo-router";
+import {Navigator, SplashScreen, Stack, Tabs, useRouter, useSegments} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StyleSheet, ActivityIndicator, View} from "react-native";
 import {AuthProvider, useAuth} from "@/context/AuthContext";
@@ -47,7 +47,9 @@ export default function RootLayout() {
         <AuthProvider>
             <SafeAreaView style={styles.container}>
                 <AuthCheck>
-                    <Slot />
+                    <Stack>
+                        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    </Stack>
                 </AuthCheck>
             </SafeAreaView>
         </AuthProvider>

@@ -1,51 +1,47 @@
-import { Tabs } from "expo-router";
-import TabBar from "@/components/TabBar";
-import { useAuth } from "@/context/AuthContext";
+import {Tabs} from "expo-router";
+import {useAuth} from "@/context/AuthContext";
 
 export default function TabsLayout() {
-    const { user } = useAuth();
+    const {user} = useAuth();
 
     if (!user) {
         return null;
     }
 
     return (
-        <Tabs
-            tabBar={() => <TabBar />}
-            screenOptions={{
-                tabBarStyle: {
-                    height: 45,
-                    paddingBottom: 5,
-                },
-                headerShown: false,
-            }}
-        >
+        <Tabs>
             <Tabs.Screen
                 name="explore"
                 options={{
                     title: "Explore",
-                    tabBarLabel: "Explore",
+                    headerShown: false,
+                }}
+            />
+            <Tabs.Screen
+                name="listGear"
+                options={{
+                    title: "List",
+                    headerShown: false,
                 }}
             />
             <Tabs.Screen
                 name="messages"
                 options={{
                     title: "Messages",
-                    tabBarLabel: "Messages",
-                }}
-            />
-            <Tabs.Screen
-                name="listGear"
-                options={{
-                    title: "List Gear",
-                    tabBarLabel: "List",
+                    headerShown: false,
                 }}
             />
             <Tabs.Screen
                 name="profile"
                 options={{
                     title: "Profile",
-                    tabBarLabel: "Profile",
+                    headerShown: false,
+                }}
+            />
+            <Tabs.Screen
+                name="search"
+                options={{
+                    href: null
                 }}
             />
         </Tabs>
