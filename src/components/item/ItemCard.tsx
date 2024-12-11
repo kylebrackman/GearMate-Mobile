@@ -8,56 +8,114 @@ type ItemCardProps = {
   description: string;
   price: number;
   handlePress?: () => void;
+  variant?: 'default' | 'compact';
 };
 
-const ItemCard: React.FC<ItemCardProps> = ({ name, image, description, price, handlePress }) => {
+const ItemCard: React.FC<ItemCardProps> = ({
+                                             name,
+                                             image,
+                                             description,
+                                             price,
+                                             handlePress,
+                                             variant = 'default'
+                                           }) => {
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <View style={styles.card}>
-        <Image source={image} style={styles.image} />
-        <View style={styles.infoContainer}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.description}>{description}</Text>
-          <Text style={styles.price}>${price} / Day</Text>
+      <TouchableOpacity onPress={handlePress}>
+        <View style={[
+          styles.card,
+          variant === 'compact' && styles.compactCard
+        ]}>
+          <Image
+              source={image}
+              style={[
+                styles.image,
+                variant === 'compact' && styles.compactImage
+              ]}
+          />
+          <View style={[
+            styles.infoContainer,
+            variant === 'compact' && styles.compactInfoContainer
+          ]}>
+            <Text
+                style={[
+                  styles.name,
+                  variant === 'compact' && styles.compactName
+                ]}
+            >
+              {name}
+            </Text>
+            <Text
+                style={[
+                  styles.description,
+                  variant === 'compact' && styles.compactDescription
+                ]}
+                numberOfLines={variant === 'compact' ? 1 : 2}
+            >
+              {description}
+            </Text>
+            <Text
+                style={[
+                  styles.price,
+                  variant === 'compact' && styles.compactPrice
+                ]}
+            >
+              ${price} / Day
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    // backgroundColor: '#fff',
     overflow: 'hidden',
-    elevation: 3, // For Android shadow
-    // shadowColor: '#000',
-    // shadowOffset: { width: 0, height: 2 }, // For iOS shadow
-    // shadowOpacity: 0.2,
-    // shadowRadius: 5,
+    elevation: 3,
     marginBottom: 15,
     width: '100%',
+  },
+  compactCard: {
+    marginBottom: 10,
   },
   image: {
     width: '100%',
     height: 300,
     borderRadius: 10,
   },
+  compactImage: {
+    height: 150, // or use aspectRatio: 1 for perfect square
+    aspectRatio: 1,
+  },
   infoContainer: {
     padding: 10,
+  },
+  compactInfoContainer: {
+    padding: 8,
   },
   name: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
   },
+  compactName: {
+    fontSize: 14,
+    marginBottom: 3,
+  },
   description: {
     fontSize: 14,
     color: '#666',
     marginBottom: 5,
   },
+  compactDescription: {
+    fontSize: 12,
+    marginBottom: 3,
+  },
   price: {
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  compactPrice: {
+    fontSize: 13,
   },
 });
 

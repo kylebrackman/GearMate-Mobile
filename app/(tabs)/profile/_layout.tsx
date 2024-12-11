@@ -18,6 +18,14 @@ export default function ProfileLayout() {
                     headerTintColor: "black",
                 }}
             />
+            <Stack.Screen
+                name={"items/index"}
+                options={{
+                    headerTransparent: true,
+                    headerTitle: "",
+                    headerTintColor: "black",
+                }}
+            />
         </Stack>
     );
 }
