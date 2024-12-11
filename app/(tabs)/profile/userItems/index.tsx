@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, FlatList, Dimensions, StyleSheet } from 'react-native';
+import { View, FlatList, Dimensions, StyleSheet, Text } from 'react-native';
 import ItemCard from '@/src/components/item/ItemCard';
 import { useRouter } from "expo-router";
+import {globalStyles} from "@/theme/styles";
 
 type Item = {
     id: number;
@@ -76,6 +77,7 @@ export default function UserItems() {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.header}> View or Edit Your Gear Below</Text>
             <FlatList
                 data={allItems}
                 renderItem={renderItem}
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
+        paddingTop: 50
     },
     listContainer: {
         paddingBottom: 50,
@@ -104,5 +107,11 @@ const styles = StyleSheet.create({
     itemContainer: {
         // Individual item container styling
         // You might need to adjust ItemCard component styling to fit well in this width
+    },
+    header: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333',
+        paddingBottom: 20
     }
 });

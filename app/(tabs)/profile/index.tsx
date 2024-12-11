@@ -38,7 +38,7 @@ export default function ProfileScreen() {
                 <Text style={[globalStyles.header, styles.gearHeader]}>
                     Your Gear
                 </Text>
-                <TouchableOpacity onPress={() => router.push(`/profile/items`)}>
+                <TouchableOpacity onPress={() => router.push(`/profile/userItems`)}>
                     <AntDesign name="arrowright" size={24} color="black"/>
                 </TouchableOpacity>
             </View>

@@ -58,7 +58,7 @@ const allItems: Item[] = [
         price: 50,
         condition: 'Used',
     },
-    // Add more items as needed
+    // Add more userItems as needed
 ];
 
 export default function ExploreScreen() {

@@ -11,15 +11,7 @@ export default function ProfileLayout() {
                 }}
             />
             <Stack.Screen
-                name="details/[id]"
-                options={{
-                    headerTransparent: true,
-                    headerTitle: "",
-                    headerTintColor: "black",
-                }}
-            />
-            <Stack.Screen
-                name={"items/index"}
+                name="userItems"
                 options={{
                     headerTransparent: true,
                     headerTitle: "",
