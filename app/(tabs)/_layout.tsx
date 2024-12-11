@@ -45,12 +45,12 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen
-                name="messages"
+                name="inbox"
                 options={{
-                    title: "Messages",
+                    title: "Inbox",
                     headerShown: false,
                     tabBarIcon: ({color}) => (
-                        <AntDesign name="message1" size={24} color={color}/>
+                        <AntDesign name="inbox" size={24} color={color}/>
                     ),
                 }}
             />

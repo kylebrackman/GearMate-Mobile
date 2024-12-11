@@ -1,9 +1,9 @@
 import {View, Text} from 'react-native'
 
-export default function Messages() {
+export default function Inbox() {
     return (
         <View>
-            <Text>Messages</Text>
+            <Text>Inbox</Text>
         </View>
     )
 }
