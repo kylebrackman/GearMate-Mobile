@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, FlatList, Dimensions, StyleSheet, Text } from 'react-native';
+import {View, FlatList, Dimensions, StyleSheet, Text} from 'react-native';
 import ItemCard from '@/src/components/item/ItemCard';
-import { useRouter } from "expo-router";
+import {useRouter} from "expo-router";
 import {globalStyles} from "@/theme/styles";
+import {Divider} from "@rneui/themed";
 
 type Item = {
     id: number;
@@ -61,8 +62,8 @@ export default function UserItems() {
     const screenWidth = Dimensions.get('window').width;
     const itemWidth = (screenWidth - 60) / 2;
 
-    const renderItem = ({ item }: { item: Item }) => (
-        <View style={[styles.itemContainer, { width: itemWidth }]}>
+    const renderItem = ({item}: { item: Item }) => (
+        <View style={[styles.itemContainer, {width: itemWidth}]}>
             <ItemCard
                 id={item.id}
                 name={item.name}
@@ -78,6 +79,7 @@ export default function UserItems() {
     return (
         <View style={styles.container}>
             <Text style={styles.header}> View or Edit Your Gear Below</Text>
+            <Divider style={styles.divider}/>
             <FlatList
                 data={allItems}
                 renderItem={renderItem}
@@ -113,5 +115,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#333',
         paddingBottom: 20
-    }
+    },
+    divider: {
+        marginBottom: 20
+    },
 });
