@@ -49,7 +49,7 @@ export default function ProfileScreen() {
                 <Card.Divider/>
                 <Text style={{textAlign: 'center'}}> Passively earn cash off your extra gear! </Text>
             </Card>
-            <View >
+            <View>
                 <SettingsList/>
 
             </View>
