@@ -71,7 +71,7 @@ export default function UserItems() {
                 description={item.description}
                 price={item.price}
                 variant="compact"
-                // handlePress={() => router.push(`/userItems/${item.id}`)}
+                handlePress={() => router.push(`/profile/userItems/item/${item.id}`)}
             />
         </View>
     );
