@@ -14,13 +14,13 @@ app/
 │   ├── _layout.tsx      # Tabs layout
 │   ├── explore/
 │   │   ├── _layout.tsx  # Stack navigator for "Explore"
-│   │   ├── index.tsx    # Explore main screen
+│   │   ├── Inbox.tsx    # Explore main screen
 │   │   └── item/
 │   │       └── [id].tsx # Item details screen
 │   ├── messages/
-│   │   └── index.tsx
+│   │   └── Inbox.tsx
 │   ├── listGear/
-│   │   └── index.tsx
+│   │   └── Inbox.tsx
 │   └── profile/
-│       └── index.tsx
+│       └── Inbox.tsx
 └── _layout.tsx          # Root layout with Slot

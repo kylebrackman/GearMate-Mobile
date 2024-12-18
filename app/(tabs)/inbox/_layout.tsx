@@ -4,8 +4,8 @@ export default function MessageLayout() {
     return (
         <Stack>
             <Stack.Screen
-                name="index"
-                options={{ headerShown: false }}
+                name="Inbox"
+                // options={{ headerShown: true }}
             />
 
         </Stack>
