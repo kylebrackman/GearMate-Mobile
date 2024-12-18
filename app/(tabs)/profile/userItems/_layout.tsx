@@ -16,6 +16,7 @@ export default function ProfileLayout() {
                     headerTransparent: true,
                     headerTitle: "",
                     headerTintColor: "black",
+
                 }}
             />
         </Stack>

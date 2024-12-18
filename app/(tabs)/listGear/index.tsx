@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet, ScrollView, Image } from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {globalStyles, colors} from "@/theme/styles";
 import RNPickerSelect from 'react-native-picker-select';
 import * as ImagePicker from 'expo-image-picker';
@@ -115,9 +115,11 @@ const ListItemForm = () => {
                 </View>
 
 
-                <View>
-                    <Button title="Pick an image from camera roll" onPress={pickImage}/>
-                    {image && <Image source={{uri: image}}/>}
+                <View style={styles.center}>
+                    <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
+                        <Text style={globalStyles.buttonText}>Upload Image</Text>
+                    </TouchableOpacity>
+                    {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, marginTop: 10 }} />}
                 </View>
 
                 <MapView
@@ -183,7 +185,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 30,
     },
-
+    uploadButton: {
+        backgroundColor: colors.primary,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 20,
+        width: "50%",
+        marginBottom: 10
+    },
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export default ListItemForm;
