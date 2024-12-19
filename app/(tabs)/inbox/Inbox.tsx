@@ -19,7 +19,6 @@ export default function Inbox() {
 
     return (
         <View style={styles.container}>
-            {/* Toggle Header */}
             <View style={styles.toggleContainer}>
                 <TouchableOpacity
                     style={[
@@ -52,7 +51,6 @@ export default function Inbox() {
                 </TouchableOpacity>
             </View>
 
-            {/* Content Area */}
             {activeTab === 'messages' ? <MessagesContent /> : <NotificationsContent />}
         </View>
     );
