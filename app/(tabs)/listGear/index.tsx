@@ -3,6 +3,7 @@ import {View, Text, TextInput, Button, StyleSheet, ScrollView, Image, TouchableO
 import {globalStyles, colors} from "@/theme/styles";
 import RNPickerSelect from 'react-native-picker-select';
 import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 import MapView from "react-native-maps";
 
 const ListItemForm = () => {
@@ -13,6 +14,8 @@ const ListItemForm = () => {
     const [itemCondition, setItemCondition] = useState('');
     const [image, setImage] = useState<string | null>(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
     const itemTypes = [
         "Hardware",
@@ -39,7 +42,17 @@ const ListItemForm = () => {
         setIsModalVisible(!isModalVisible);
     }
 
+    const getLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+            return;
+        }
 
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+
+    }
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -121,7 +134,12 @@ const ListItemForm = () => {
                     </TouchableOpacity>
                     {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, marginTop: 10 }} />}
                 </View>
-
+                <View style={styles.center}>
+                    <TouchableOpacity onPress={getLocation} style={styles.uploadButton}>
+                        <Text style={globalStyles.buttonText}>Get Location</Text>
+                    </TouchableOpacity>
+                    {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, marginTop: 10 }} />}
+                </View>
                 <MapView
                     style={styles.map}
                     initialRegion={{
