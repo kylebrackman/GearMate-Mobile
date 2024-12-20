@@ -7,11 +7,20 @@ export default function ProfileLayout() {
                 name="index"
                 options={{
                     headerShown: false,
-                    title: ""
+                    title: "",
+                    headerTransparent: true
                 }}
             />
             <Stack.Screen
-                name="userItems"
+                name="userItems/index"
+                options={{
+                    headerTransparent: true,
+                    headerTitle: "",
+                    headerTintColor: "black",
+                }}
+            />
+            <Stack.Screen
+                name="userItems/item/[id]"
                 options={{
                     headerTransparent: true,
                     headerTitle: "",
