@@ -3,18 +3,18 @@ import {
     View,
     Text,
     TextInput,
-    Button,
     StyleSheet,
     ScrollView,
     Image,
     TouchableOpacity,
-    SafeAreaView
+    SafeAreaView, Modal
 } from 'react-native';
 import {globalStyles, colors} from "@/theme/styles";
 import RNPickerSelect from 'react-native-picker-select';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-import MapView from "react-native-maps";
+import {Divider} from "@rneui/themed";
+import AddLocation from "@/src/components/item/AddLocation";
 
 const ListItemForm = () => {
     const [itemName, setItemName] = useState('');
@@ -59,18 +59,6 @@ const ListItemForm = () => {
         setIsModalVisible(!isModalVisible);
     }
 
-    const getLocation = async () => {
-        let {status} = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-            setErrorMsg('Permission to access location was denied');
-            return;
-        }
-
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
-
-    }
-
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -92,14 +80,13 @@ const ListItemForm = () => {
             <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
                     <Text style={styles.title}>List Your Item</Text>
-
+                    <Divider style={styles.divider}/>
                     <TextInput
                         style={globalStyles.standardInput}
                         placeholder="Item Name *"
                         value={itemName}
                         onChangeText={setItemName}
                     />
-
                     <TextInput
                         style={globalStyles.standardInput}
                         placeholder="Price *"
@@ -107,7 +94,6 @@ const ListItemForm = () => {
                         onChangeText={setPrice}
                         keyboardType="numeric"
                     />
-
                     <TextInput
                         style={[globalStyles.standardInput, styles.multilineInput]}
                         placeholder="Description *"
@@ -130,7 +116,6 @@ const ListItemForm = () => {
                                 }
                             />
                         </View>
-
                         <View style={styles.pickerContainer}>
                             <Text style={styles.pickerLabel}>Condition *</Text>
                             <RNPickerSelect
@@ -144,8 +129,6 @@ const ListItemForm = () => {
                             />
                         </View>
                     </View>
-
-
                     <View style={styles.center}>
                         <TouchableOpacity onPress={pickImage} style={[styles.uploadButton, styles.width50]}>
                             <Text style={globalStyles.buttonText}>Upload Image</Text>
@@ -164,21 +147,14 @@ const ListItemForm = () => {
                             />
                         </View>
                         <Text style={{marginHorizontal: 10}}>or</Text>
-                        <TouchableOpacity onPress={getLocation} style={styles.uploadButton}>
+                        <TouchableOpacity onPress={toggleModal} style={styles.uploadButton}>
                             <Text style={styles.uploadButtonText}>New Location</Text>
                         </TouchableOpacity>
                         {image && <Image source={{uri: image}} style={styles.imagePreview}/>}
                     </View>
-
-                    <MapView
-                        style={styles.map}
-                        initialRegion={{
-                            latitude: 27.9881,
-                            longitude: 86.9250,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        }}
-                    />
+                    <Modal visible={isModalVisible} onRequestClose={toggleModal} animationType={"slide"}>
+                        <AddLocation toggleModal={toggleModal}/>
+                    </Modal>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -193,8 +169,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 5,
     },
     multilineInput: {
         height: 100,
@@ -203,16 +178,8 @@ const styles = StyleSheet.create({
     },
     pickerRow: {
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
-    },
-    map: {
-        width: '100%',
-        height: 200,
-        borderRadius: 10,
-        paddingBottom: 10,
-        marginBottom: 60 // Increase bottom margin to ensure map is fully visible
     },
     container: {
         justifyContent: 'center',
@@ -229,12 +196,10 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     center: {
-        justifyContent: 'center',
         alignItems: 'center'
     },
     locationRow: {
         flexDirection: 'row',
-        alignItems: 'center',
         marginBottom: 10
     },
     pickerContainer: {
@@ -253,7 +218,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         padding: 10,
     },
-
     uploadButtonText: {
         color: '#fff',
         fontSize: 14,
@@ -267,7 +231,11 @@ const styles = StyleSheet.create({
     },
     width50: {
         width: "50%"
-    }
+    },
+    divider: {
+        marginBottom: 10,
+        paddingBottom: 10,
+    },
 });
 
 export default ListItemForm;
