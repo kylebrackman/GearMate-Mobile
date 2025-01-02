@@ -1,15 +1,29 @@
 # Welcome to GearMate 👋
 
 ## About the Project
+GearMate is a peer-to-peer rental platform where users can rent outdoor gear, games, or hardware for short-term needs. Unlike large corporate stores that charge high prices for low-quality equipment, GearMate empowers individuals to share their gear with others, fostering a community of trust and sustainability.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-GearMate is an application where users can rent out various types of gear, games, or hardware, that others may just need for a few days, or just want to test out! Currently, to rent outdoor gear, outdoor enthusiasts must go to a large, corporate, recreational store to rent out low quality equipment for too high of prices. Now, people can rent out their gear to whoever may need it!
+## Key Features
+- Seamless Search: Powered by ElasticSearch for fast and accurate gear discovery.
+- Interactive Map: Integrated with Google Maps API to locate gear near you.
+- Photo Uploads: Gear photos are managed using Active Storage, with images stored in AWS S3.
+- Secure Authentication: User accounts are authenticated via Firebase for enhanced security.
+- Optimized Performance: Backend built with Ruby on Rails and PostgreSQL for reliable data management.
+- Responsive Frontend: Developed in React, ensuring a user-friendly interface on all devices.
 
-### Backend
-To view the backend, please visit the [backend repository](https://github.com/kylebrackman/GearMate). This includes both the backend, built with Ruby on Rails and Postgres, and the Web App frontend, which is still under construction and built with React. 
+# Deployment
+- Backend: Hosted on Heroku, utilizing its seamless deployment pipeline and scalability.
+- Frontend: Deployed on Vercel, ensuring fast delivery and performance.
 
-The backend is currently deployed through Heroku and the Web App is deployed through Vercel.
+### Backend Repo 
+- [Backend and WebApp Source Code](https://github.com/kylebrackman/GearMate)
 
-### Tentative Release Date: January 2025
-A small group of beta testers will have exclusive access to the app in January, 2025.
+
+### Tentative Release Timeline
+- Winter-Spring 2025: Exclusive beta testing phase with a select group of users.
+
+### Future Roadmap
+- Enhanced Payment Features: Integration with Stripe for secure transactions.
+- User Reviews and Ratings: Implementing a user rating system to enhance gear quality.
+
