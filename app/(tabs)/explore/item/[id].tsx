@@ -28,8 +28,6 @@ export default function ItemScreen() {
     }
 
     useEffect(() => {
-        console.log("Start Date:", startingDay);
-        console.log("End Date:", endingDay);
     }, [startingDay, endingDay]);
 
 
