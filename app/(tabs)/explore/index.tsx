@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import ItemCard from '@/src/components/item/ItemCard';
 import SearchBarCustom from '@/src/components/search/SearchBarCustom';
@@ -6,7 +6,7 @@ import ItemTypeSearch from '@/src/components/search/ItemTypeSearch';
 import { useRouter } from "expo-router";
 import {globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
-
+import {getAllItemsApi} from "@/services/apis/ItemApi";
 
 type Item = {
     id: number;
@@ -62,8 +62,24 @@ const allItems: Item[] = [
 ];
 
 export default function ExploreScreen() {
+
+    const [itemsBeta, setAllItemsBeta] = useState([]);
     const router = useRouter();
 
+    useEffect(() => {
+        // Fetch all items from the server
+        fetchAllItems().catch(console.error);
+    }, []);
+
+    const fetchAllItems = async () => {
+        try {
+            await getAllItemsApi().then((data) => {
+                setAllItemsBeta(data);
+            });
+        } catch (error) {
+            console.error('Error fetching allItems:', error);
+        }
+    };
     const renderItem = ({ item }: { item: Item }) => (
         <ItemCard
             id={item.id}
