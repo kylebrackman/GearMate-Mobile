@@ -21,7 +21,7 @@ GearMate is a peer-to-peer rental platform where users can rent outdoor gear, ga
 
 
 ### Tentative Release Timeline
-- Winter-Spring 2025: Exclusive beta testing phase with a select group of users.
+- Spring 2025: Exclusive beta testing phase with a select group of users.
 
 ### Future Roadmap
 - Enhanced Payment Features: Integration with Stripe for secure transactions.
