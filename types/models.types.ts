@@ -28,7 +28,7 @@ export interface User {
     owner_first_name?: string;
     owner_last_name?: string;
     // image?: string;
-    image?: ImageSourcePropType;
+    image: string;
     // location: Location;
     rating?: number;
   }

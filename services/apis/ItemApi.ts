@@ -11,7 +11,6 @@ export const getAllItemsApi = async (): Promise<Item[]> => {
             throw new Error(errorData.error);
         } else {
             const items: Item[] = (await response.json()) as Item[];
-            console.log(items)
             return items;
         }
     } catch (error) {

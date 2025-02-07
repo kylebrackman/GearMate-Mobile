@@ -15,18 +15,17 @@ export default function ExploreScreen() {
     const router = useRouter();
 
     useEffect(() => {
-        // Fetch all items from the server
-        fetchAllItems().catch(console.error);
+        const fetchAllItems = async () => {
+            try {
+                const data = await getAllItemsApi();
+                setItemsBeta(data);
+            } catch (error) {
+                console.error("Error fetching allItems:", error);
+            }
+        };
+        fetchAllItems();
     }, []);
 
-    const fetchAllItems = async () => {
-        try {
-            const data = await getAllItemsApi();
-            setItemsBeta(data);
-        } catch (error) {
-            console.error('Error fetching allItems:', error);
-        }
-    };
     const renderItem = ({item}: { item: Item }) => (
         <ItemCard
             id={item.id}
