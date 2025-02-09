@@ -28,7 +28,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
                 variant === 'compact' && styles.compactCard
             ]}>
                 <Image
-                    source={{uri: `http://localhost:3000${image}` ?? defaultImage}}
+                    source={image ? { uri: `http://localhost:3000${image}` } : defaultImage}
                     style={[
                         styles.image,
                         variant === 'compact' && styles.compactImage

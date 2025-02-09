@@ -11,7 +11,7 @@ export default function ItemScreen() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [startingDay, setStartingDay] = useState<dayjs.Dayjs | null>(null);
     const [endingDay, setEndingDay] = useState<dayjs.Dayjs | null>(null);
-
+    console.log(id)
 
     const item = {
         id: 1,
@@ -29,7 +29,6 @@ export default function ItemScreen() {
 
     useEffect(() => {
     }, [startingDay, endingDay]);
-
 
 
 
