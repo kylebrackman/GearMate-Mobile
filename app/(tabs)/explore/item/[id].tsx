@@ -5,15 +5,22 @@ import {colors, globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
 import RequestCard from "@/src/components/item/RequestCard";
 import dayjs from "dayjs";
+import { getItemApi} from "@/services/apis/ItemApi";
+import {Item} from "@/types/models.types";
 
 export default function ItemScreen() {
-    const {id} = useLocalSearchParams();
+    const {itemId} = useLocalSearchParams();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [startingDay, setStartingDay] = useState<dayjs.Dayjs | null>(null);
     const [endingDay, setEndingDay] = useState<dayjs.Dayjs | null>(null);
-    console.log(id)
+    const [item, setItem] = useState<Item | null>(null);
+    const [errors, setErrors] = useState<string[]>([]);
 
-    const item = {
+    const toggleModal = () => {
+        setIsModalVisible(!isModalVisible);
+    }
+
+    const defaultItem = {
         id: 1,
         name: 'Mountain Bike',
         image: require('../../../../assets/images/item/mountain-bike.png'),
@@ -22,15 +29,30 @@ export default function ItemScreen() {
         condition: 'New',
         location: "Boulder, CO"
     }
-    // TODO: need to now make a fetch call to get the item by id and load this page
-    const toggleModal = () => {
-        setIsModalVisible(!isModalVisible);
-    }
 
+    // Todo: review useffect in tandem with ItemApi
     useEffect(() => {
-    }, [startingDay, endingDay]);
+        setItem(defaultItem);
+        const fetchItem = async () => {
+            const fetchedItem = await getItemApi(Number(itemId));
+            if (!fetchedItem) {
+                setErrors(["Failed to fetch item"]);
+                setItem(defaultItem);
+            } else {
+                setItem(fetchedItem);
+            }
+        };
+        void fetchItem();
+    }, [itemId]);
 
-
+    // Add loading state check
+    if (!item) {
+        return (
+            <View style={globalStyles.container}>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
 
     return (
         <ScrollView style={globalStyles.container}>
