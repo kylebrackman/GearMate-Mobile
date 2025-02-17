@@ -16,7 +16,7 @@ app/
 │   │   ├── _layout.tsx  # Stack navigator for "Explore"
 │   │   ├── Inbox.tsx    # Explore main screen
 │   │   └── item/
-│   │       └── [id].tsx # Item details screen
+│   │       └── [itemId].tsx # Item details screen
 │   ├── messages/
 │   │   └── Inbox.tsx
 │   ├── listGear/

@@ -20,7 +20,7 @@ export interface User {
     name: string;
     condition: string;
     // Add back in when active_storage is implemented
-    // image: string;
+    image: string | { uri: string } | ImageSourcePropType;
     description: string;
     price: number;
     owner_id?: number;
@@ -28,7 +28,6 @@ export interface User {
     owner_first_name?: string;
     owner_last_name?: string;
     // image?: string;
-    image: string;
     // location: Location;
     rating?: number;
   }

@@ -20,24 +20,12 @@ export default function ItemScreen() {
         setIsModalVisible(!isModalVisible);
     }
 
-    const defaultItem = {
-        id: 1,
-        name: 'Mountain Bike',
-        image: require('../../../../assets/images/item/mountain-bike.png'),
-        description: 'Great for off-road trails',
-        price: 25,
-        condition: 'New',
-        location: "Boulder, CO"
-    }
-
-    // Todo: review useffect in tandem with ItemApi
+    // Todo: review usEffect in tandem with ItemApi
     useEffect(() => {
-        setItem(defaultItem);
         const fetchItem = async () => {
             const fetchedItem = await getItemApi(Number(itemId));
             if (!fetchedItem) {
                 setErrors(["Failed to fetch item"]);
-                setItem(defaultItem);
             } else {
                 setItem(fetchedItem);
             }
@@ -45,7 +33,10 @@ export default function ItemScreen() {
         void fetchItem();
     }, [itemId]);
 
-    // Add loading state check
+    const backendUrl = 'http://localhost:3000';
+    const imageUrl = `${backendUrl}${item?.image}`
+
+    // Loading state check
     if (!item) {
         return (
             <View style={globalStyles.container}>
@@ -58,11 +49,12 @@ export default function ItemScreen() {
         <ScrollView style={globalStyles.container}>
             <Image
                 style={styles.itemImage}
-                source={item.image}
+                source={{ uri: imageUrl }}
             />
             <View style={styles.itemInfoSection}>
                 <Text style={globalStyles.headerSecondary}>{item.name}</Text>
-                <Text style={styles.itemLocation}>{item.location}</Text>
+                {/*<Text style={styles.itemLocation}>{item.location}</Text>*/}
+                <Text style={styles.itemLocation}>Mount Everest</Text>
                 <Text style={styles.itemDetails}>{item.description}</Text>
             </View>
 

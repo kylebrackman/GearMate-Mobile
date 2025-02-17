@@ -11,7 +11,7 @@ export default function ExploreLayout() {
                  }}
             />
             <Stack.Screen
-                name="item/[id]"
+                name="item/[itemId]"
                 options={{
                     headerTransparent: true,
                     headerTitle: "",
