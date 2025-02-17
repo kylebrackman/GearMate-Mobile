@@ -4,12 +4,20 @@ import {globalStyles} from "@/theme/styles";
 import {AntDesign} from "@expo/vector-icons";
 import {Avatar, Card, Divider} from "@rneui/themed";
 import {router} from "expo-router";
-import SettingsList from "../../../src/components/user/nav/SettingsList";
-import Support from "../../../src/components/user/nav/Support";
-import Legal from "../../../src/components/user/nav/Legal";
+import SettingsList from "@/src/components/user/nav/SettingsList";
+import Support from "@/src/components/user/nav/Support";
+import Legal from "@/src/components/user/nav/Legal";
+import { getUserApi } from "@/services/apis/UserApi";
+import {useState} from "react";
+import {GmUser} from "@/types/models.types";
+import {User} from "firebase/auth";
 
 export default function ProfileScreen() {
+    const [gmUser, setGmUser] = useState<User | null>(null);
+
     const {user, signOut} = useAuthService();
+
+    console.log(user)
 
     const handleLogout = async () => {
         try {
