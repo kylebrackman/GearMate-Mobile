@@ -20,7 +20,7 @@ export interface GmUser {
     name: string;
     condition: string;
     // Add back in when active_storage is implemented
-    image: string | { uri: string } | ImageSourcePropType;
+    image: { uri: string };
     description: string;
     price: number;
     owner_id?: number;

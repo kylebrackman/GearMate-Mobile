@@ -35,7 +35,6 @@ export default function ExploreScreen() {
             description={item.description}
             price={item.price}
             handlePress={() => router.push(`/explore/item/${item.id}`)}
-            // handlePress={console.log(item.id)}
         />
     );
 

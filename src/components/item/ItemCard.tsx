@@ -4,7 +4,7 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 type ItemCardProps = {
     id: number;
     name: string;
-    image: string | undefined;
+    image: { uri: string };
     description: string;
     price: number;
     handlePress?: () => void;
