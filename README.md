@@ -11,6 +11,7 @@ GearMate is a peer-to-peer rental platform where users can rent outdoor gear, ga
 - Secure Authentication: User accounts are authenticated via Firebase for enhanced security.
 - Optimized Performance: Backend built with Ruby on Rails and PostgreSQL for reliable data management.
 - Responsive Frontend: Developed in React, ensuring a user-friendly interface on all devices.
+- Communication: Item owners and renters can communicate through the platform's messaging system.
 
 # Deployment
 - Backend: Hosted on Heroku, utilizing its seamless deployment pipeline and scalability.
