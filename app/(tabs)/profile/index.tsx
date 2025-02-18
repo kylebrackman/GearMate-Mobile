@@ -48,12 +48,16 @@ export default function ProfileScreen() {
                 </Text>
                 <AntDesign name="bells" size={24} color="black"/>
             </View>
-            <View style={styles.headerRow}>
-                <Avatar source={{uri: imageUrl}} size={50} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
+            <View style={[styles.headerRow, { alignItems: 'center' }]}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Avatar source={{ uri: imageUrl }} size={50} title="GM" containerStyle={{ backgroundColor: 'black' }} rounded />
+                    <Text style={styles.userName}>{gmUser?.profile?.name}</Text>
+                </View>
                 <TouchableOpacity onPress={() => router.push(`/profile/details/${user?.uid}`)}>
-                    <AntDesign name="arrowright" size={24} color="black"/>
+                    <AntDesign name="arrowright" size={24} color="black" />
                 </TouchableOpacity>
             </View>
+
             <Divider/>
             <View style={styles.headerRow}>
                 <Text style={[globalStyles.header, styles.gearHeader]}>
@@ -159,5 +163,14 @@ const styles = StyleSheet.create({
     },
     gearHeader: {
         paddingTop: 20,
-    }
+    },
+    userInfoContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 10, // Ensures spacing between avatar and text
+    },
+    userName: {
+        marginLeft: 10, // Ensures the text is right next to the avatar
+        fontSize: 25,
+    },
 });
