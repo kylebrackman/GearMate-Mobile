@@ -6,7 +6,7 @@ export interface GmUser {
     first_name: string;
     last_name: string;
     owned_items: Item[];
-    // profile: Profile;
+    profile: Profile;
     // current_rentals: Rental[];
     // upcoming_rentals: Rental[];
     // past_rentals: Rental[];
@@ -37,18 +37,18 @@ export interface GmUser {
 //     lng: number;
 //   }
   
-//   export interface Profile {
-//     id: number;
-//     user_id: number;
-//     // Add back in when active_storage is implemented
-//     // profile_picture: string;
-//     bio: string;
-//     location: string;
-//     created_at: string;
-//     updated_at: string;
-//     name: string;
-//     image: string;
-//   }
+  export interface Profile {
+    id: number;
+    user_id: number;
+    // Add back in when active_storage is implemented
+    // profile_picture: string;
+    bio: string;
+    location: string;
+    created_at: string;
+    updated_at: string;
+    name: string;
+    image: string;
+  }
   
   export interface Rental {
     id: number;

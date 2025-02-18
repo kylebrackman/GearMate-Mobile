@@ -32,6 +32,5 @@ export async function getUserApi(uid: string | undefined): Promise<GmUser | null
         return null;
     }
     const user = (await response.json()) as GmUser;
-    console.log(user);
     return user;
 }

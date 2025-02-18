@@ -10,13 +10,11 @@ import Legal from "@/src/components/user/nav/Legal";
 import { getUserApi } from "@/services/apis/UserApi";
 import {useEffect, useState} from "react";
 import {GmUser} from "@/types/models.types";
-import {User} from "firebase/auth";
-
 
 export default function ProfileScreen() {
     const [gmUser, setGmUser] = useState<GmUser | null>(null);
-
     const {user, signOut} = useAuthService();
+
 
     useEffect (() => {
         const fetchGmUser = async () => {
@@ -29,7 +27,7 @@ export default function ProfileScreen() {
         };
         fetchGmUser();
     }, [])
-    console.log(gmUser);
+
 
     const handleLogout = async () => {
         try {
@@ -38,6 +36,9 @@ export default function ProfileScreen() {
             console.error('Failed to log out:', error);
         }
     };
+
+    const backendUrl = process.env.EXPO_PUBLIC_BACKEND_URL;
+    const imageUrl = `${backendUrl}${gmUser?.profile?.image}`
 
     return (
         <ScrollView style={[styles.marginTop20, styles.marginHorizontal]} showsVerticalScrollIndicator={false}>
@@ -48,7 +49,7 @@ export default function ProfileScreen() {
                 <AntDesign name="bells" size={24} color="black"/>
             </View>
             <View style={styles.headerRow}>
-                <Avatar size={50} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
+                <Avatar source={{uri: imageUrl}} size={50} title="GM" containerStyle={{backgroundColor: 'black'}} rounded/>
                 <TouchableOpacity onPress={() => router.push(`/profile/details/${user?.uid}`)}>
                     <AntDesign name="arrowright" size={24} color="black"/>
                 </TouchableOpacity>
