@@ -33,7 +33,7 @@ export default function ItemScreen() {
         void fetchItem();
     }, [itemId]);
 
-    const backendUrl = 'http://localhost:3000';
+    const backendUrl = process.env.EXPO_PUBLIC_BACKEND_URL;
     const imageUrl = `${backendUrl}${item?.image}`
 
     // Loading state check

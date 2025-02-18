@@ -12,6 +12,7 @@ import {useEffect, useState} from "react";
 import {GmUser} from "@/types/models.types";
 import {User} from "firebase/auth";
 
+
 export default function ProfileScreen() {
     const [gmUser, setGmUser] = useState<GmUser | null>(null);
 
@@ -28,6 +29,7 @@ export default function ProfileScreen() {
         };
         fetchGmUser();
     }, [])
+    console.log(gmUser);
 
     const handleLogout = async () => {
         try {
