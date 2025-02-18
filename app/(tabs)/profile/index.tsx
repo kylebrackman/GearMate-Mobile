@@ -8,16 +8,26 @@ import SettingsList from "@/src/components/user/nav/SettingsList";
 import Support from "@/src/components/user/nav/Support";
 import Legal from "@/src/components/user/nav/Legal";
 import { getUserApi } from "@/services/apis/UserApi";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {GmUser} from "@/types/models.types";
 import {User} from "firebase/auth";
 
 export default function ProfileScreen() {
-    const [gmUser, setGmUser] = useState<User | null>(null);
+    const [gmUser, setGmUser] = useState<GmUser | null>(null);
 
     const {user, signOut} = useAuthService();
 
-    console.log(user)
+    useEffect (() => {
+        const fetchGmUser = async () => {
+            try {
+                const gmUser = await getUserApi(user?.uid);
+                setGmUser(gmUser);
+            } catch (error) {
+                console.error('Failed to fetch GM user:', error);
+            }
+        };
+        fetchGmUser();
+    }, [])
 
     const handleLogout = async () => {
         try {
