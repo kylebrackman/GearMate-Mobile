@@ -15,6 +15,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import {Divider} from "@rneui/themed";
 import AddLocation from "@/src/components/item/AddLocation";
+import {addItemApi} from "@/services/apis/ItemApi";
 
 const ListItemForm = () => {
     const [itemName, setItemName] = useState('');

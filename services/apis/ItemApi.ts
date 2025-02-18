@@ -2,6 +2,26 @@ import { Item } from "@/types/models.types";
 import { ErrorResponse } from "@/types/responses.types";
 import { API_BASE_URL } from "@/src/config/api.config";
 
+
+export const addItemApi = async (newItemData: FormData): Promise<Item> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/items`, {
+            method: 'POST',
+            body: newItemData,
+        });
+        if (!response.ok) {
+            const errorData = (await response.json()) as ErrorResponse;
+            throw new Error(`${errorData.errors.join(', ')}`);
+        } else {
+            const addedItem: Item = (await response.json()) as Item;
+            return addedItem;
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 export const getAllItemsApi = async (): Promise<Item[]> => {
     try {
         const response = await fetch(`${API_BASE_URL}/api/items?all_items=true`);
