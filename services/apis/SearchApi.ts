@@ -1,5 +1,8 @@
 import { Item } from '@/types/models.types';
 import { SearchFields } from '@/types/search.types';
+import {API_BASE_URL} from "@/src/config/api.config";
+
+
 export const searchItemsApi = async (
     searchParams: SearchFields
 ): Promise<Item[]> => {
@@ -7,7 +10,7 @@ export const searchItemsApi = async (
         searchParams as Record<string, string>
     ).toString();
 
-    const response = await fetch(`/api/item_search?${queryString}`, {
+    const response = await fetch(`${API_BASE_URL}/api/item_search?${queryString}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     });

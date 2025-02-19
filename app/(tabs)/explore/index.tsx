@@ -11,14 +11,14 @@ import {Item} from "@/types/models.types";
 
 export default function ExploreScreen() {
 
-    const [itemsBeta, setItemsBeta] = useState<Item[]>([]);
+    const [items, setItems] = useState<Item[]>([]);
     const router = useRouter();
 
     useEffect(() => {
         const fetchAllItems = async () => {
             try {
                 const data = await getAllItemsApi();
-                setItemsBeta(data);
+                setItems(data);
             } catch (error) {
                 console.error("Error fetching allItems:", error);
             }
@@ -43,7 +43,7 @@ export default function ExploreScreen() {
             <SearchBarCustom/>
             <ItemTypeSearch/>
             <FlatList
-                data={itemsBeta}
+                data={items}
                 renderItem={renderItem}
                 keyExtractor={item => item.id.toString()}
                 showsVerticalScrollIndicator={false}

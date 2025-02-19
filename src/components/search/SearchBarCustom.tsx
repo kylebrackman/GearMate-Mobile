@@ -1,35 +1,58 @@
-import { SearchBar, Input } from '@rneui/themed';
-import { StyleSheet } from 'react-native';
-import { useState } from "react"
-import { Ionicons } from '@expo/vector-icons';
+import {Input} from '@rneui/themed';
+import {StyleSheet} from 'react-native';
+import {useState} from "react";
+import {Ionicons} from '@expo/vector-icons';
+import {searchItemsApi} from "@/services/apis/SearchApi";
+import {router} from "expo-router";
+
+type SearchField = 'location' | 'name' | 'date_from' | 'date_to';
+
+type SearchParams = {
+    name: string;
+    location?: string;
+    date_from?: string;
+    date_to?: string;
+};
 
 const SearchBarCustom = () => {
-    const [name, setName] = useState("")
+    const [searchParams, setSearchParams] = useState<SearchParams>({
+        name: '',
+        // location: '',
+        // date_from: '',
+        // date_to: '',
+    });
+    const [errors, setErrors] = useState<string[]>([]);
+
+    const handleInputChange = (field: SearchField) => (value: string) => {
+        setSearchParams((prevParams) => ({
+            ...prevParams,
+            [field]: value,
+        }));
+    };
+
+    const handleSearch = () => {
+        const query = new URLSearchParams(searchParams).toString();
+        console.log(searchParams);
+        if (searchParams.name == '') {
+            setErrors(['Name is required.']);
+        } else router.push(`/search`);
+    };
 
     return (
-        // <SearchBar
-        //     clearIcon={true}
-        //     containerStyle={styles.searchBar}
-        //     lightTheme
-        //     placeholder="Find your Gear"
-        //     onChangeText={setName}
-        //     value={name}
-        // />
         <Input
             containerStyle={styles.searchBar}
             placeholder="Find your Gear"
-            onChangeText={setName}
-            value={name}
-            inputContainerStyle={styles.inputContainer} 
+            onChangeText={handleInputChange('name')}
+            value={searchParams.name}
+            inputContainerStyle={styles.inputContainer}
             leftIcon={
-                <Ionicons name="search" size={20} color="gray" style={{ marginRight: 10 }} /> // Add the search icon
+                <Ionicons onPress={handleSearch} name="search" size={20} color="gray" style={{marginRight: 10}}/>
             }
         />
+    );
+};
 
-    )
-}
-
-export default SearchBarCustom
+export default SearchBarCustom;
 
 const styles = StyleSheet.create({
     searchBar: {
@@ -43,4 +66,4 @@ const styles = StyleSheet.create({
     inputContainer: {
         borderBottomWidth: 0,  // Removes the underline
     }
-})
+});
