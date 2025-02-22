@@ -35,7 +35,7 @@ const SearchBarCustom = () => {
         console.log(searchParams);
         if (searchParams.name == '') {
             setErrors(['Name is required.']);
-        } else router.push(`/search`);
+        } else router.push(`/explore/search?${query}`);
     };
 
     return (

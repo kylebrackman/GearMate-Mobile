@@ -18,6 +18,14 @@ export default function ExploreLayout() {
                     headerTintColor: "#fff",
                 }}
             />
+            <Stack.Screen
+                name="search/index"
+                options={{
+                    headerTransparent: true,
+                    headerTitle: "",
+                    headerTintColor: "#fff",
+                }}
+            />
         </Stack>
     );
 }
