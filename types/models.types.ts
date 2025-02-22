@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
 
-export interface GmUser {
+export interface GearMateUser {
     id: number;
     email: string;
     first_name: string;
@@ -56,7 +56,7 @@ export interface GmUser {
     renter_id: number;
     start_date: string;
     end_date: string;
-    owner: GmUser;
+    owner: GearMateUser;
     item?: Item;
     owner_profile_id: number;
     rental_request_id: number;

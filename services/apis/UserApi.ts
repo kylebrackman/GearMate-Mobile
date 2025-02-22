@@ -1,8 +1,8 @@
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { Auth } from "firebase/auth";
-import { User } from "firebase/auth";
-import { GmUser} from "@/types/models.types";
-import { API_BASE_URL } from "@/src/config/api.config";
+import {signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {Auth} from "firebase/auth";
+import {User} from "firebase/auth";
+import {GearMateUser} from "@/types/models.types";
+import {API_BASE_URL} from "@/src/config/api.config";
 
 
 // Todo: Review login and logout functions below and see if they are redundant based on firebase auth
@@ -25,12 +25,12 @@ export const logoutUserApi = async (auth: Auth) => {
 }
 
 // Todo: review User naming convention with firebase auth user vs gearmate user
-export async function getUserApi(uid: string | undefined): Promise<GmUser | null> {
+export async function getUserApi(uid: string | undefined): Promise<GearMateUser | null> {
     const response = await fetch(`${API_BASE_URL}/api/get_user_by_fb_id/${uid}`);
 
     if (!response.ok) {
         return null;
     }
-    const user = (await response.json()) as GmUser;
+    const user = (await response.json()) as GearMateUser;
     return user;
 }

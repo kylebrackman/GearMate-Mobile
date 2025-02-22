@@ -9,23 +9,23 @@ import Support from "@/src/components/user/nav/Support";
 import Legal from "@/src/components/user/nav/Legal";
 import { getUserApi } from "@/services/apis/UserApi";
 import {useEffect, useState} from "react";
-import {GmUser} from "@/types/models.types";
+import {GearMateUser} from "@/types/models.types";
 
 export default function ProfileScreen() {
-    const [gmUser, setGmUser] = useState<GmUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<GearMateUser | null>(null);
     const {user, signOut} = useAuthService();
 
 
     useEffect (() => {
-        const fetchGmUser = async () => {
+        const fetchCurrentUser = async () => {
             try {
-                const gmUser = await getUserApi(user?.uid);
-                setGmUser(gmUser);
+                const returnedUser = await getUserApi(user?.uid);
+                setCurrentUser(returnedUser);
             } catch (error) {
                 console.error('Failed to fetch GM user:', error);
             }
         };
-        fetchGmUser();
+        fetchCurrentUser();
     }, [])
 
 
@@ -38,7 +38,7 @@ export default function ProfileScreen() {
     };
 
     const backendUrl = process.env.EXPO_PUBLIC_BACKEND_URL;
-    const imageUrl = `${backendUrl}${gmUser?.profile?.image}`
+    const imageUrl = `${backendUrl}${currentUser?.profile?.image}`
 
     return (
         <ScrollView style={[styles.marginTop20, styles.marginHorizontal]} showsVerticalScrollIndicator={false}>
@@ -51,7 +51,7 @@ export default function ProfileScreen() {
             <View style={[styles.headerRow, { alignItems: 'center' }]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Avatar source={{ uri: imageUrl }} size={50} title="GM" containerStyle={{ backgroundColor: 'black' }} rounded />
-                    <Text style={styles.userName}>{gmUser?.profile?.name}</Text>
+                    <Text style={styles.userName}>{currentUser?.profile?.name}</Text>
                 </View>
                 <TouchableOpacity onPress={() => router.push(`/profile/details/${user?.uid}`)}>
                     <AntDesign name="arrowright" size={24} color="black" />
