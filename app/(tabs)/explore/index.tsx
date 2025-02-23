@@ -14,7 +14,7 @@ export default function ExploreScreen() {
 
     const [items, setItems] = useState<Item[]>([]);
     const router = useRouter();
-    const { searchResults, isLoading, searchParams, setSearchParams } = useSearch();
+    const {searchResults, isLoading, searchParams, setSearchParams} = useSearch();
 
 
     useEffect(() => {
@@ -43,12 +43,7 @@ export default function ExploreScreen() {
 
     return (
         <View style={styles.exploreContainer}>
-            <SearchBarCustom
-                value={searchParams.name}
-                onChangeText={(text) => setSearchParams({ ...searchParams, name: text })}
-                isLoading={isLoading}
-                // error={error}
-            />
+            <SearchBarCustom/>
             <ItemTypeSearch/>
             <FlatList
                 data={items}
