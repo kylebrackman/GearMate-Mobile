@@ -17,13 +17,14 @@ export const useSearch = () => {
         setIsLoading(true);
         try {
             const results = await searchItemsApi(searchParams);
+            // console.log(results)
             setSearchResults(results);
+            return results
         } catch (error) {
             console.error(error);
         } finally {
             setIsLoading(false);
         }
-        console.log(searchResults);
     };
 
     return {

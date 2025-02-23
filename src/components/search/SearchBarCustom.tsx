@@ -8,12 +8,20 @@ import {useSearch} from "@/hooks/useSearch";
 const SearchBarCustom = () => {
 
     const router = useRouter();
-    const {searchParams, setSearchParams, performSearch, isLoading} = useSearch();
+    const {searchParams, setSearchParams, performSearch, searchResults} = useSearch();
 
     const handleSearchPress = async () => {
-        await performSearch();
-        router.push('/explore/search_results');
+        try {
+            const results = await performSearch(); // Get results immediately
+            router.push({
+                pathname: '/explore/search_results',
+                params: {results: JSON.stringify(results)}
+            });
+        } catch (error) {
+            console.error('Search failed:', error);
+        }
     };
+
 
     return (
         <View>

@@ -8,14 +8,11 @@ import {globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
 import {getAllItemsApi} from "@/services/apis/ItemApi";
 import {Item} from "@/types/models.types";
-import {useSearch} from "@/hooks/useSearch";
 
 export default function ExploreScreen() {
 
     const [items, setItems] = useState<Item[]>([]);
     const router = useRouter();
-    const {searchResults, isLoading, searchParams, setSearchParams} = useSearch();
-
 
     useEffect(() => {
         const fetchAllItems = async () => {
@@ -30,6 +27,7 @@ export default function ExploreScreen() {
         fetchAllItems();
     }, []);
 
+    // console.log(items)
     const renderItem = ({item}: { item: Item }) => (
         <ItemCard
             id={item.id}
