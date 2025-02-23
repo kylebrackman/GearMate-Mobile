@@ -1,69 +1,53 @@
+import React from 'react';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
 import {Input} from '@rneui/themed';
-import {StyleSheet} from 'react-native';
-import {useState} from "react";
 import {Ionicons} from '@expo/vector-icons';
-import {searchItemsApi} from "@/services/apis/SearchApi";
-import {router} from "expo-router";
-
-type SearchField = 'location' | 'name' | 'date_from' | 'date_to';
-
-type SearchParams = {
-    name: string;
-    location?: string;
-    date_from?: string;
-    date_to?: string;
-};
+import {useRouter} from "expo-router";
+import {useSearch} from "@/hooks/useSearch";
 
 const SearchBarCustom = () => {
-    const [searchParams, setSearchParams] = useState<SearchParams>({
-        name: '',
-        // location: '',
-        // date_from: '',
-        // date_to: '',
-    });
-    const [errors, setErrors] = useState<string[]>([]);
 
-    const handleInputChange = (field: SearchField) => (value: string) => {
-        setSearchParams((prevParams) => ({
-            ...prevParams,
-            [field]: value,
-        }));
-    };
+    const router = useRouter();
+    const {searchParams, setSearchParams, performSearch, isLoading} = useSearch();
 
-    const handleSearch = () => {
-        const query = new URLSearchParams(searchParams).toString();
-        console.log(searchParams);
-        if (searchParams.name == '') {
-            setErrors(['Name is required.']);
-        } else router.push(`/explore/search?${query}`);
+    const handleSearchPress = async () => {
+        await performSearch();
+        router.push('/explore/search_results');
     };
 
     return (
-        <Input
-            containerStyle={styles.searchBar}
-            placeholder="Find your Gear"
-            onChangeText={handleInputChange('name')}
-            value={searchParams.name}
-            inputContainerStyle={styles.inputContainer}
-            leftIcon={
-                <Ionicons onPress={handleSearch} name="search" size={20} color="gray" style={{marginRight: 10}}/>
-            }
-        />
+        <View>
+            <Input
+                containerStyle={styles.searchBar}
+                placeholder="Find your Gear"
+                onChangeText={(text) => setSearchParams({...searchParams, name: text})}
+                value={searchParams.name}
+                inputContainerStyle={styles.inputContainer}
+                rightIcon={
+                    <Ionicons
+                        name="search"
+                        size={20} color="gray"
+                        style={{marginRight: 10}}
+                        onPress={handleSearchPress}
+                    />
+                }
+
+            />
+        </View>
     );
 };
 
-export default SearchBarCustom;
-
 const styles = StyleSheet.create({
     searchBar: {
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderRadius: 30,
         marginTop: 10,
-        textDecorationColor: "black",
         height: 50,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     inputContainer: {
-        borderBottomWidth: 0,  // Removes the underline
-    }
+        borderBottomWidth: 0,
+    },
 });
+
+export default SearchBarCustom;

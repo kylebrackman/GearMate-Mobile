@@ -8,11 +8,14 @@ import {globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
 import {getAllItemsApi} from "@/services/apis/ItemApi";
 import {Item} from "@/types/models.types";
+import {useSearch} from "@/hooks/useSearch";
 
 export default function ExploreScreen() {
 
     const [items, setItems] = useState<Item[]>([]);
     const router = useRouter();
+    const { searchResults, isLoading, searchParams, setSearchParams } = useSearch();
+
 
     useEffect(() => {
         const fetchAllItems = async () => {
@@ -40,7 +43,12 @@ export default function ExploreScreen() {
 
     return (
         <View style={styles.exploreContainer}>
-            <SearchBarCustom/>
+            <SearchBarCustom
+                value={searchParams.name}
+                onChangeText={(text) => setSearchParams({ ...searchParams, name: text })}
+                isLoading={isLoading}
+                // error={error}
+            />
             <ItemTypeSearch/>
             <FlatList
                 data={items}

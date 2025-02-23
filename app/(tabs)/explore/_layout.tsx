@@ -19,7 +19,7 @@ export default function ExploreLayout() {
                 }}
             />
             <Stack.Screen
-                name="search/index"
+                name="search_results/index"
                 options={{
                     headerTransparent: true,
                     headerTitle: "",

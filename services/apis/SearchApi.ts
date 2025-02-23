@@ -1,12 +1,14 @@
 import { Item } from '@/types/models.types';
-import { SearchFields } from '@/types/search.types';
+import { SearchParams } from '@/types/search.types';
 import {API_BASE_URL} from "@/src/config/api.config";
 
 
 export const searchItemsApi = async (
-    searchParams: SearchFields
+    searchParams: SearchParams
 ): Promise<Item[]> => {
     const queryString = new URLSearchParams(
+        // Todo: review ts error when removing ts-ignore
+        // @ts-ignore
         searchParams as Record<string, string>
     ).toString();
 
