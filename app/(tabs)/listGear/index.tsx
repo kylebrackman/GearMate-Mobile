@@ -17,6 +17,7 @@ import {Divider} from "@rneui/themed";
 import AddLocation from "@/src/components/item/AddLocation";
 import {addItemApi} from "@/services/apis/ItemApi";
 
+
 const ListItemForm = () => {
     const [itemName, setItemName] = useState('');
     const [price, setPrice] = useState('');
@@ -153,6 +154,11 @@ const ListItemForm = () => {
                         </TouchableOpacity>
                         {image && <Image source={{uri: image}} style={styles.imagePreview}/>}
                     </View>
+                    <View style={styles.center}>
+                        <TouchableOpacity style={styles.postItemButton}>
+                            <Text style={globalStyles.buttonText}>Post Item</Text>
+                        </TouchableOpacity>
+                    </View>
                     <Modal visible={isModalVisible} onRequestClose={toggleModal} animationType={"slide"}>
                         <AddLocation toggleModal={toggleModal}/>
                     </Modal>
@@ -236,6 +242,17 @@ const styles = StyleSheet.create({
     divider: {
         marginBottom: 10,
         paddingBottom: 10,
+    },
+    postItemButton: {
+        backgroundColor: "black",
+        paddingVertical: 1,
+        paddingHorizontal: 1,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 20,
+        width: "40%",
+        paddingTop: 10,
+        paddingBottom: 10
     },
 });
 
