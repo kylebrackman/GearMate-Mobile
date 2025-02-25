@@ -15,7 +15,10 @@ const SearchBarCustom = () => {
             const results = await performSearch(); // Get results immediately
             router.push({
                 pathname: '/explore/search_results',
-                params: {results: JSON.stringify(results)}
+                params: {
+                    results: JSON.stringify(results),
+                    query: JSON.stringify(searchParams.name)
+                }
             });
         } catch (error) {
             console.error('Search failed:', error);

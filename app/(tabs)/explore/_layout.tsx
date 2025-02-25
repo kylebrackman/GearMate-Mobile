@@ -23,7 +23,7 @@ export default function ExploreLayout() {
                 options={{
                     headerTransparent: true,
                     headerTitle: "",
-                    headerTintColor: "#fff",
+                    headerTintColor: "black",
                 }}
             />
         </Stack>
