@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, FlatList, Dimensions, StyleSheet, Text} from 'react-native';
 import ItemCard from '@/src/components/item/ItemCard';
 import {useRouter} from "expo-router";
-import {globalStyles} from "@/theme/styles";
 import {Divider} from "@rneui/themed";
+import {getUserOwnedItemsApi} from "@/services/apis/UserApi";
+import {useAuthService} from "@/hooks/useAuthService";
 
 type Item = {
     id: number;
@@ -57,10 +58,30 @@ const allItems: Item[] = [
     },
 ];
 
+
 export default function UserItems() {
     const router = useRouter();
     const screenWidth = Dimensions.get('window').width;
     const itemWidth = (screenWidth - 60) / 2;
+    const {user} = useAuthService();
+    const [userOwnedItems, setUserOwnedItems] = React.useState<Item[]>([]);
+
+    useEffect(() => {
+        const fetchUserOwnedItems = async () => {
+            try {
+                const data = await getUserOwnedItemsApi(user?.uid);
+                setUserOwnedItems(data);
+            } catch (error) {
+                console.error("Error fetching userOwnedItems:", error);
+            }
+        };
+        fetchUserOwnedItems();
+    }, []);
+
+    useEffect(() => {
+        console.log("userOwnedItems", userOwnedItems);
+    }, []);
+
 
     const renderItem = ({item}: { item: Item }) => (
         <View style={[styles.itemContainer, {width: itemWidth}]}>
@@ -81,7 +102,7 @@ export default function UserItems() {
             <Text style={styles.header}> View or Edit Your Gear Below</Text>
             <Divider style={styles.divider}/>
             <FlatList
-                data={allItems}
+                data={userOwnedItems}
                 renderItem={renderItem}
                 keyExtractor={item => item.id.toString()}
                 numColumns={2}
