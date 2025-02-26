@@ -7,7 +7,7 @@ import RequestCard from "@/src/components/item/RequestCard";
 import dayjs from "dayjs";
 
 export default function ItemDetails() {
-    const {id} = useLocalSearchParams();
+    const {firebaseId} = useLocalSearchParams();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [startingDay, setStartingDay] = useState<dayjs.Dayjs | null>(null);
     const [endingDay, setEndingDay] = useState<dayjs.Dayjs | null>(null);

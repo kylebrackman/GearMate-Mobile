@@ -20,7 +20,7 @@ export default function ProfileLayout() {
                 }}
             />
             <Stack.Screen
-                name="userItems/item/[id]"
+                name="userItems/item/[firebaseId]"
                 options={{
                     headerTransparent: true,
                     headerTitle: "",

@@ -26,11 +26,12 @@ export const logoutUserApi = async (auth: Auth) => {
 
 // Todo: review User naming convention with firebase auth user vs gearmate user
 export async function getUserApi(uid: string | undefined): Promise<GearMateUser | null> {
-    const response = await fetch(`${API_BASE_URL}/api/get_user_by_fb_id/${uid}`);
+    const response = await fetch(`${API_BASE_URL}/api/get_user_by_firebase_id/${uid}`);
 
     if (!response.ok) {
         return null;
     }
+
     const user = (await response.json()) as GearMateUser;
     return user;
 }
