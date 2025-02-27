@@ -28,7 +28,7 @@ export interface GearMateUser {
     owner_first_name?: string;
     owner_last_name?: string;
     // image?: string;
-    // location: Location;
+    location: Location;
     rating?: number;
   }
   
@@ -73,10 +73,10 @@ export interface GearMateUser {
 //     owner_id?: number;
 //   }
   
-//   export interface Location {
-//     id: number;
-//     address: string;
-//     latitude: number;
-//     longitude: number;
-//   }
+  export interface Location {
+    id: number;
+    address: string;
+    latitude: number;
+    longitude: number;
+  }
   

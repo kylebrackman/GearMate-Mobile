@@ -1,55 +1,87 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity, Modal} from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity, Modal, ActivityIndicator} from 'react-native';
 import {useLocalSearchParams} from "expo-router";
 import {colors, globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
 import RequestCard from "@/src/components/item/RequestCard";
 import dayjs from "dayjs";
+import {getItemApi} from "@/services/apis/ItemApi";
+import {Item} from "@/types/models.types";
 
 export default function ItemDetails() {
-    const {firebaseId} = useLocalSearchParams();
+    const {itemId} = useLocalSearchParams();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [startingDay, setStartingDay] = useState<dayjs.Dayjs | null>(null);
     const [endingDay, setEndingDay] = useState<dayjs.Dayjs | null>(null);
-
-
-    const item = {
-        id: 1,
-        name: 'Mountain Bike',
-        image: require('@/assets/images/item/mountain-bike.png'),
-        description: 'Great for off-road trails',
-        price: 25,
-        condition: 'New',
-        location: "Boulder, CO"
-    }
-    // TODO: need to now make a fetch call to get the item by id and load this page
-    const toggleModal = () => {
-        setIsModalVisible(!isModalVisible);
-    }
+    const [item, setItem] = useState<Item | null>(null);
+    const [errors, setErrors] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        console.log("Start Date:", startingDay);
-        console.log("End Date:", endingDay);
-    }, [startingDay, endingDay]);
+        const fetchItem = async () => {
+            setIsLoading(true);
+            try {
+                const fetchedItem = await getItemApi(Number(itemId));
+                if (!fetchedItem) {
+                    setErrors(["Failed to fetch item"]);
+                } else {
+                    setItem(fetchedItem);
+                }
+            } catch (error) {
+                console.error("Error fetching item:", error);
+                setErrors(["Error fetching item"]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchItem();
+    }, [itemId]);
 
+    const toggleModal = () => {
+        setIsModalVisible(!isModalVisible);
+    };
 
+    // Loading state check
+    if (isLoading) {
+        return (
+            <View style={[globalStyles.container, styles.loadingContainer]}>
+                <ActivityIndicator size="large" color={colors.primary} />
+                <Text style={styles.loadingText}>Loading item details...</Text>
+            </View>
+        );
+    }
 
+    // Error state check
+    if (errors.length > 0 || !item) {
+        return (
+            <View style={[globalStyles.container, styles.errorContainer]}>
+                <Text style={styles.errorText}>{errors.join(", ") || "Item not found"}</Text>
+            </View>
+        );
+    }
+
+    // Determine image source based on item.image (might be a uri or a local image)
+    const imageSource = typeof item.image === 'string'
+        ? { uri: `http://localhost:3000${item.image}` }
+        : item.image;
 
     return (
         <ScrollView style={globalStyles.container}>
             <Image
                 style={styles.itemImage}
-                source={item.image}
+                source={imageSource}
             />
             <View style={styles.itemInfoSection}>
                 <Text style={globalStyles.headerSecondary}>{item.name}</Text>
-                <Text style={styles.itemLocation}>{item.location}</Text>
+                <Text style={styles.itemLocation}>
+                    {item.location ? item.location.address : "Location not specified"}
+                </Text>
                 <Text style={styles.itemDetails}>{item.description}</Text>
             </View>
 
             <View style={styles.itemInfoSection}>
                 <View style={styles.itemRatingRow}>
-                    <Text style={styles.itemRating}>Rating</Text>
+                    <Text style={styles.itemRating}>Rating: {item.rating || "No ratings yet"}</Text>
                     <TouchableOpacity>
                         <Text style={styles.itemReviews}>Reviews</Text>
                     </TouchableOpacity>
@@ -57,11 +89,13 @@ export default function ItemDetails() {
             </View>
             <View style={styles.itemHostSection}>
                 <View>
-                    <Text style={styles.itemHostName}>Owned by OWNER</Text>
+                    <Text style={styles.itemHostName}>
+                        Owned by {item.owner_first_name || "Owner"}
+                    </Text>
                 </View>
             </View>
             <View style={styles.itemFooter}>
-                <Text style={styles.itemPrice}> ${item.price} / <Text
+                <Text style={styles.itemPrice}>${item.price} / <Text
                     style={styles.itemPricePerNight}>day</Text></Text>
                 <TouchableOpacity onPress={toggleModal} style={[styles.authButton, styles.buttonHorizontalPadding]}>
                     <Text style={globalStyles.buttonText}>Request</Text>
@@ -176,5 +210,23 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 8,
         alignItems: 'center',
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingText: {
+        marginTop: 10,
+        fontSize: 16,
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 16,
     },
 });

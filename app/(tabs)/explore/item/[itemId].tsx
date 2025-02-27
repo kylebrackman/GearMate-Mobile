@@ -33,6 +33,8 @@ export default function ItemScreen() {
         void fetchItem();
     }, [itemId]);
 
+    console.log(item)
+
     const backendUrl = process.env.EXPO_PUBLIC_BACKEND_URL;
     const imageUrl = `${backendUrl}${item?.image}`
 
