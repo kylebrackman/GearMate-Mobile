@@ -24,3 +24,11 @@ app/
 │   └── profile/
 │       └── Inbox.tsx
 └── _layout.tsx          # Root layout with Slot
+
+```
+### Starting Up
+
+Run the commands:
+- `npx expo start`
+- `s` (switches you to simulator and not the development build)
+- `i` (opens simulator for ios)
