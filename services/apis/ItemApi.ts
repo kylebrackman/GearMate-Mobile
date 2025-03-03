@@ -52,7 +52,7 @@ export const addItemApi = async (newItemData: FormData): Promise<Item> => {
 
 export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
     try {
-        const response = await fetch(`/api/items/${itemData.id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/items/${itemData.id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(itemData),
