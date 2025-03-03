@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity, Modal, ActivityIndicator} from 'react-native';
-import {useLocalSearchParams} from "expo-router";
+import {View, Text, Image, ScrollView, TouchableOpacity, Modal, ActivityIndicator, Alert} from 'react-native';
 import {colors, globalStyles} from "@/theme/styles";
 import {StyleSheet} from "react-native";
 import RequestCard from "@/src/components/item/RequestCard";
+import EditItemForm from "@/src/components/item/EditItemForm";
 import dayjs from "dayjs";
-import {getItemApi} from "@/services/apis/ItemApi";
+import {getItemApi, editItemApi} from "@/services/apis/ItemApi";
 import {Item} from "@/types/models.types";
 import {useAuth} from "@/context/AuthContext";
 import {getUserApi} from "@/services/apis/UserApi";
@@ -17,7 +17,8 @@ type ItemDetailsProps = {
 
 export default function ItemDetails({ itemId, forceOwnerView = false }: ItemDetailsProps): JSX.Element {
     const {user} = useAuth(); // Get Firebase auth user
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isRequestModalVisible, setIsRequestModalVisible] = useState(false);
+    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [startingDay, setStartingDay] = useState<dayjs.Dayjs | null>(null);
     const [endingDay, setEndingDay] = useState<dayjs.Dayjs | null>(null);
     const [item, setItem] = useState<Item | null>(null);
@@ -26,38 +27,60 @@ export default function ItemDetails({ itemId, forceOwnerView = false }: ItemDeta
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            try {
-                // Fetch item data
-                const fetchedItem = await getItemApi(Number(itemId));
-                if (!fetchedItem) {
-                    setErrors(["Failed to fetch item"]);
-                    return;
-                }
-
-                setItem(fetchedItem);
-
-                // Check if current user is the owner
-                if (user && user.uid) {
-                    const gearMateUser = await getUserApi(user.uid);
-                    if (gearMateUser && gearMateUser.id === fetchedItem.owner_id) {
-                        setIsOwner(true);
-                    }
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                setErrors(["Error fetching item details"]);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
+        fetchItemData();
     }, [itemId, user]);
 
-    const toggleModal = () => {
-        setIsModalVisible(!isModalVisible);
+    const fetchItemData = async () => {
+        setIsLoading(true);
+        try {
+            // Fetch item data
+            const fetchedItem = await getItemApi(Number(itemId));
+            if (!fetchedItem) {
+                setErrors(["Failed to fetch item"]);
+                return;
+            }
+
+            setItem(fetchedItem);
+
+            // Check if current user is the owner
+            if (user && user.uid) {
+                const gearMateUser = await getUserApi(user.uid);
+                if (gearMateUser && gearMateUser.id === fetchedItem.owner_id) {
+                    setIsOwner(true);
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            setErrors(["Error fetching item details"]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const toggleRequestModal = () => {
+        setIsRequestModalVisible(!isRequestModalVisible);
+    };
+
+    const toggleEditModal = () => {
+        setIsEditModalVisible(!isEditModalVisible);
+    };
+
+    const handleEditItem = async (editedItem: Partial<Item>) => {
+        try {
+            const updatedItem = await editItemApi({
+                id: editedItem.id,
+                name: editedItem.name,
+                description: editedItem.description,
+                price: editedItem.price,
+                condition: editedItem.condition,
+            });
+            const newItem = updatedItem;
+            console.log(newItem);
+            setItem(newItem);
+        } catch (error: unknown) {
+            console.error('Error editing item:', error);
+            throw error;
+        }
     };
 
     // Loading state check
@@ -126,7 +149,7 @@ export default function ItemDetails({ itemId, forceOwnerView = false }: ItemDeta
                 {isOwner ? (
                     // Owner actions
                     <View style={styles.ownerActionContainer}>
-                        <TouchableOpacity onPress={toggleModal} style={[styles.authButton, styles.buttonHorizontalPadding]}>
+                        <TouchableOpacity onPress={toggleEditModal} style={[styles.authButton, styles.buttonHorizontalPadding]}>
                             <Text style={globalStyles.buttonText}>Edit Item</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.authButton, styles.buttonHorizontalPadding, styles.marginTop10]}>
@@ -135,20 +158,32 @@ export default function ItemDetails({ itemId, forceOwnerView = false }: ItemDeta
                     </View>
                 ) : (
                     // Renter actions
-                    <TouchableOpacity onPress={toggleModal} style={[styles.authButton, styles.buttonHorizontalPadding]}>
+                    <TouchableOpacity onPress={toggleRequestModal} style={[styles.authButton, styles.buttonHorizontalPadding]}>
                         <Text style={globalStyles.buttonText}>Request Item</Text>
                     </TouchableOpacity>
                 )}
             </View>
 
+            {/* Request Modal */}
             {!isOwner && (
-                <Modal visible={isModalVisible} presentationStyle={"formSheet"} animationType={"slide"}>
+                <Modal visible={isRequestModalVisible} presentationStyle={"formSheet"} animationType={"slide"}>
                     <RequestCard
-                        toggleModal={toggleModal}
+                        toggleModal={toggleRequestModal}
                         startingDay={startingDay}
                         endingDay={endingDay}
                         setEndingDay={setEndingDay}
                         setStartingDay={setStartingDay}
+                    />
+                </Modal>
+            )}
+
+            {/* Edit Modal */}
+            {isOwner && (
+                <Modal visible={isEditModalVisible} presentationStyle={"formSheet"} animationType={"slide"}>
+                    <EditItemForm
+                        item={item}
+                        toggleModal={toggleEditModal}
+                        onSave={handleEditItem}
                     />
                 </Modal>
             )}
